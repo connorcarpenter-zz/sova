@@ -8,6 +8,8 @@ fips_begin_module(Sova)
             Camera.h Camera.cpp
             Viewport.h Viewport.cpp
             Loader.h Loader.cpp
+            DisplayObject.h DisplayObject.cpp
+            Point.h Point.cpp
 
             Internal/OryolApp.h Internal/OryolApp.cpp
             Internal/PNGLoader.h Internal/PNGLoader.cpp

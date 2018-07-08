@@ -4,12 +4,17 @@
 // Created by connor on 7/8/18.
 //
 
-using namespace Sova;
+#include "DisplayObject.h"
 
 namespace Sova {
 
-    class Container {
-
+    class Container : public DisplayObject {
+    public:
+        Container();
+        void addChild(const Container& container);
+        void onUpdate(void (*updateFunction)());
+        void updateChildren();
+    private:
     };
 
 }

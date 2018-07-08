@@ -3,3 +3,7 @@
 //
 
 #include "Camera.h"
+
+Sova::Camera::Camera(int width, int height, const Sova::Container& container) {
+
+}

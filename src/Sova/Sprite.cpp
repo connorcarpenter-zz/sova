@@ -3,3 +3,11 @@
 //
 
 #include "Sprite.h"
+
+namespace Sova
+{
+    Sprite::Sprite(App& app, const char* spriteString)
+    {
+
+    }
+}

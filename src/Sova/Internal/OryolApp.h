@@ -119,7 +119,7 @@ AppState::Code OryolApp::OnInit()
 
     setupCanvas(rtSetup);
 
-    return AppState::Running;
+    return App::OnInit();
 }
 
 AppState::Code OryolApp::OnRunning() {
@@ -137,7 +137,8 @@ AppState::Code OryolApp::OnRunning() {
     Gfx::EndPass();
     Gfx::CommitFrame();
 
-    return AppState::Running;
+    // continue running or quit?
+    return Gfx::QuitRequested() ? AppState::Cleanup : AppState::Running;
 }
 
 AppState::Code OryolApp::OnCleanup() {
