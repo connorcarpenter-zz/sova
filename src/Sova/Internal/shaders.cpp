@@ -73,8 +73,8 @@ static const char* canvasFS_glsl330_src =
                 "}\n"
                 "\n"
 ;
-Oryol::ShaderSetup Shader::Setup() {
-    Oryol::ShaderSetup setup("Shader");
+Oryol::ShaderSetup NormalShader::Setup() {
+    Oryol::ShaderSetup setup("NormalShader");
     Oryol::VertexLayout crtVS_input;
     crtVS_input.Add(Oryol::VertexAttr::Position, Oryol::VertexFormat::Float4);
     crtVS_input.Add(Oryol::VertexAttr::TexCoord0, Oryol::VertexFormat::Float2);

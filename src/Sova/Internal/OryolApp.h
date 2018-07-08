@@ -4,7 +4,6 @@
 // Created by connor on 7/7/18.
 //
 
-
 #include "Pre.h"
 #include "Core/Main.h"
 #include "Core/Containers/StaticArray.h"
@@ -16,7 +15,6 @@
 #include "PNGLoader.h"
 #include "glm/mat4x4.hpp"
 #include "glm/gtc/matrix_transform.hpp"
-#include "shaders.h"
 
 #include <Sova/App.h>
 
@@ -65,7 +63,7 @@ private:
     int writeVertex(int index, float x, float y, float u, float v);
 };
 
-OryolApp::OryolApp(Sova::App* sovaApp){
+OryolApp::OryolApp(Sova::App* sovaApp) {
     sovapp = sovaApp;
 }
 
@@ -111,7 +109,7 @@ AppState::Code OryolApp::OnInit()
 
     auto quadSetup = MeshSetup::FullScreenQuad(Gfx::QueryFeature(GfxFeature::OriginTopLeft));
     this->canvasDrawState.Mesh[0] = Gfx::CreateResource(quadSetup);
-    Id shd = Gfx::CreateResource(Shader::Setup());
+    Id shd = sovapp->normalShaderFunc();
 
     auto ps = PipelineSetup::FromLayoutAndShader(quadSetup.Layout, shd);
     this->canvasDrawState.Pipeline = Gfx::CreateResource(ps);
@@ -174,7 +172,7 @@ OryolApp::setupCanvas(const TextureSetup& rtSetup) {
             .Add(VertexAttr::TexCoord0, VertexFormat::Float2);
     meshSetup.AddPrimitiveGroup(PrimitiveGroup(0, this->numVertices));
     this->drawState.Mesh[0] = Gfx::CreateResource(meshSetup);
-    Id shd = Gfx::CreateResource(CanvasShader::Setup());
+    Id shd = sovapp->canvasShaderFunc();
     auto ps = PipelineSetup::FromLayoutAndShader(meshSetup.Layout, shd);
     ps.BlendState.BlendEnabled = true;
     ps.BlendState.SrcFactorRGB = BlendFactor::SrcAlpha;
