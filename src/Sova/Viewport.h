@@ -13,5 +13,7 @@ namespace Sova
 
     public:
         Viewport(int x, int y, int width, int height, const Camera& camera);
+
+        Viewport();
     };
 }

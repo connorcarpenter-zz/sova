@@ -13,7 +13,7 @@ namespace Sova {
 
     }
 
-    void Container::onUpdate(void (*updateFunction)()){
+    void Container::onUpdate(std::function<void()> updateFunction){
 
     }
 

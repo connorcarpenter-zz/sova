@@ -24,11 +24,13 @@ namespace Sova {
         return loader;
     };
 
-    void App::onUpdate(void (*updateFunction)()){
+    void App::onUpdate(std::function<void()> updateFunction){
 
     }
 
     void App::addViewport(const Viewport& viewport) {
 
-    };
+    }
+
+    App::App() {};
 }

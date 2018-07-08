@@ -6,12 +6,12 @@
 
 namespace Sova
 {
-    Loader& Loader::onProgress(void (*progressFunction)()) {
+    Loader& Loader::onProgress(std::function<void()> progressFunction) {
         this->progressFunction = progressFunction;
         return *this;
     }
 
-    void Loader::onFinish(void (*finishFunction)()) {
+    void Loader::onFinish(std::function<void()> finishFunction) {
         this->finishFunction = finishFunction;
     }
 }

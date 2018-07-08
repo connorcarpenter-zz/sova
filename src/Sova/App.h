@@ -18,9 +18,12 @@ namespace Sova {
     {
     public:
         App(int width, int height, const char* windowTitle);
+
+        App();
+
         Loader& load(const Array<String>& resources);
         void start();
-        void onUpdate(void (*updateFunction)());
+        void onUpdate(std::function<void()> updateFunction);
         void addViewport(const Viewport& viewport);
 
         int width;

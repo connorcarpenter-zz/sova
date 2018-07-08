@@ -3,3 +3,8 @@
 //
 
 #include "Point.h"
+
+void Sova::Point::set(int x, int y) {
+    this->x = x;
+    this->y = y;
+}

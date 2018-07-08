@@ -10,4 +10,6 @@ namespace Sova
     {
 
     }
+
+    Sprite::Sprite() {}
 }

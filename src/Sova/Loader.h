@@ -11,8 +11,8 @@ namespace Sova
     class Loader
     {
     public:
-        Loader& onProgress(void (*progressFunction)());
-        void onFinish(void (*finishFunction)());
+        Loader& onProgress(std::function<void()> progressFunction);
+        void onFinish(std::function<void()> finishFunction);
     private:
         std::function<void()> progressFunction = nullptr;
         std::function<void()> finishFunction = nullptr;

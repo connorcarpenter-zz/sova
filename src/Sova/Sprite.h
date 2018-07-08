@@ -14,6 +14,9 @@ namespace Sova {
     class Sprite : public Container {
     public:
         Sprite(App& app, const char* resourceString);
+
+        Sprite();
+
     private:
     };
 }

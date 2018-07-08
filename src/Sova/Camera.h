@@ -13,5 +13,7 @@ namespace Sova {
 
     public:
         Camera(int width, int height, const Container& container);
+
+        Camera();
     };
 }
