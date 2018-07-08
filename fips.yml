@@ -1,0 +1,20 @@
+#
+# oryol-sova
+#
+---
+imports:
+    oryol:
+        git:    https://github.com/floooh/oryol.git
+    oryol-sound:
+        git:    https://github.com/floooh/oryol-sound.git
+    oryol-websocket-client:
+        git:    https://github.com/connorcarpenter/oryol-websocket-client.git
+    fips-lodepng:
+        git:    https://github.com/connorcarpenter/fips-lodepng.git
+
+exports:
+    header-dirs:
+        - src
+    modules:
+        Sova:  src/Sova
+
