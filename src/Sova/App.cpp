@@ -3,19 +3,16 @@
 //
 
 #include <Sova/Internal/OryolApp.h>
-#include "App.h"
-#include "Resource/Id.h"
 
 using namespace Oryol;
 
 namespace Sova {
 
-    App::App(int width, int height, const char *windowTitle, std::function<Oryol::Id()> getNormalShaderFunc, std::function<Oryol::Id()> getCanvasShaderFunc) {
+    App::App(int width, int height, const char *windowTitle, Sova::ShaderHandler* shaderHandler) {
         this->width = width;
         this->height = height;
         this->windowTitle = windowTitle;
-        this->normalShaderFunc = getNormalShaderFunc;
-        this->canvasShaderFunc = getCanvasShaderFunc;
+        this->shaderHandler = shaderHandler;
     }
 
     void App::start() {

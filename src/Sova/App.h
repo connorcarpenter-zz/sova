@@ -7,18 +7,20 @@
 #include <Modules/Core/String/String.h>
 #include <Modules/Core/Containers/Array.h>
 #include <functional>
+#include <Sova/Internal/ShaderHandler.h>
 #include "Viewport.h"
 #include "Loader.h"
 #include "Resource/Id.h"
 
 using namespace Oryol;
+using namespace Sova;
 
 namespace Sova {
 
     class App
     {
     public:
-        App(int width, int height, const char *windowTitle, std::function<Oryol::Id()> getNormalShaderFunc, std::function<Oryol::Id()> getCanvasShaderFunc);
+        App(int width, int height, const char *windowTitle, ShaderHandler* shaderHandler);
 
         App();
 
@@ -29,8 +31,7 @@ namespace Sova {
 
         int width;
         int height;
-        std::function<Oryol::Id()> normalShaderFunc;
-        std::function<Oryol::Id()> canvasShaderFunc;
+        ShaderHandler* shaderHandler = nullptr;
     private:
         Array<Viewport> viewports;
         String windowTitle;

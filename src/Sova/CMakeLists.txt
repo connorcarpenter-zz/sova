@@ -11,6 +11,7 @@ fips_begin_module(Sova)
             DisplayObject.h DisplayObject.cpp
             Point.h Point.cpp
 
+            Internal/ShaderHandler.h
             Internal/OryolApp.h Internal/OryolApp.cpp
             Internal/PNGLoader.h Internal/PNGLoader.cpp
             Internal/shaders.h Internal/shaders.cpp)

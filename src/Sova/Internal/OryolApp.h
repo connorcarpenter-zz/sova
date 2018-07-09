@@ -109,7 +109,7 @@ AppState::Code OryolApp::OnInit()
 
     auto quadSetup = MeshSetup::FullScreenQuad(Gfx::QueryFeature(GfxFeature::OriginTopLeft));
     this->canvasDrawState.Mesh[0] = Gfx::CreateResource(quadSetup);
-    Id shd = sovapp->normalShaderFunc();
+    Id shd = sovapp->shaderHandler->getNormalShader();
 
     auto ps = PipelineSetup::FromLayoutAndShader(quadSetup.Layout, shd);
     this->canvasDrawState.Pipeline = Gfx::CreateResource(ps);
@@ -172,7 +172,7 @@ OryolApp::setupCanvas(const TextureSetup& rtSetup) {
             .Add(VertexAttr::TexCoord0, VertexFormat::Float2);
     meshSetup.AddPrimitiveGroup(PrimitiveGroup(0, this->numVertices));
     this->drawState.Mesh[0] = Gfx::CreateResource(meshSetup);
-    Id shd = sovapp->canvasShaderFunc();
+    Id shd = sovapp->shaderHandler->getCanvasShader();
     auto ps = PipelineSetup::FromLayoutAndShader(meshSetup.Layout, shd);
     ps.BlendState.BlendEnabled = true;
     ps.BlendState.SrcFactorRGB = BlendFactor::SrcAlpha;
