@@ -16,7 +16,7 @@ fips_begin_module(Sova)
             Common/String.cpp
             Common/String.h
 
-            References/Ref.h
+            References/Ref.h References/IRef.h
             References/Refable.h References/Refable.cpp
             References/GarbageCollector.h References/GarbageCollector.cpp
             References/RefCounter.h References/RefCounter.cpp
