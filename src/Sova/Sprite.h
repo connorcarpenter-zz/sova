@@ -9,14 +9,18 @@
 
 using namespace Sova;
 
-namespace Sova {
+namespace Sova
+{
 
+    class App;
     class Sprite : public Container {
     public:
-        Sprite(App& app, const char* resourceString);
 
-        Sprite();
+        Sprite(Ref<App> app, Ref<String> textureName);
 
     private:
+
+        Ref<App> app;
+        Ref<String> textureName;
     };
 }

@@ -4,38 +4,39 @@
 // Created by connor on 7/8/18.
 //
 
-#include <Modules/Core/String/String.h>
-#include <Modules/Core/Containers/Array.h>
 #include <functional>
-#include <Sova/Internal/ShaderHandler.h>
+
+#include "Sova/References/Ref.h"
+#include "Internal/ShaderHandler.h"
 #include "Viewport.h"
 #include "Loader.h"
-#include "Resource/Id.h"
+#include "Sprite.h"
 
-using namespace Oryol;
 using namespace Sova;
 
 namespace Sova {
 
-    class App
+    class Sprite;
+    class App : public virtual Refable
     {
     public:
-        App(int width, int height, const char *windowTitle, ShaderHandler* shaderHandler);
+        App(int width, int height, Ref<String> windowTitle, Ref<ShaderHandler> shaderHandler);
 
-        App();
-
-        Loader& load(const Array<String>& resources);
+        Loader& load(Ref<List<Ref<String>>> resources);
         void start();
         void onUpdate(std::function<void()> updateFunction);
-        void addViewport(const Viewport& viewport);
+        void addViewport(Ref<Viewport> viewport);
 
         int width;
         int height;
-        ShaderHandler* shaderHandler = nullptr;
+        Ref<ShaderHandler> shaderHandler = NullRef<ShaderHandler>();
+        Ref<Loader> loader = NullRef<Loader>();
+
+        Ref<Sprite> createSprite(Ref<String> textureName);
+
     private:
-        Array<Viewport> viewports;
-        String windowTitle;
-        Loader loader;
+        Ref<List<Ref<Viewport>>> viewports;
+        Ref<String> windowTitle;
     };
 
 }

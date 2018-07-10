@@ -8,12 +8,10 @@
 
 namespace Sova
 {
-    class Viewport
+    class Viewport : public virtual Refable
     {
 
     public:
-        Viewport(int x, int y, int width, int height, const Camera& camera);
-
-        Viewport();
+        Viewport(int x, int y, int width, int height, Ref<Camera> camera);
     };
 }

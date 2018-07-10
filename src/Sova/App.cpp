@@ -4,11 +4,11 @@
 
 #include <Sova/Internal/OryolApp.h>
 
-using namespace Oryol;
+using namespace Sova;
 
 namespace Sova {
 
-    App::App(int width, int height, const char *windowTitle, Sova::ShaderHandler* shaderHandler) {
+    App::App(int width, int height, Ref<String> windowTitle, Ref<ShaderHandler> shaderHandler) {
         this->width = width;
         this->height = height;
         this->windowTitle = windowTitle;
@@ -16,13 +16,12 @@ namespace Sova {
     }
 
     void App::start() {
-        OryolApp* oryolApp = new OryolApp(this);
-        oryolApp->StartMainLoop();
-        delete oryolApp;
+        OryolApp oryolApp(this);
+        oryolApp.StartMainLoop();
     };
 
-    Loader& App::load(const Array<String>& resources) {
-
+    Ref<Loader> App::load(Ref<List<Ref<String>> resources) {
+        loader->addResourcesToLoad(resources);
         return loader;
     };
 
@@ -30,9 +29,7 @@ namespace Sova {
 
     }
 
-    void App::addViewport(const Viewport& viewport) {
+    void App::addViewport(Ref<Viewport> viewport) {
 
     }
-
-    App::App() {};
 }

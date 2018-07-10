@@ -4,12 +4,12 @@
 
 #include "Sprite.h"
 
+using namespace Sova;
+
 namespace Sova
 {
-    Sprite::Sprite(App& app, const char* spriteString)
-    {
-
+    Sprite::Sprite(Ref<App> app, Ref<String> textureName) {
+        this->app = app;
+        this->textureName = textureName;
     }
-
-    Sprite::Sprite() {}
 }

@@ -83,10 +83,10 @@ AppState::Code OryolApp::OnInit()
     IOSetup ioSetup;
 #if ORYOL_EMSCRIPTEN
     ioSetup.FileSystems.Add("http", HTTPFileSystem::Creator());
-    ioSetup.Assigns.Add("tex:", "http://localhost:8000/data/");
+    ioSetup.Assigns.Add("content:", "http://localhost:8000/content/");
 #else
     ioSetup.FileSystems.Add("file", LocalFileSystem::Creator());
-    ioSetup.Assigns.Add("tex:", "root:data/");
+    ioSetup.Assigns.Add("content:", "root:content/");
 #endif
 
     IO::Setup(ioSetup);
@@ -97,7 +97,7 @@ AppState::Code OryolApp::OnInit()
     texBluePrint.Sampler.MagFilter = TextureFilterMode::Nearest;
     texBluePrint.Sampler.WrapU = TextureWrapMode::ClampToEdge;
     texBluePrint.Sampler.WrapV = TextureWrapMode::ClampToEdge;
-    static const char* texturePath = "tex:myNinaSmall.png";
+    static const char* texturePath = "content:images/myNinaSmall.png";
     this->texture = Gfx::LoadResource(PNGLoader::Create(TextureSetup::FromFile(texturePath, texBluePrint)));
 
     //Setup offscreen render target
@@ -116,6 +116,8 @@ AppState::Code OryolApp::OnInit()
     this->canvasDrawState.FSTexture[0] = canvasTexture;
 
     setupCanvas(rtSetup);
+
+    sovapp->loader.setAppLoaded();
 
     return App::OnInit();
 }

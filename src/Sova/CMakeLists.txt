@@ -10,6 +10,16 @@ fips_begin_module(Sova)
             Loader.h Loader.cpp
             DisplayObject.h DisplayObject.cpp
             Point.h Point.cpp
+            Log.h Log.cpp
+
+            Common/List.h
+            Common/String.cpp
+            Common/String.h
+
+            References/Ref.h
+            References/Refable.h References/Refable.cpp
+            References/GarbageCollector.h References/GarbageCollector.cpp
+            References/RefCounter.h References/RefCounter.cpp
 
             Internal/ShaderHandler.h
             Internal/OryolApp.h Internal/OryolApp.cpp

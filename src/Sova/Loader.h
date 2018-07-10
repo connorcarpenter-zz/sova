@@ -5,16 +5,28 @@
 //
 
 #include <functional>
+#include <Sova/References/Ref.h>
+#include <Sova/Common/String.h>
 
 namespace Sova
 {
-    class Loader
+    class Loader : public virtual Refable
     {
     public:
-        Loader& onProgress(std::function<void()> progressFunction);
+        Ref<Loader> onProgress(std::function<void(Ref<String>)> progressFunction);
         void onFinish(std::function<void()> finishFunction);
+
+        void addResourcesToLoad(Ref<List<Ref<String>>> resourcesToLoad);
+        void setAppLoaded();
+
     private:
-        std::function<void()> progressFunction = nullptr;
+        void loadAllResources();
+        void loadResource(Ref<String> resourcePath);
+        void checkReadyToLoad();
+
+        std::function<void(Ref<String>)> progressFunction = nullptr;
         std::function<void()> finishFunction = nullptr;
+        bool appHasLoaded = false;
+        Ref<List<Ref<String>>> resourcesReadyToLoad;
     };
 }

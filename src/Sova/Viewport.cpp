@@ -4,8 +4,10 @@
 
 #include "Viewport.h"
 
-Sova::Viewport::Viewport(int x, int y, int width, int height, const Sova::Camera& camera) {
+namespace Sova {
+
+    Sova::Viewport::Viewport(int x, int y, int width, int height, Ref<Camera> camera) {
+
+    }
 
 }
-
-Sova::Viewport::Viewport() {}

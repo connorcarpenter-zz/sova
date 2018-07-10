@@ -5,6 +5,7 @@
 //
 
 #include <functional>
+#include <Sova/References/Ref.h>
 #include "DisplayObject.h"
 
 namespace Sova {
@@ -12,7 +13,7 @@ namespace Sova {
     class Container : public DisplayObject {
     public:
         Container();
-        void addChild(const Container& container);
+        void addChild(Ref<Container> container);
         void onUpdate(std::function<void()> updateFunction);
         void updateChildren();
     private:
