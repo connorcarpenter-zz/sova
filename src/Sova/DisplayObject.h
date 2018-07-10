@@ -15,6 +15,7 @@ namespace Sova {
     {
     public:
         SovaBaseTypeDecl(DisplayObject);
+        DisplayObject();
         Ref<Point> position = NullRef<Point>();
     private:
     };

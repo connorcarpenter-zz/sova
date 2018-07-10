@@ -10,7 +10,7 @@
 #include "Internal/ShaderHandler.h"
 #include "Viewport.h"
 #include "Loader.h"
-#include "Common/List.h"
+#include "Sova/Common/Array.h"
 
 using namespace Sova;
 
@@ -21,7 +21,7 @@ namespace Sova {
     public:
         App(int width, int height, Ref<String> windowTitle, Ref<ShaderHandler> shaderHandler);
 
-        Ref<Loader> load(Ref<List<Ref<String>>> resources);
+        Ref<Loader> load(Ref<Array<Ref<String>>> resources);
         void start();
         void onUpdate(std::function<void()> updateFunction);
         void addViewport(Ref<Viewport> viewport);
@@ -32,7 +32,7 @@ namespace Sova {
         Ref<Loader> loader = NewRef<Loader>();
 
     private:
-        Ref<List<Ref<Viewport>>> viewports = NullRef<List<Ref<Viewport>>>();
+        Ref<Array<Ref<Viewport>>> viewports = NullRef<Array<Ref<Viewport>>>();
         Ref<String> windowTitle = NullRef<String>();
     };
 

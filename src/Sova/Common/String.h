@@ -13,8 +13,13 @@ namespace Sova
     class String : public Refable
     {
     public:
-        String(const char* cstr);
+        explicit String(const char* cstr);
+        ~String();
         const char* AsCStr() const;
+        int length() const;
+    private:
+        int size;
+        char * buffer;
     };
 
 }

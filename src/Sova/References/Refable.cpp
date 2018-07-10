@@ -7,7 +7,7 @@
 
 namespace Sova
 {
-    void Refable::mark()
+    void Refable::Mark()
     {
         marked = true;
         for (auto it = children.begin();
@@ -15,7 +15,7 @@ namespace Sova
              ++it) {
             Refable* obj = (*it)->getObj();
             if (obj != nullptr)
-                obj->mark();
+                obj->Mark();
         }
     }
 

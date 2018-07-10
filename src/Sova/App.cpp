@@ -21,7 +21,7 @@ namespace Sova {
         oryolApp.StartMainLoop();
     };
 
-    Ref<Loader> App::load(Ref<List<Ref<String>>> resources) {
+    Ref<Loader> App::load(Ref<Array<Ref<String>>> resources) {
         loader->addResourcesToLoad(resources);
         return loader;
     };

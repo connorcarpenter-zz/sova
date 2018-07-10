@@ -12,7 +12,7 @@ fips_begin_module(Sova)
             Point.h Point.cpp
             Log.h Log.cpp
 
-            Common/List.h
+            Common/Array.h
             Common/String.cpp
             Common/String.h
 

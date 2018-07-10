@@ -31,7 +31,7 @@ namespace Sova {
 
         cout << "GC: " << objHeap.size() << " objects in heap" << endl;
 
-        root->mark();
+        root->Mark();
 
         sweep();
     }

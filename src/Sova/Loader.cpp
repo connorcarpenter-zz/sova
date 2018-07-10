@@ -9,7 +9,7 @@ namespace Sova
 {
     Ref<Loader> Loader::onProgress(std::function<void(Ref<String>)> progressFunction) {
         this->progressFunction = progressFunction;
-        return NewRef<Loader>(); //return this; CONNOR!!!
+        return ThisRef<Loader>();
     }
 
     void Loader::onFinish(std::function<void()> finishFunction) {
@@ -17,7 +17,7 @@ namespace Sova
         checkReadyToLoad();
     }
 
-    void Loader::addResourcesToLoad(Ref<List<Ref<String>>> resourcesToLoad) {
+    void Loader::addResourcesToLoad(Ref<Array<Ref<String>>> resourcesToLoad) {
         //for (Ref<String> resource : resourcesToLoad){
         //    resourcesReadyToLoad->Add(resource);
         //}

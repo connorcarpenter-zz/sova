@@ -36,6 +36,12 @@ namespace Sova
             Sova::GarbageCollector::getGC()->addToHeap(this->obj);
         }
 
+        void thisObj(T* newObj){
+            assert(obj == nullptr); //We should only call this when the Ptr is being initialized
+            this->obj = newObj;
+            this->obj->Hold();
+        }
+
         //destructor
         ~Ref()
         {
@@ -52,8 +58,7 @@ namespace Sova
         };
 
         // copy-construct from Ptr<OTHER>
-        template<class U> Ref(const Ref<U>& ref,
-                              typename std::enable_if<std::is_convertible<U*, T*>::value, __nat>::type = __nat())
+        template<class U> Ref(const Ref<U>& ref, typename std::enable_if<std::is_convertible<U*, T*>::value, __nat>::type = __nat())
         {
             set(static_cast<T*>(ref.getObj()));
         };
@@ -65,8 +70,7 @@ namespace Sova
         };
 
         // move constructor from Ptr<OTHER>
-        template<class U> Ref(Ref<U>&& ref,
-        typename std::enable_if<std::is_convertible<U*, T*>::value, __nat>::type = __nat())
+        template<class U> Ref(Ref<U>&& ref, typename std::enable_if<std::is_convertible<U*, T*>::value, __nat>::type = __nat())
         {
             set(static_cast<T*>(ref.getObj()));
         };
@@ -83,7 +87,7 @@ namespace Sova
         };
 
         // copy-assign from compatible Ptr<OTHER>
-        template<class U> void operator=(const Ref<U>& ref) {
+        template<class U> void operator = (const Ref<U>& ref) {
             T* ref_p = static_cast<T*>(ref.getObj());
             if (ref_p != obj) {
                 release();
@@ -102,7 +106,7 @@ namespace Sova
         };
 
         // move-assign from compatible Ptr<OTHER>
-        template<class U> void operator=(Ref<U>&& ref) {
+        template<class U> void operator = (Ref<U>&& ref) {
             T* ref_p = static_cast<T*>(ref.getObj());
             if (ref_p != obj) {
                 release();

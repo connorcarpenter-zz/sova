@@ -8,10 +8,10 @@
 namespace Sova
 {
     template<class T>
-    class List : public Refable
+    class Array : public Refable
     {
     public:
-        void Add(T item){
+        void Add(Ref<T> item){
 
         }
     };

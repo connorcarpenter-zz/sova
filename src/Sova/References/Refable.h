@@ -28,6 +28,13 @@ namespace Sova
             return Ref<DerivedObj>(this);
         }
 
+        template<typename DerivedObj>
+        Ref<DerivedObj> ThisRef() {
+            Ref<DerivedObj> ref = Ref<DerivedObj>(this);
+            ref.thisObj(static_cast<DerivedObj*>(this));
+            return ref;
+        }
+
         template<typename Obj>
         void addChild(Ref<Obj>* obj) {
 
@@ -49,11 +56,11 @@ namespace Sova
             return (int) children.size();
         }
 
-        void mark(); // Mark the object and all its children as live
+        void Mark(); // Mark the object and all its children as live
         void Hold();
         int Release();
 
-        ~Refable();
+        virtual ~Refable();
 
         bool marked = false;
     private:
