@@ -6,6 +6,7 @@
 
 #include <set>
 #include <utility>
+#include "RefCounter.h"
 
 namespace Sova
 {
@@ -48,11 +49,15 @@ namespace Sova
             return (int) children.size();
         }
 
-        std::set<IRef*> children;
+        void mark(); // Mark the object and all its children as live
+        void Hold();
+        int Release();
 
-        // Mark the object and all its children as live
-        void mark();
+        ~Refable();
 
         bool marked = false;
+    private:
+        RefCounter* refCounter = new RefCounter();
+        std::set<IRef*> children;
     };
 }

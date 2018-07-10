@@ -18,4 +18,16 @@ namespace Sova
                 obj->mark();
         }
     }
+
+    void Refable::Hold() {
+        refCounter->Hold();
+    }
+
+    int Refable::Release() {
+        return refCounter->Release();
+    }
+
+    Refable::~Refable() {
+        delete refCounter;
+    }
 }

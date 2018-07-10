@@ -30,10 +30,9 @@ namespace Sova
 
         template<typename... ARGS>
         void initObj(ARGS&&... args){
-            assert(obj == nullptr && refCounter == nullptr); //We should only call this when the Ptr is being initialized
+            assert(obj == nullptr); //We should only call this when the Ptr is being initialized
             this->obj = new T(std::forward<ARGS>(args)...);
-            this->refCounter = new RefCounter();
-            this->refCounter->Hold();
+            this->obj->Hold();
             Sova::GarbageCollector::getGC()->addToHeap(this->obj);
         }
 
@@ -49,27 +48,27 @@ namespace Sova
         // copy constructor, happens when a method has a Ref as a parameter
         Ref(const Ref<T>& ref)
         {
-            set(ref.obj, ref.refCounter);
+            set(ref.obj);
         };
 
         // copy-construct from Ptr<OTHER>
         template<class U> Ref(const Ref<U>& ref,
                               typename std::enable_if<std::is_convertible<U*, T*>::value, __nat>::type = __nat())
         {
-            set(static_cast<T*>(ref.getObj()), ref.refCounter);
+            set(static_cast<T*>(ref.getObj()));
         };
 
         // move constructor, happens when a Ref is returned from a method
         Ref(Ref<T>&& ref)
         {
-            set(ref.obj, ref.refCounter);
+            set(ref.obj);
         };
 
         // move constructor from Ptr<OTHER>
         template<class U> Ref(Ref<U>&& ref,
         typename std::enable_if<std::is_convertible<U*, T*>::value, __nat>::type = __nat())
         {
-            set(static_cast<T*>(ref.getObj()), ref.getRefCounter());
+            set(static_cast<T*>(ref.getObj()));
         };
 
         // copy assignment operator
@@ -78,7 +77,7 @@ namespace Sova
             if (this != &ref) // Avoid self assignment
             {
                 release();
-                set(ref.obj, ref.refCounter);
+                set(ref.obj);
             }
             return *this;
         };
@@ -88,7 +87,7 @@ namespace Sova
             T* ref_p = static_cast<T*>(ref.getObj());
             if (ref_p != obj) {
                 release();
-                set(static_cast<T*>(ref_p), ref.refCounter);
+                set(static_cast<T*>(ref_p));
             }
         };
 
@@ -98,7 +97,7 @@ namespace Sova
             if (ref.obj != obj)
             {
                 release();
-                set(ref.obj, ref.refCounter);
+                set(ref.obj);
             }
         };
 
@@ -107,7 +106,7 @@ namespace Sova
             T* ref_p = static_cast<T*>(ref.getObj());
             if (ref_p != obj) {
                 release();
-                set(ref_p, ref.getRefCounter());
+                set(ref_p);
                 ref.obj = nullptr;
             }
         };
@@ -116,8 +115,6 @@ namespace Sova
         Ref<T>& operator = (std::nullptr_t)
         {
             release();
-            this->obj = nullptr;
-            this->refCounter = nullptr;
             return *this;
         };
 
@@ -166,39 +163,30 @@ namespace Sova
             return static_cast<Refable*>(obj);
         }
 
-        RefCounter* getRefCounter(){
-            return refCounter;
-        }
-
         T* obj = nullptr;
-        RefCounter* refCounter = nullptr;
         
     private:
         
         Refable* parent = nullptr;
 
-
         void release()
         {
-            if (this->obj == nullptr || this->refCounter == nullptr) return;
+            if (this->obj == nullptr) return;
             // Decrement the old reference count
             // if reference become zero delete the old data
-            if (this->refCounter->Release() == 0){
+            if (this->obj->Release() == 0){
                 //std::cout << "Object reference deleted:" << this->obj << "\n";
                 Sova::GarbageCollector::getGC()->removeFromHeap(this->obj);
                 delete this->obj;
-                delete this->refCounter;
-                this->obj = nullptr;
-                this->refCounter = nullptr;
             }
+
+            this->obj = nullptr;
         }
 
-        void set(T* obj, RefCounter* rc){
+        void set(T* obj){
             this->obj = obj;
             if (this->obj != nullptr){
-                this->refCounter = rc;
-                if (this->refCounter != nullptr)
-                    this->refCounter->Hold();
+                this->obj->Hold();
             }
         }
     };
