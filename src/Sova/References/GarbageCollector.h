@@ -24,7 +24,7 @@ namespace Sova
         template<typename DerivedObj>
         void addToHeap(DerivedObj* obj) {
 
-            static_assert(std::is_base_of<Refable, DerivedObj>::value, "DerivedObj should inherit from Refable");
+            static_assert(std::is_base_of<Refable, DerivedObj>{}, "DerivedObj should inherit from Refable");
 
             objHeap.insert(obj);
         }
@@ -33,7 +33,7 @@ namespace Sova
         template<typename DerivedObj>
         void removeFromHeap(DerivedObj* obj) {
 
-            static_assert(std::is_base_of<Refable, DerivedObj>::value, "DerivedObj should inherit from Refable");
+            static_assert(std::is_base_of<Refable, DerivedObj>{}, "DerivedObj should inherit from Refable");
 
             objHeap.erase(obj);
         }
@@ -51,7 +51,7 @@ namespace Sova
         // A collection of all active heap objects.
         std::set<Refable*> objHeap;
 
-        GarbageCollector(); //to remain private. Singleton only got by createGC
+        GarbageCollector() = default; //to remain private. Singleton only got by createGC
 
         static void resetGC(); //to remain private, for testing only
 

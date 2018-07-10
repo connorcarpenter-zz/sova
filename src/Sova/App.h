@@ -10,19 +10,18 @@
 #include "Internal/ShaderHandler.h"
 #include "Viewport.h"
 #include "Loader.h"
-#include "Sprite.h"
+#include "Common/List.h"
 
 using namespace Sova;
 
 namespace Sova {
 
-    class Sprite;
-    class App : public virtual Refable
+    class App : public Refable
     {
     public:
         App(int width, int height, Ref<String> windowTitle, Ref<ShaderHandler> shaderHandler);
 
-        Loader& load(Ref<List<Ref<String>>> resources);
+        Ref<Loader> load(Ref<List<Ref<String>>> resources);
         void start();
         void onUpdate(std::function<void()> updateFunction);
         void addViewport(Ref<Viewport> viewport);
@@ -30,13 +29,11 @@ namespace Sova {
         int width;
         int height;
         Ref<ShaderHandler> shaderHandler = NullRef<ShaderHandler>();
-        Ref<Loader> loader = NullRef<Loader>();
-
-        Ref<Sprite> createSprite(Ref<String> textureName);
+        Ref<Loader> loader = NewRef<Loader>();
 
     private:
-        Ref<List<Ref<Viewport>>> viewports;
-        Ref<String> windowTitle;
+        Ref<List<Ref<Viewport>>> viewports = NullRef<List<Ref<Viewport>>>();
+        Ref<String> windowTitle = NullRef<String>();
     };
 
 }

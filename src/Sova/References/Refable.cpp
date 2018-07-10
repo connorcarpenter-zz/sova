@@ -13,7 +13,7 @@ namespace Sova
         for (auto it = children.begin();
              it != children.end();
              ++it) {
-            Refable* obj = (*it)->getRefable();
+            Refable* obj = (*it)->getObj();
             if (obj != nullptr)
                 obj->mark();
         }

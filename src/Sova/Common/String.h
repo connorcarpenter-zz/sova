@@ -6,12 +6,15 @@
 
 #include <Sova/References/Refable.h>
 
+using namespace Sova;
+
 namespace Sova
 {
-
-    class String : public virtual Refable
+    class String : public Refable
     {
-
+    public:
+        String(const char* cstr);
+        const char* AsCStr() const;
     };
 
 }

@@ -8,8 +8,7 @@ using namespace Sova;
 
 namespace Sova
 {
-    Sprite::Sprite(Ref<App> app, Ref<String> textureName) {
-        this->app = app;
+    Sprite::Sprite(Ref<String> textureName) {
         this->textureName = textureName;
     }
 }

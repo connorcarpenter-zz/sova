@@ -6,14 +6,16 @@
 
 #include <Sova/References/Refable.h>
 #include <Sova/References/Ref.h>
+#include <Sova/References/RefTypes.h>
 #include "Point.h"
 
 namespace Sova {
 
-    class DisplayObject : public virtual Refable
+    class DisplayObject : public Refable
     {
     public:
-        Ref<Point> position;
+        SovaBaseTypeDecl(DisplayObject);
+        Ref<Point> position = NullRef<Point>();
     private:
     };
     

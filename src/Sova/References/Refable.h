@@ -30,7 +30,7 @@ namespace Sova
         template<typename Obj>
         void addChild(Ref<Obj>* obj) {
 
-            static_assert(std::is_base_of<Refable, Obj>::value, "Obj should inherit from Refable");
+            static_assert(std::is_base_of<Refable, Obj>{}, "Obj should inherit from Refable");
 
             children.insert(obj);
         }
@@ -38,7 +38,7 @@ namespace Sova
         template<typename Obj>
         void removeChild(Ref<Obj>* obj) {
 
-            static_assert(std::is_base_of<Refable, Obj>::value, "DerivedObj should inherit from Refable");
+            static_assert(std::is_base_of<Refable, Obj>{}, "Obj should inherit from Refable");
 
             children.erase(obj);
         }

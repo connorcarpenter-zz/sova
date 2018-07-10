@@ -8,7 +8,7 @@
 
 namespace Sova
 {
-    class Point : public virtual Refable
+    class Point : public Refable
     {
     public:
         void set(int x, int y);

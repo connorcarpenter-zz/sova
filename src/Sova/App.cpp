@@ -3,6 +3,7 @@
 //
 
 #include <Sova/Internal/OryolApp.h>
+#include "App.h"
 
 using namespace Sova;
 
@@ -20,7 +21,7 @@ namespace Sova {
         oryolApp.StartMainLoop();
     };
 
-    Ref<Loader> App::load(Ref<List<Ref<String>> resources) {
+    Ref<Loader> App::load(Ref<List<Ref<String>>> resources) {
         loader->addResourcesToLoad(resources);
         return loader;
     };

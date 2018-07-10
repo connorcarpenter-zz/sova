@@ -10,18 +10,20 @@
 #include "RefCounter.h"
 #include "Refable.h"
 #include "IRef.h"
+#include "GarbageCollector.h"
 
 namespace Sova
 {
     template<class T>
     class Ref : public IRef
     {
-        static_assert(std::is_base_of<Refable, T>::value, "T must inherit from Refable");
+        //static_assert(std::is_base_of<Refable, T>{}, "T must inherit from Refable");
+        struct __nat {int __for_bool_;};
     public:
 
         //Legit constructor
         explicit Ref(Refable* newParent){
-            assert(this->parent != nullptr);
+            assert(newParent != nullptr);
             this->parent = newParent;
             this->parent->addChild(this);
         }
@@ -32,7 +34,7 @@ namespace Sova
             this->obj = new T(std::forward<ARGS>(args)...);
             this->refCounter = new RefCounter();
             this->refCounter->Hold();
-            GarbageCollector::getGC()->addToHeap(this->obj);
+            Sova::GarbageCollector::getGC()->addToHeap(this->obj);
         }
 
         //destructor
@@ -50,10 +52,24 @@ namespace Sova
             set(ref.obj, ref.refCounter);
         };
 
+        // copy-construct from Ptr<OTHER>
+        template<class U> Ref(const Ref<U>& ref,
+                              typename std::enable_if<std::is_convertible<U*, T*>::value, __nat>::type = __nat())
+        {
+            set(static_cast<T*>(ref.getObj()), ref.refCounter);
+        };
+
         // move constructor, happens when a Ref is returned from a method
         Ref(Ref<T>&& ref)
         {
             set(ref.obj, ref.refCounter);
+        };
+
+        // move constructor from Ptr<OTHER>
+        template<class U> Ref(Ref<U>&& ref,
+        typename std::enable_if<std::is_convertible<U*, T*>::value, __nat>::type = __nat())
+        {
+            set(static_cast<T*>(ref.getObj()), ref.getRefCounter());
         };
 
         // copy assignment operator
@@ -67,6 +83,15 @@ namespace Sova
             return *this;
         };
 
+        // copy-assign from compatible Ptr<OTHER>
+        template<class U> void operator=(const Ref<U>& ref) {
+            T* ref_p = static_cast<T*>(ref.getObj());
+            if (ref_p != obj) {
+                release();
+                set(static_cast<T*>(ref_p), ref.refCounter);
+            }
+        };
+
         // move assignment operator
         void operator = (Ref<T>&& ref)
         {
@@ -74,6 +99,16 @@ namespace Sova
             {
                 release();
                 set(ref.obj, ref.refCounter);
+            }
+        };
+
+        // move-assign from compatible Ptr<OTHER>
+        template<class U> void operator=(Ref<U>&& ref) {
+            T* ref_p = static_cast<T*>(ref.getObj());
+            if (ref_p != obj) {
+                release();
+                set(ref_p, ref.getRefCounter());
+                ref.obj = nullptr;
             }
         };
 
@@ -86,22 +121,62 @@ namespace Sova
             return *this;
         };
 
-        //arrow operator
+        // arrow operator
         T* operator -> () const
         {
             assert(this->obj != nullptr);
             return this->obj;
         };
 
-        Refable* getRefable(){
+        // operator==
+        template<class U> bool operator==(const Ref<U>& ref) const {
+            return obj == ref.getObj();
+        };
+        
+        // operator!=
+        template<class U> bool operator!=(const Ref<U>& ref) const {
+            return obj != ref.getObj();
+        };
+
+        // test if invalid (contains nullptr)
+        bool operator==(std::nullptr_t) const {
+            return nullptr == obj;
+        };
+        
+        // test if valid (contains valid ptr)
+        bool operator!=(std::nullptr_t) const {
+            return nullptr != obj;
+        };
+
+        // cast to bool
+        explicit operator bool() const {
+            return nullptr != obj;
+        };
+
+        // cast to compatible type
+        template<class U, class=typename std::enable_if<std::is_convertible<T*,U*>::value>::type> operator const Ref<U>&() const {
+            return *(const Ref<U>*)this;
+        };
+        // unsafe downcast, this would require RTTI to make it runtime-safe
+        template<class U> const Ref<U>& unsafeCast() const {
+            return *(const Ref<U>*)this;
+        };
+
+        Refable* getObj() const {
             return static_cast<Refable*>(obj);
         }
 
-    private:
+        RefCounter* getRefCounter(){
+            return refCounter;
+        }
 
         T* obj = nullptr;
-        Refable* parent = nullptr;
         RefCounter* refCounter = nullptr;
+        
+    private:
+        
+        Refable* parent = nullptr;
+
 
         void release()
         {

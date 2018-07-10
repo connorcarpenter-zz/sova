@@ -7,8 +7,12 @@
 
 namespace Sova
 {
-    class List : public virtual Refable
+    template<class T>
+    class List : public Refable
     {
+    public:
+        void Add(T item){
 
+        }
     };
 }

@@ -20,6 +20,7 @@ fips_begin_module(Sova)
             References/Refable.h References/Refable.cpp
             References/GarbageCollector.h References/GarbageCollector.cpp
             References/RefCounter.h References/RefCounter.cpp
+            References/RefTypes.h
 
             Internal/ShaderHandler.h
             Internal/OryolApp.h Internal/OryolApp.cpp

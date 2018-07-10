@@ -10,9 +10,12 @@
 #include "Viewport.h"
 #include "Camera.h"
 #include "Loader.h"
+#include "Common/String.h"
+#include "Common/List.h"
 #include "References/Ref.h"
 #include "References/Refable.h"
 #include "References/GarbageCollector.h"
+#include "References/RefTypes.h"
 
 namespace Sova
 {

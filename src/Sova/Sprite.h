@@ -4,23 +4,22 @@
 // Created by connor on 7/8/18.
 //
 
-#include "Container.h"
-#include "App.h"
+#include "Sova/Common/String.h"
+#include "Sova/Container.h"
+#include <Sova/References/RefTypes.h>
 
 using namespace Sova;
 
 namespace Sova
 {
-
-    class App;
     class Sprite : public Container {
     public:
-
-        Sprite(Ref<App> app, Ref<String> textureName);
+        SovaTypeDecl(Sprite, Container);
+        Sprite(Ref<String> textureName);
 
     private:
 
-        Ref<App> app;
-        Ref<String> textureName;
+        //Ref<App> app = NullRef<App>();
+        Ref<String> textureName = NullRef<String>();
     };
 }

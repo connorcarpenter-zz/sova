@@ -8,7 +8,7 @@
 
 namespace Sova
 {
-    class Viewport : public virtual Refable
+    class Viewport : public Refable
     {
 
     public:

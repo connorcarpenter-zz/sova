@@ -10,7 +10,7 @@
 
 namespace Sova {
 
-    class Camera : public virtual Refable
+    class Camera : public Refable
     {
 
     public:

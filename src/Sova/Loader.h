@@ -7,10 +7,11 @@
 #include <functional>
 #include <Sova/References/Ref.h>
 #include <Sova/Common/String.h>
+#include <Sova/Common/List.h>
 
 namespace Sova
 {
-    class Loader : public virtual Refable
+    class Loader : public Refable
     {
     public:
         Ref<Loader> onProgress(std::function<void(Ref<String>)> progressFunction);
@@ -27,6 +28,6 @@ namespace Sova
         std::function<void(Ref<String>)> progressFunction = nullptr;
         std::function<void()> finishFunction = nullptr;
         bool appHasLoaded = false;
-        Ref<List<Ref<String>>> resourcesReadyToLoad;
+        Ref<List<Ref<String>>> resourcesReadyToLoad = NullRef<List<Ref<String>>>();
     };
 }

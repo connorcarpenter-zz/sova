@@ -10,6 +10,6 @@ namespace Sova
     class IRef
     {
     public:
-        virtual Refable* getRefable() = 0;
+        virtual Refable* getObj() const = 0;
     };
 }
