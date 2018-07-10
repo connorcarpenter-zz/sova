@@ -167,6 +167,13 @@ namespace Sova
             return static_cast<Refable*>(obj);
         }
 
+        // operator*, dereferencer
+        // Only should use this, I think, when doing something with an Iterator
+        T& operator*() const {
+            assert(nullptr != obj);
+            return *obj;
+        };
+
         T* obj = nullptr;
         
     private:

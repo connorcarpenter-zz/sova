@@ -14,12 +14,9 @@ namespace Sova
     {
     public:
         explicit String(const char* cstr);
-        ~String();
         const char* AsCStr() const;
-        int length() const;
     private:
-        int size;
-        char * buffer;
+        const char* strPtr;     // direct pointer to string data, necessary to see something in the debugger
     };
 
 }

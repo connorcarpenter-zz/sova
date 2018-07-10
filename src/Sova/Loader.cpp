@@ -7,40 +7,52 @@
 
 namespace Sova
 {
-    Ref<Loader> Loader::onProgress(std::function<void(Ref<String>)> progressFunction) {
+    Ref<Loader> Loader::onProgress(std::function<void(Ref<String>)> progressFunction)
+    {
         this->progressFunction = progressFunction;
         return ThisRef<Loader>();
     }
 
-    void Loader::onFinish(std::function<void()> finishFunction) {
+    void Loader::onFinish(std::function<void()> finishFunction)
+    {
         this->finishFunction = finishFunction;
         checkReadyToLoad();
     }
 
-    void Loader::addResourcesToLoad(Ref<Array<Ref<String>>> resourcesToLoad) {
-        //for (Ref<String> resource : resourcesToLoad){
-        //    resourcesReadyToLoad->Add(resource);
-        //}
+    void Loader::addResourcesToLoad(Ref<List<String>> resourcesToLoad)
+    {
+        for (Ref<ListIterator<String>> iterator = resourcesToLoad->GetIterator(); iterator->Valid(); iterator->Next())
+        {
+            Ref<String> resource = iterator->Get();
+            resourcesReadyToLoad->Add(resource);
+        }
     }
 
-    void Loader::setAppLoaded() {
+    void Loader::setAppLoaded()
+    {
         this->appHasLoaded = true;
         checkReadyToLoad();
     }
 
-    void Loader::checkReadyToLoad() {
-        if (this->appHasLoaded && this->finishFunction != nullptr){
+    void Loader::checkReadyToLoad()
+    {
+        if (this->appHasLoaded && this->finishFunction != nullptr)
+        {
             loadAllResources();
         }
     }
 
-    void Loader::loadAllResources(){
-        //for (Ref<String> resourceString : resourcesReadyToLoad){
-        //    loadResource(resourceString);
-        //    if (this->progressFunction != nullptr){
-        //        progressFunction(resourceString);
-        //    }
-        //}
+    void Loader::loadAllResources()
+    {
+        for (Ref<ListIterator<String>> iterator = resourcesReadyToLoad->GetIterator(); iterator->Valid(); iterator->Next())
+        {
+            Ref<String> resourceString = iterator->Get();
+            loadResource(resourceString);
+            if (this->progressFunction != nullptr)
+            {
+                progressFunction(resourceString);
+            }
+        }
 
         finishFunction();
     }

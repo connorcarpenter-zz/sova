@@ -21,19 +21,19 @@ namespace Sova {
     void
     Sova::Log::Info(const char* msg, ...) {
         va_list args;
-        Oryol::Log::Dbg(msg, args);
+        Oryol::Log::Info(msg, args);
     }
 
     void
     Sova::Log::Warn(const char* msg, ...) {
         va_list args;
-        Oryol::Log::Dbg(msg, args);
+        Oryol::Log::Warn(msg, args);
     }
 
     void
     Sova::Log::Error(const char* msg, ...) {
         va_list args;
-        Oryol::Log::Dbg(msg, args);
+        Oryol::Log::Error(msg, args);
     }
 }
 

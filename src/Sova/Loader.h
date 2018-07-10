@@ -7,7 +7,7 @@
 #include <functional>
 #include <Sova/References/Ref.h>
 #include <Sova/Common/String.h>
-#include <Sova/Common/Array.h>
+#include <Sova/Common/List.h>
 
 namespace Sova
 {
@@ -17,7 +17,7 @@ namespace Sova
         Ref<Loader> onProgress(std::function<void(Ref<String>)> progressFunction);
         void onFinish(std::function<void()> finishFunction);
 
-        void addResourcesToLoad(Ref<Array<Ref<String>>> resourcesToLoad);
+        void addResourcesToLoad(Ref<List<String>> resourcesToLoad);
         void setAppLoaded();
 
     private:
@@ -28,6 +28,6 @@ namespace Sova
         std::function<void(Ref<String>)> progressFunction = nullptr;
         std::function<void()> finishFunction = nullptr;
         bool appHasLoaded = false;
-        Ref<Array<Ref<String>>> resourcesReadyToLoad = NullRef<Array<Ref<String>>>();
+        Ref<List<String>> resourcesReadyToLoad = NewRef<List<String>>();
     };
 }
