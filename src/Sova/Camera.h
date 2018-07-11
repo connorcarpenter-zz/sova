@@ -5,15 +5,21 @@
 //
 
 #include <Sova/References/Refable.h>
-#include <Sova/References/Ref.h>
-#include "Container.h"
 
-namespace Sova {
+namespace Sova
+{
+    template <class T> class Ref;
+    class Viewport;
+    class Container;
 
     class Camera : public Refable
     {
-
     public:
-        Camera(int width, int height, Ref<Container> container);
+        Camera(int width, int height, Ref<Container> target);
+        void draw(Ref<Viewport> viewport);
+    private:
+        int width;
+        int height;
+        Ref<Container> target = NullRef<Container>();
     };
 }

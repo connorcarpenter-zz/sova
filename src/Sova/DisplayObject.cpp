@@ -10,4 +10,9 @@ namespace Sova
     {
         this->position = NewRef<Point>();
     }
+
+    void DisplayObject::drawSelf(int xoffset, int yoffset, Ref<Viewport> viewport, Ref<Camera> camera)
+    {
+
+    }
 }

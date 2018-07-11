@@ -13,5 +13,12 @@ namespace Sova
 
     public:
         Viewport(int x, int y, int width, int height, Ref<Camera> camera);
+        void draw();
+    private:
+        int x;
+        int y;
+        int width;
+        int height;
+        Ref<Camera> camera = NullRef<Camera>();
     };
 }

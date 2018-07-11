@@ -29,7 +29,9 @@ namespace Sova {
         int width;
         int height;
         Ref<ShaderHandler> shaderHandler = NullRef<ShaderHandler>();
-        Ref<Loader> loader = NewRef<Loader>();
+        Ref<Loader> loader = NullRef<Loader>();
+        std::function<void()> updateFunction = nullptr;
+        void draw();
 
     private:
         Ref<List<Viewport>> viewports = NullRef<List<Viewport>>();

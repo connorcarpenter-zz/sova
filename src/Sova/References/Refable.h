@@ -36,24 +36,24 @@ namespace Sova
         }
 
         template<typename Obj>
-        void addChild(Ref<Obj>* obj) {
+        void addRef(Ref<Obj> *obj) {
 
             static_assert(std::is_base_of<Refable, Obj>{}, "Obj should inherit from Refable");
 
-            children.insert(obj);
+            refs.insert(obj);
         }
 
         template<typename Obj>
-        void removeChild(Ref<Obj>* obj) {
+        void removeRef(Ref<Obj> *obj) {
 
             static_assert(std::is_base_of<Refable, Obj>{}, "Obj should inherit from Refable");
 
-            children.erase(obj);
+            refs.erase(obj);
         }
 
         // Get number of children
-        int getNumberChildren() {
-            return (int) children.size();
+        int getNumberRefs() {
+            return (int) refs.size();
         }
 
         void Mark(); // Mark the object and all its children as live
@@ -65,6 +65,6 @@ namespace Sova
         bool marked = false;
     private:
         RefCounter* refCounter = new RefCounter();
-        std::set<IRef*> children;
+        std::set<IRef*> refs;
     };
 }

@@ -66,6 +66,12 @@ AppState::Code OryolApp::OnInit()
 
 AppState::Code OryolApp::OnRunning() {
 
+    // update the game in the Sova app
+
+    sovapp->updateFunction();
+
+    sovapp->draw();
+
     // render into offscreen render target
     Gfx::BeginPass(this->canvasPass);
     renderCanvas();

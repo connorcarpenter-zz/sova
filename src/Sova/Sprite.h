@@ -12,14 +12,12 @@ using namespace Sova;
 
 namespace Sova
 {
-    class Sprite : public Container {
+    class Sprite : public Container
+    {
     public:
         SovaTypeDecl(Sprite, Container);
         Sprite(Ref<String> textureName);
-
     private:
 
-        //Ref<App> app = NullRef<App>();
-        Ref<String> textureName = NullRef<String>();
     };
 }

@@ -21,19 +21,19 @@ namespace Sova
         void collect(Refable* obj);
 
         // Add object to heap
-        template<typename DerivedObj>
-        void addToHeap(DerivedObj* obj) {
+        //template<typename DerivedObj>
+        void addToHeap(Refable* obj) {
 
-            static_assert(std::is_base_of<Refable, DerivedObj>{}, "DerivedObj should inherit from Refable");
+            //static_assert(std::is_base_of<Refable, DerivedObj>{}, "DerivedObj should inherit from Refable");
 
             objHeap.insert(obj);
         }
 
         // Remove object from heap
-        template<typename DerivedObj>
-        void removeFromHeap(DerivedObj* obj) {
+        //template<typename DerivedObj>
+        void removeFromHeap(Refable* obj) {
 
-            static_assert(std::is_base_of<Refable, DerivedObj>{}, "DerivedObj should inherit from Refable");
+            //static_assert(std::is_base_of<Refable, DerivedObj>{}, "DerivedObj should inherit from Refable");
 
             objHeap.erase(obj);
         }

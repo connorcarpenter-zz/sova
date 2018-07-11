@@ -5,19 +5,24 @@
 //
 
 #include <Sova/References/Refable.h>
-#include <Sova/References/Ref.h>
 #include <Sova/References/RefTypes.h>
-#include "Point.h"
 
-namespace Sova {
-
+namespace Sova
+{
     class DisplayObject : public Refable
     {
+    private:
+        template <class T> class Ref;
+        class Viewport;
+        class Camera;
+        class Point;
+        class String;
     public:
         SovaBaseTypeDecl(DisplayObject);
         DisplayObject();
+        void drawSelf(int xoffset, int yoffset, Ref<Viewport> viewport, Ref<Camera> camera);
+
         Ref<Point> position = NullRef<Point>();
-    private:
+        Ref<String> textureName = NullRef<String>();
     };
-    
 }

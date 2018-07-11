@@ -25,7 +25,7 @@ namespace Sova
         explicit Ref(Refable* newParent){
             assert(newParent != nullptr);
             this->parent = newParent;
-            this->parent->addChild(this);
+            this->parent->addRef(this);
         }
 
         template<typename... ARGS>
@@ -48,7 +48,7 @@ namespace Sova
             release();
             //remove self from parent's list of children
             if (this->parent != nullptr)
-                this->parent->removeChild(this);
+                this->parent->removeRef(this);
         };
 
         // copy constructor, happens when a method has a Ref as a parameter
@@ -185,9 +185,10 @@ namespace Sova
             if (this->obj == nullptr) return;
             // Decrement the old reference count
             // if reference become zero delete the old data
-            if (this->obj->Release() == 0){
+            Refable* refable = (Refable*) this->obj;
+            if (refable->Release() == 0){
                 //std::cout << "Object reference deleted:" << this->obj << "\n";
-                Sova::GarbageCollector::getGC()->removeFromHeap(this->obj);
+                Sova::GarbageCollector::getGC()->removeFromHeap(refable);
                 delete this->obj;
             }
 

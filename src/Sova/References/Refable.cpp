@@ -10,8 +10,8 @@ namespace Sova
     void Refable::Mark()
     {
         marked = true;
-        for (auto it = children.begin();
-             it != children.end();
+        for (auto it = refs.begin();
+             it != refs.end();
              ++it) {
             Refable* obj = (*it)->getObj();
             if (obj != nullptr)

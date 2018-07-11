@@ -24,7 +24,7 @@ namespace Sova
         for (Ref<ListIterator<String>> iterator = resourcesToLoad->GetIterator(); iterator->Valid(); iterator->Next())
         {
             Ref<String> resource = iterator->Get();
-            resourcesReadyToLoad->Add(resource);
+            this->resourcesReadyToLoad->Add(resource);
         }
     }
 
@@ -44,7 +44,7 @@ namespace Sova
 
     void Loader::loadAllResources()
     {
-        for (Ref<ListIterator<String>> iterator = resourcesReadyToLoad->GetIterator(); iterator->Valid(); iterator->Next())
+        for (Ref<ListIterator<String>> iterator = this->resourcesReadyToLoad->GetIterator(); iterator->Valid(); iterator->Next())
         {
             Ref<String> resourceString = iterator->Get();
             loadResource(resourceString);
@@ -54,7 +54,7 @@ namespace Sova
             }
         }
 
-        finishFunction();
+        this->finishFunction();
     }
 
     void Loader::loadResource(Ref<String> resourcePath) {
