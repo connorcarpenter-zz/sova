@@ -3,6 +3,7 @@
 //
 
 #include "DisplayObject.h"
+#include "Point.h"
 
 namespace Sova
 {

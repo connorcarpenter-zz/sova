@@ -36,17 +36,17 @@ namespace Sova
         }
 
         template<typename Obj>
-        void addRef(Ref<Obj> *obj) {
+        void addRef(Ref<Obj>* obj) {
 
-            static_assert(std::is_base_of<Refable, Obj>{}, "Obj should inherit from Refable");
+            //static_assert(std::is_base_of<Refable, Obj>{}, "Obj should inherit from Refable");
 
             refs.insert(obj);
         }
 
         template<typename Obj>
-        void removeRef(Ref<Obj> *obj) {
+        void removeRef(Ref<Obj>* obj) {
 
-            static_assert(std::is_base_of<Refable, Obj>{}, "Obj should inherit from Refable");
+            //static_assert(std::is_base_of<Refable, Obj>{}, "Obj should inherit from Refable");
 
             refs.erase(obj);
         }

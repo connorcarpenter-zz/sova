@@ -164,7 +164,7 @@ namespace Sova
         };
 
         Refable* getObj() const {
-            return static_cast<Refable*>(obj);
+            return (Refable*) obj;
         }
 
         // operator*, dereferencer
@@ -198,7 +198,8 @@ namespace Sova
         void set(T* obj){
             this->obj = obj;
             if (this->obj != nullptr){
-                this->obj->Hold();
+                Refable* refable = (Refable*) this->obj;
+                refable->Hold();
             }
         }
     };

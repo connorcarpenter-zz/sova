@@ -7,6 +7,7 @@
 #include "App.h"
 #include "Container.h"
 #include "Sprite.h"
+#include "Point.h"
 #include "Viewport.h"
 #include "Camera.h"
 #include "Loader.h"
