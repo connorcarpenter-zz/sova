@@ -18,23 +18,25 @@ namespace Sova
 
         this->drawState.Mesh[0] = Gfx::CreateResource(this->oryolApp->meshSetup);
         this->drawState.Pipeline = Gfx::CreateResource(this->oryolApp->pipelineSetup);
-        this->drawState.FSTexture[0] = this->oryolApp->texture;
     }
 
     void OryolDisplayObject::setTexture(Ref<String> textureName)
     {
+        Oryol::String textureString = Oryol::String(textureName->AsCStr());
+        this->texture = OryolApp::getOryolApp()->resourceManager.textures[textureString];
+        this->drawState.FSTexture[0] = this->texture->textureId;
+
         this->visible = true;
-        this->texture = this->oryolApp->texture;
     }
 
     void OryolDisplayObject::draw(int xoffset, int yoffset, Ref<Viewport> viewport, Ref<Camera> camera)
     {
         if (this->visible)
         {
-            const auto resState = Gfx::QueryResourceInfo(this->texture).State;
+            const auto resState = Gfx::QueryResourceInfo(this->texture->textureId).State;
             if (resState == ResourceState::Valid)
             {
-                const void *data = this->updateVertices(xoffset, yoffset, 128, 96, this->oryolApp->canvasWidth,
+                const void *data = this->updateVertices(xoffset, yoffset, this->texture->width, this->texture->height, this->oryolApp->canvasWidth,
                                                         this->oryolApp->canvasHeight);
                 Gfx::UpdateVertices(this->drawState.Mesh[0], data, OryolApp::numVertexesInQuad);
                 Gfx::ApplyDrawState(this->drawState);
@@ -49,10 +51,10 @@ namespace Sova
         int vIndex = 0;
 
         //0 is 0, 1 is canvasWidth, canvasHeight
-        float x0 = (0.0f + x) / canvasWidth;
-        float y0 = (0.0f + y) / canvasHeight;
-        float x1 = (128.0f + x) / canvasWidth;
-        float y1 = (96.0f + y) / canvasHeight;
+        float x0 = (float) x / (float) canvasWidth;
+        float y0 = (float) y / (float) canvasHeight;
+        float x1 = (float) (width + x) / (float) canvasWidth;
+        float y1 = (float) (height + y) / (float) canvasHeight;
 
         //0 is 0, 1 is texWidth/texHeight
         //This is the texture
@@ -78,5 +80,17 @@ namespace Sova
         OryolApp::getOryolApp()->vertexBuffer[index].u = u;
         OryolApp::getOryolApp()->vertexBuffer[index].v = v;
         return index + 1;
+    }
+
+    int OryolDisplayObject::getWidth() {
+        if (this->texture != nullptr)
+            return this->texture->width;
+        return 0;
+    }
+
+    int OryolDisplayObject::getHeight() {
+        if (this->texture != nullptr)
+            return this->texture->height;
+        return 0;
     }
 }

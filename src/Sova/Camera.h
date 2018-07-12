@@ -15,11 +15,14 @@ namespace Sova
     class Camera : public Refable
     {
     public:
-        Camera(int width, int height, Ref<Container> target);
+        Camera(int x, int y, int width, int height, Ref <Container> target);
         void draw(Ref<Viewport> viewport);
-    private:
+        int x;
+        int y;
         int width;
         int height;
+    private:
+
         Ref<Container> target = NullRef<Container>();
     };
 }

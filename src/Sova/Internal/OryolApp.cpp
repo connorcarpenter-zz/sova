@@ -20,10 +20,10 @@ OryolApp* OryolApp::getOryolApp() {
 
 AppState::Code OryolApp::OnInit()
 {
-    canvasWidth = sovapp->width;
-    canvasHeight = sovapp->height;
-    dispWidth = canvasWidth * 2;
-    dispHeight = canvasHeight * 2;
+    canvasWidth = sovapp->width / 2;
+    canvasHeight = sovapp->height / 2;
+    dispWidth = sovapp->width;
+    dispHeight = sovapp->height;
 
     //Setup screen
     Gfx::Setup(GfxSetup::Window(dispWidth, dispHeight, "Oryol 2d example"));
@@ -40,14 +40,7 @@ AppState::Code OryolApp::OnInit()
 
     IO::Setup(ioSetup);
 
-    // setup resource
-    TextureSetup texBluePrint;
-    texBluePrint.Sampler.MinFilter = TextureFilterMode::Nearest;
-    texBluePrint.Sampler.MagFilter = TextureFilterMode::Nearest;
-    texBluePrint.Sampler.WrapU = TextureWrapMode::ClampToEdge;
-    texBluePrint.Sampler.WrapV = TextureWrapMode::ClampToEdge;
-    static const char* texturePath = "content:images/myNinaSmall.png";
-    this->texture = Gfx::LoadResource(PNGLoader::Create(TextureSetup::FromFile(texturePath, texBluePrint)));
+    resourceManager.setup();
 
     //Setup offscreen render target
     auto rtSetup = TextureSetup::RenderTarget2D(canvasWidth, canvasHeight);

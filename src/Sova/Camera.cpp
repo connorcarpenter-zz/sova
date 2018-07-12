@@ -7,9 +7,11 @@
 
 namespace Sova
 {
-    Sova::Camera::Camera(int width, int height, Ref<Container> target)
+    Sova::Camera::Camera(int x, int y, int width, int height, Ref <Container> target)
     {
         this->width = width;
+        this->x = x;
+        this->y = y;
         this->height = height;
         this->target = target;
     }

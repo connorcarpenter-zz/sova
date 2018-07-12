@@ -28,4 +28,12 @@ namespace Sova
     {
         this->oryolDisplayObject->draw(xoffset + this->position->x, yoffset + this->position->y, viewport, camera);
     }
+
+    int DisplayObject::getWidth() {
+        return this->oryolDisplayObject->getWidth();
+    }
+
+    int DisplayObject::getHeight() {
+        return this->oryolDisplayObject->getHeight();
+    }
 }

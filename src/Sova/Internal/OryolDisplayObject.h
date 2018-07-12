@@ -20,11 +20,13 @@ namespace Sova
         explicit OryolDisplayObject();//DisplayObject* sovaDisplayObject);
         void draw(int xoffset, int yoffset, Ref<Viewport> viewport, Ref<Camera> camera);
         void setTexture(Ref<String> textureName);
+        int getWidth();
+        int getHeight();
     private:
         //DisplayObject* sovaDisplayObject = nullptr;
         OryolApp* oryolApp;
         Oryol::DrawState drawState;
-        Id texture;
+        OryolTexture* texture = nullptr;
         bool visible = false;
 
         const void* updateVertices(int x, int y, int width, int height, int canvasWidth, int canvasHeight);

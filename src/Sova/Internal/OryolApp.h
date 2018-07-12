@@ -15,6 +15,7 @@
 #include "PNGLoader.h"
 #include "glm/mat4x4.hpp"
 #include "glm/gtc/matrix_transform.hpp"
+#include "OryolResourceManager.h"
 
 #include <Sova/App.h>
 
@@ -38,7 +39,6 @@ public:
     vertex vertexBuffer[6];
     PipelineSetup pipelineSetup;
     MeshSetup meshSetup;
-    Id texture;
 
     static const int numVertexesInQuad = 6 * sizeof(vertex);
 
@@ -46,6 +46,8 @@ public:
     int canvasHeight = 0;
     int dispWidth = 0;
     int dispHeight = 0;
+
+    OryolResourceManager resourceManager;
 
 private:
     static OryolApp* singleton;

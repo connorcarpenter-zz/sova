@@ -2,6 +2,7 @@
 // Created by connor on 7/8/18.
 //
 
+#include <Sova/Internal/OryolApp.h>
 #include "Loader.h"
 #include "Log.h"
 
@@ -57,7 +58,8 @@ namespace Sova
         this->finishFunction();
     }
 
-    void Loader::loadResource(Ref<String> resourcePath) {
-        //Log::Info("loading resource: %s", resourcePath->AsCStr());
+    void Loader::loadResource(Ref<String> resourcePath)
+    {
+        OryolApp::getOryolApp()->resourceManager.loadResource(resourcePath);
     }
 }

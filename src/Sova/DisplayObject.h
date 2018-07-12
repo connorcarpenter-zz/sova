@@ -25,6 +25,8 @@ namespace Sova
         void drawSelf(int xoffset, int yoffset, Ref<Viewport> viewport, Ref<Camera> camera);
 
         Ref<Point> position = NullRef<Point>();
+        int getWidth();
+        int getHeight();
 
     protected:
         OryolDisplayObject* oryolDisplayObject;

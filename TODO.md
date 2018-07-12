@@ -39,5 +39,25 @@ Future Performance Todo:
         - Don't update game cycle every frame, have a fixed FPS.
         
         - Containers can specify how often their update function is called.
+        
+    - Unit Testing
+    
+        - Gotta start having some unit tests here, especially to make people feel safer contributing
+        
+    - Performance Metrics
+    
+    - Fixed Game Loop FPS
+
+    - Viewport and camera, correct calculations
+    
+    - Image rotation
+    
+    - Image scaling
+    
+    - Image atlas
+    
+    - Sprite sheet
+    
+    - Animation
             
                 
