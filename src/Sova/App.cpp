@@ -50,4 +50,16 @@ namespace Sova {
     bool App::keyPressed(Sova::Key::Code key) {
         return OryolApp::getOryolApp()->keyPressed(key);
     }
+
+    bool App::mouseButtonPressed(MouseButton::Code btn) {
+        return OryolApp::getOryolApp()->mouseButtonPressed(btn);
+    }
+
+    int App::getMouseX() {
+        return OryolApp::getOryolApp()->getMouseX();
+    }
+
+    int App::getMouseY() {
+        return OryolApp::getOryolApp()->getMouseY();
+    }
 }

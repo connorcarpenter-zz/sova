@@ -26,17 +26,25 @@ namespace Sova {
         void start();
         void onUpdate(std::function<void()> updateFunction);
         void addViewport(Ref<Viewport> viewport);
-        bool keyPressed(Key::Code key);
-
-        int width;
-        int height;
-        Ref<ShaderHandler> shaderHandler = NullRef<ShaderHandler>();
-        Ref<Loader> loader = NullRef<Loader>();
-        std::function<void()> updateFunction = nullptr;
         void draw();
 
-        Ref<String> windowTitle = NullRef<String>();
+        std::function<void()> updateFunction = nullptr;
+        
+        //Input
+        bool keyPressed(Key::Code key);
+        bool mouseButtonPressed(MouseButton::Code btn);
+        int getMouseX();
+        int getMouseY();
 
+        //Window
+        int width;
+        int height;
+        Ref<String> windowTitle = NullRef<String>();
+        Ref<ShaderHandler> shaderHandler = NullRef<ShaderHandler>();
+        
+        //Resource loading
+        Ref<Loader> loader = NullRef<Loader>();
+        
     private:
         Ref<List<Viewport>> viewports = NullRef<List<Viewport>>();
 

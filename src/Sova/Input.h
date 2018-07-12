@@ -6,6 +6,17 @@
 
 namespace Sova
 {
+    struct MouseButton {
+        enum Code {
+            Left = 0,
+            Middle,
+            Right,
+
+            NumMouseButtons,
+            InvalidMouseButton,
+        };
+    };
+
     class Key {
     public:
         /// key code enum, these are ripped from the GLFW header

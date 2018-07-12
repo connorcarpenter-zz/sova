@@ -51,6 +51,12 @@ public:
 
     bool keyPressed(Sova::Key::Code key);
 
+    bool mouseButtonPressed(Sova::MouseButton::Code btn);
+
+    int getMouseX();
+
+    int getMouseY();
+
 private:
     static OryolApp* singleton;
     Sova::App* sovapp = nullptr;

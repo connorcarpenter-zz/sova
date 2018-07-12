@@ -124,3 +124,16 @@ bool OryolApp::keyPressed(Sova::Key::Code key) {
     Oryol::Key::Code oryolKey = (Oryol::Key::Code) key;
     return Input::KeyPressed(oryolKey);
 }
+
+bool OryolApp::mouseButtonPressed(Sova::MouseButton::Code btn) {
+    Oryol::MouseButton::Code oryolBtn = (Oryol::MouseButton::Code) btn;
+    return Input::MouseButtonPressed(oryolBtn);
+}
+
+int OryolApp::getMouseX() {
+    return (int) Input::MousePosition().x;
+}
+
+int OryolApp::getMouseY() {
+    return (int) Input::MousePosition().y;
+}
