@@ -42,24 +42,17 @@ public:
 
     static const int numVertexesInQuad = 6 * sizeof(vertex);
 
+    int canvasWidth = 0;
+    int canvasHeight = 0;
+    int dispWidth = 0;
+    int dispHeight = 0;
+
 private:
     static OryolApp* singleton;
     Sova::App* sovapp = nullptr;
 
     Id canvasPass;
     DrawState canvasDrawState;
-
-    int viewPortX = 0;
-    int viewPortY = 0;
-    int viewPortW = 0;
-    int viewPortH = 0;
-
-    int Width = 0;
-    int Height = 0;
-    int canvasWidth = 0;
-    int canvasHeight = 0;
-    int dispWidth = 0;
-    int dispHeight = 0;
 
     void setupCanvas(const TextureSetup& rtSetup);
 };

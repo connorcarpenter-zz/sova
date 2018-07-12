@@ -19,6 +19,11 @@ namespace Sova
         delete this->oryolDisplayObject;
     }
 
+    void Sova::DisplayObject::setTexture(Ref<String> textureName)
+    {
+        this->oryolDisplayObject->setTexture(textureName);
+    }
+
     void DisplayObject::drawSelf(int xoffset, int yoffset, Ref<Viewport> viewport, Ref<Camera> camera)
     {
         this->oryolDisplayObject->draw(xoffset + this->position->x, yoffset + this->position->y, viewport, camera);

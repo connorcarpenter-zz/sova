@@ -19,5 +19,7 @@ namespace Sova
         Sprite(Ref<String> textureName);
     private:
 
+        Ref<String> textureName = NullRef<String>();
+        void setTexture(Ref<String> textureName);
     };
 }

@@ -1,7 +1,7 @@
 fips_begin_module(Sova)
     fips_vs_warning_level(3)
     fips_files(
-            Sova.h Sova.cpp
+            SovaMain.h SovaMain.cpp
             App.h App.cpp
             Container.h Container.cpp
             Sprite.h Sprite.cpp

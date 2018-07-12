@@ -11,6 +11,8 @@ namespace Sova
     class Point : public Refable
     {
     public:
+        Point();
+        Point(int x, int y);
         void set(int x, int y);
 
         int x;

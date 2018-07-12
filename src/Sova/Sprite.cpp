@@ -8,7 +8,15 @@ using namespace Sova;
 
 namespace Sova
 {
-    Sprite::Sprite(Ref<String> textureName) {
+
+    Sprite::Sprite(Ref<String> textureName)
+    {
+        this->setTexture(textureName);
+    }
+
+    void Sprite::setTexture(Ref<String> textureName)
+    {
         this->textureName = textureName;
+        DisplayObject::setTexture(textureName);
     }
 }

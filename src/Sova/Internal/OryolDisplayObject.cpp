@@ -21,14 +21,24 @@ namespace Sova
         this->drawState.FSTexture[0] = this->oryolApp->texture;
     }
 
+    void OryolDisplayObject::setTexture(Ref<String> textureName)
+    {
+        this->visible = true;
+        this->texture = this->oryolApp->texture;
+    }
+
     void OryolDisplayObject::draw(int xoffset, int yoffset, Ref<Viewport> viewport, Ref<Camera> camera)
     {
-        const auto resState = Gfx::QueryResourceInfo(this->oryolApp->texture).State;
-        if (resState == ResourceState::Valid)
+        if (this->visible)
         {
-            const void* data = this->updateVertices(xoffset, yoffset, 128, 96, 640, 360);
-            Gfx::UpdateVertices(this->drawState.Mesh[0], data, OryolApp::numVertexesInQuad);
-            Gfx::ApplyDrawState(this->drawState);
+            const auto resState = Gfx::QueryResourceInfo(this->texture).State;
+            if (resState == ResourceState::Valid)
+            {
+                const void *data = this->updateVertices(xoffset, yoffset, 128, 96, this->oryolApp->canvasWidth,
+                                                        this->oryolApp->canvasHeight);
+                Gfx::UpdateVertices(this->drawState.Mesh[0], data, OryolApp::numVertexesInQuad);
+                Gfx::ApplyDrawState(this->drawState);
+            }
         }
 
         Gfx::Draw();

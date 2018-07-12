@@ -21,8 +21,8 @@
 
 namespace Sova
 {
-    class Sova
+    class SovaMain
     {
-        Sova() = default;
+        SovaMain() = default;
     };
 }

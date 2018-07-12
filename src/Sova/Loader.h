@@ -14,6 +14,7 @@ namespace Sova
     class Loader : public Refable
     {
     public:
+
         Ref<Loader> onProgress(std::function<void(Ref<String>)> progressFunction);
         void onFinish(std::function<void()> finishFunction);
 
@@ -21,6 +22,7 @@ namespace Sova
         void setAppLoaded();
 
     private:
+
         void loadAllResources();
         void loadResource(Ref<String> resourcePath);
         void checkReadyToLoad();

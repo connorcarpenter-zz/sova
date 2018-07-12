@@ -25,9 +25,10 @@ namespace Sova
         void drawSelf(int xoffset, int yoffset, Ref<Viewport> viewport, Ref<Camera> camera);
 
         Ref<Point> position = NullRef<Point>();
-        Ref<String> textureName = NullRef<String>();
-    private:
 
+    protected:
         OryolDisplayObject* oryolDisplayObject;
+
+        virtual void setTexture(Ref <String> textureName);
     };
 }

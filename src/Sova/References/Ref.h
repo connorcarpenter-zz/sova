@@ -155,9 +155,10 @@ namespace Sova
         };
 
         // cast to compatible type
-        template<class U, class=typename std::enable_if<std::is_convertible<T*,U*>::value>::type> operator const Ref<U>&() const {
-            return *(const Ref<U>*)this;
-        };
+        //template<class U, class=typename std::enable_if<std::is_convertible<T*,U*>::value>::type> operator const Ref<U>&() const {
+        //    return *(const Ref<U>*)this;
+        //};
+
         // unsafe downcast, this would require RTTI to make it runtime-safe
         template<class U> const Ref<U>& unsafeCast() const {
             return *(const Ref<U>*)this;
