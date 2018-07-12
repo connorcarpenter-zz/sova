@@ -20,8 +20,8 @@ namespace Sova {
     }
 
     void App::start() {
-        OryolApp oryolApp(this);
-        oryolApp.StartMainLoop();
+        OryolApp::initOryolApp(this);
+        OryolApp::getOryolApp()->StartMainLoop();
     };
 
     Ref<Loader> App::load(Ref<List<String>> resources) {

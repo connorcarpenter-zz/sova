@@ -4,9 +4,18 @@
 
 #include "OryolApp.h"
 
-
 OryolApp::OryolApp(Sova::App* sovaApp) {
     sovapp = sovaApp;
+}
+
+OryolApp* OryolApp::singleton = nullptr;
+
+void OryolApp::initOryolApp(Sova::App* sovaApp) {
+    singleton = new OryolApp(sovaApp);
+}
+
+OryolApp* OryolApp::getOryolApp() {
+    return singleton;
 }
 
 AppState::Code OryolApp::OnInit()
@@ -70,19 +79,20 @@ AppState::Code OryolApp::OnRunning() {
 
     sovapp->updateFunction();
 
+    Gfx::BeginPass(this->canvasPass);
+
     sovapp->draw();
 
     // render into offscreen render target
-    Gfx::BeginPass(this->canvasPass);
-    renderCanvas();
+
     Gfx::EndPass();
 
     // copy offscreen render target into backbuffer
     Gfx::BeginPass();
-    this->applyViewPort();
     Gfx::ApplyDrawState(this->canvasDrawState);
     Gfx::Draw();
     Gfx::EndPass();
+
     Gfx::CommitFrame();
 
     // continue running or quit?
@@ -97,94 +107,26 @@ AppState::Code OryolApp::OnCleanup() {
     return App::OnCleanup();
 }
 
-//------------------------------------------------------------------------------
-void
-OryolApp::applyViewPort() {
-    float aspect = float(Width) / float(Height);
-    const int fbWidth = Gfx::DisplayAttrs().FramebufferWidth;
-    const int fbHeight = Gfx::DisplayAttrs().FramebufferHeight;
-    this->viewPortY = 0;
-    this->viewPortH = fbHeight;
-    this->viewPortW = (const int) (fbHeight * aspect);
-    this->viewPortX = (fbWidth - viewPortW) / 2;
-    Gfx::ApplyViewPort(this->viewPortX, this->viewPortY, this->viewPortW, this->viewPortH);
-}
-
 //--
 void
-OryolApp::setupCanvas(const TextureSetup& rtSetup) {
-    this->numVertices = 6;//(this->numTilesX * this->numTilesY + this->numSprites) * 6;
-
+OryolApp::setupCanvas(const TextureSetup& rtSetup)
+{
     // setup draw state with dynamic mesh
-    auto meshSetup = MeshSetup::Empty(this->numVertices, Usage::Stream);
-    meshSetup.Layout
+    this->meshSetup = MeshSetup::Empty(6, Usage::Stream);
+    this->meshSetup.Layout
             .Add(VertexAttr::Position, VertexFormat::Float2)
             .Add(VertexAttr::TexCoord0, VertexFormat::Float2);
-    meshSetup.AddPrimitiveGroup(PrimitiveGroup(0, this->numVertices));
-    this->drawState.Mesh[0] = Gfx::CreateResource(meshSetup);
+    this->meshSetup.AddPrimitiveGroup(PrimitiveGroup(0, 6));
+
     Id shd = sovapp->shaderHandler->getCanvasShader();
-    auto ps = PipelineSetup::FromLayoutAndShader(meshSetup.Layout, shd);
-    ps.BlendState.BlendEnabled = true;
-    ps.BlendState.SrcFactorRGB = BlendFactor::SrcAlpha;
-    ps.BlendState.DstFactorRGB = BlendFactor::OneMinusSrcAlpha;
-    ps.BlendState.ColorFormat = rtSetup.ColorFormat;
-    ps.BlendState.DepthFormat = rtSetup.DepthFormat;
-    ps.RasterizerState.CullFaceEnabled = false;
-    this->drawState.Pipeline = Gfx::CreateResource(ps);
-
-    // setup sprite texture
-
-    this->drawState.FSTexture[0] = this->texture;
+    this->pipelineSetup = PipelineSetup::FromLayoutAndShader(this->meshSetup.Layout, shd);
+    this->pipelineSetup.BlendState.BlendEnabled = true;
+    this->pipelineSetup.BlendState.SrcFactorRGB = BlendFactor::SrcAlpha;
+    this->pipelineSetup.BlendState.DstFactorRGB = BlendFactor::OneMinusSrcAlpha;
+    this->pipelineSetup.BlendState.ColorFormat = rtSetup.ColorFormat;
+    this->pipelineSetup.BlendState.DepthFormat = rtSetup.DepthFormat;
+    this->pipelineSetup.RasterizerState.CullFaceEnabled = false;
 
     // clear the vertex buffer
     Memory::Clear(this->vertexBuffer, sizeof(this->vertexBuffer));
-}
-
-void OryolApp::renderCanvas() {
-    const auto resState = Gfx::QueryResourceInfo(this->texture).State;
-    if (resState == ResourceState::Valid) {
-        int numBytes = 0;
-        const void* data = this->updateVertices(numBytes);
-        Gfx::UpdateVertices(this->drawState.Mesh[0], data, numBytes);
-        Gfx::ApplyDrawState(this->drawState);
-        Gfx::Draw();
-    }
-}
-
-const void*
-OryolApp::updateVertices(int& outNumBytes) {
-    int vIndex = 0;
-
-    //0 is 0, 1 is canvasWidth, canvasHeight
-    float x0 = 0.0f;
-    float y0 = 0.0f;
-    float x1 = 128.0f / canvasWidth;
-    float y1 = 96.0f / canvasHeight;
-
-    //0 is 0, 1 is texWidth/texHeight
-    //This is the texture
-    float u0 = 0.0f;
-    float v0 = 0.0f;
-    float u1 = 1.0f;
-    float v1 = 1.0f;
-
-    vIndex = this->writeVertex(vIndex, x0, y0, u0, v0);
-    vIndex = this->writeVertex(vIndex, x1, y0, u1, v0);
-    vIndex = this->writeVertex(vIndex, x1, y1, u1, v1);
-    vIndex = this->writeVertex(vIndex, x0, y0, u0, v0);
-    vIndex = this->writeVertex(vIndex, x1, y1, u1, v1);
-    vIndex = this->writeVertex(vIndex, x0, y1, u0, v1);
-
-    outNumBytes = this->numVertices * sizeof(vertex);
-    return this->vertexBuffer;
-}
-
-//------------------------------------------------------------------------------
-int
-OryolApp::writeVertex(int index, float x, float y, float u, float v) {
-    this->vertexBuffer[index].x = x;
-    this->vertexBuffer[index].y = y;
-    this->vertexBuffer[index].u = u;
-    this->vertexBuffer[index].v = v;
-    return index + 1;
 }

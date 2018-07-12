@@ -28,9 +28,24 @@ public:
     AppState::Code OnRunning();
     AppState::Code OnInit();
     AppState::Code OnCleanup();
-private:
-    Sova::App* sovapp = nullptr;
+
+    static OryolApp* getOryolApp();
+    static void initOryolApp(Sova::App* sovaApp);
+
+    struct vertex {
+        float x, y, u, v;
+    };
+    vertex vertexBuffer[6];
+    PipelineSetup pipelineSetup;
+    MeshSetup meshSetup;
     Id texture;
+
+    static const int numVertexesInQuad = 6 * sizeof(vertex);
+
+private:
+    static OryolApp* singleton;
+    Sova::App* sovapp = nullptr;
+
     Id canvasPass;
     DrawState canvasDrawState;
 
@@ -46,19 +61,5 @@ private:
     int dispWidth = 0;
     int dispHeight = 0;
 
-    void applyViewPort();
-
-    void renderCanvas();
     void setupCanvas(const TextureSetup& rtSetup);
-    Oryol::DrawState drawState;
-    int numVertices;
-    struct vertex {
-        float x, y, u, v;
-    };
-    static const int MaxNumVertices = 6;
-    vertex vertexBuffer[MaxNumVertices];
-
-    const void* updateVertices(int& outNumBytes);
-
-    int writeVertex(int index, float x, float y, float u, float v);
 };

@@ -14,18 +14,20 @@ namespace Sova
     class Camera;
     class Point;
     class String;
+    class OryolDisplayObject;
 
     class DisplayObject : public Refable
     {
-    private:
-        //template <class T> class Ref;
-
     public:
         SovaBaseTypeDecl(DisplayObject);
         DisplayObject();
+        ~DisplayObject();
         void drawSelf(int xoffset, int yoffset, Ref<Viewport> viewport, Ref<Camera> camera);
 
         Ref<Point> position = NullRef<Point>();
         Ref<String> textureName = NullRef<String>();
+    private:
+
+        OryolDisplayObject* oryolDisplayObject;
     };
 }

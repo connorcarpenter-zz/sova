@@ -25,6 +25,7 @@ fips_begin_module(Sova)
             Internal/ShaderHandler.h
             Internal/OryolApp.h Internal/OryolApp.cpp
             Internal/PNGLoader.h Internal/PNGLoader.cpp
-            Internal/shaders.h Internal/shaders.cpp)
+            Internal/shaders.h Internal/shaders.cpp
+            Internal/OryolDisplayObject.h Internal/OryolDisplayObject.cpp)
     fips_deps(Core IO Gfx Assets HttpFS LocalFS lodepng)
 fips_end_module()
