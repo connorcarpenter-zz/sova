@@ -49,6 +49,8 @@ public:
 
     OryolResourceManager resourceManager;
 
+    bool keyPressed(Sova::Key::Code key);
+
 private:
     static OryolApp* singleton;
     Sova::App* sovapp = nullptr;

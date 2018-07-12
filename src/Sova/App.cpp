@@ -3,6 +3,7 @@
 //
 
 #include <Sova/Internal/OryolApp.h>
+#include <Modules/Input/Input.h>
 #include "App.h"
 
 using namespace Sova;
@@ -44,5 +45,9 @@ namespace Sova {
             Ref<Viewport> viewport = iterator->Get();
             viewport->draw();
         }
+    }
+
+    bool App::keyPressed(Sova::Key::Code key) {
+        return OryolApp::getOryolApp()->keyPressed(key);
     }
 }

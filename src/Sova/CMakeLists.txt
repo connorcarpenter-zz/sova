@@ -11,6 +11,7 @@ fips_begin_module(Sova)
             DisplayObject.h DisplayObject.cpp
             Point.h Point.cpp
             Log.h Log.cpp
+            Input.h Input.cpp
 
             Common/List.h
             Common/String.cpp
@@ -29,5 +30,5 @@ fips_begin_module(Sova)
             Internal/OryolDisplayObject.h Internal/OryolDisplayObject.cpp
             Internal/OryolTexture.h Internal/OryolTexture.cpp
             Internal/OryolResourceManager.h Internal/OryolResourceManager.cpp)
-    fips_deps(Core IO Gfx Assets HttpFS LocalFS lodepng)
+    fips_deps(Core IO Gfx Input Assets HttpFS LocalFS lodepng)
 fips_end_module()

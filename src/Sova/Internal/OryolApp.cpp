@@ -2,6 +2,7 @@
 // Created by connor on 7/7/18.
 //
 
+#include <Modules/Input/Input.h>
 #include "OryolApp.h"
 
 OryolApp::OryolApp(Sova::App* sovaApp) {
@@ -26,7 +27,8 @@ AppState::Code OryolApp::OnInit()
     dispHeight = sovapp->height;
 
     //Setup screen
-    Gfx::Setup(GfxSetup::Window(dispWidth, dispHeight, "Oryol 2d example"));
+    Gfx::Setup(GfxSetup::Window(dispWidth, dispHeight, sovapp->windowTitle->AsCStr()));
+    Input::Setup();
 
     // setup IO system
     IOSetup ioSetup;
@@ -71,11 +73,7 @@ AppState::Code OryolApp::OnRunning() {
     sovapp->updateFunction();
 
     Gfx::BeginPass(this->canvasPass);
-
     sovapp->draw();
-
-    // render into offscreen render target
-
     Gfx::EndPass();
 
     // copy offscreen render target into backbuffer
@@ -120,4 +118,9 @@ OryolApp::setupCanvas(const TextureSetup& rtSetup)
 
     // clear the vertex buffer
     Memory::Clear(this->vertexBuffer, sizeof(this->vertexBuffer));
+}
+
+bool OryolApp::keyPressed(Sova::Key::Code key) {
+    Oryol::Key::Code oryolKey = (Oryol::Key::Code) key;
+    return Input::KeyPressed(oryolKey);
 }

@@ -11,6 +11,7 @@
 #include "Viewport.h"
 #include "Loader.h"
 #include "Sova/Common/List.h"
+#include "Input.h"
 
 using namespace Sova;
 
@@ -25,6 +26,7 @@ namespace Sova {
         void start();
         void onUpdate(std::function<void()> updateFunction);
         void addViewport(Ref<Viewport> viewport);
+        bool keyPressed(Key::Code key);
 
         int width;
         int height;
@@ -33,9 +35,11 @@ namespace Sova {
         std::function<void()> updateFunction = nullptr;
         void draw();
 
+        Ref<String> windowTitle = NullRef<String>();
+
     private:
         Ref<List<Viewport>> viewports = NullRef<List<Viewport>>();
-        Ref<String> windowTitle = NullRef<String>();
+
     };
 
 }
