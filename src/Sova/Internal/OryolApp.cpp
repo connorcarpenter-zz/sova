@@ -45,21 +45,22 @@ AppState::Code OryolApp::OnInit()
     resourceManager.setup();
 
     //Setup offscreen render target
-    auto rtSetup = TextureSetup::RenderTarget2D(canvasWidth, canvasHeight);
-    rtSetup.Sampler.MinFilter = TextureFilterMode::Nearest;
-    rtSetup.Sampler.MagFilter = TextureFilterMode::Nearest;
-    Id canvasTexture = Gfx::CreateResource(rtSetup);
+    auto renderTargetSetup = TextureSetup::RenderTarget2D(canvasWidth, canvasHeight);
+    renderTargetSetup.Sampler.MinFilter = TextureFilterMode::Nearest;
+    renderTargetSetup.Sampler.MagFilter = TextureFilterMode::Nearest;
+    Id canvasTexture = Gfx::CreateResource(renderTargetSetup);
     this->canvasPass = Gfx::CreateResource(PassSetup::From(canvasTexture));
 
-    auto quadSetup = MeshSetup::FullScreenQuad(Gfx::QueryFeature(GfxFeature::OriginTopLeft));
-    this->canvasDrawState.Mesh[0] = Gfx::CreateResource(quadSetup);
-    Id shd = sovapp->shaderHandler->getNormalShader();
+    //Setup onscreen render
+    auto fullscreenQuadSetup = MeshSetup::FullScreenQuad(Gfx::QueryFeature(GfxFeature::OriginTopLeft));
+    this->windowDrawState.Mesh[0] = Gfx::CreateResource(fullscreenQuadSetup);
 
-    auto ps = PipelineSetup::FromLayoutAndShader(quadSetup.Layout, shd);
-    this->canvasDrawState.Pipeline = Gfx::CreateResource(ps);
-    this->canvasDrawState.FSTexture[0] = canvasTexture;
+    Id normalShader = sovapp->shaderHandler->getNormalShader();
+    auto ps = PipelineSetup::FromLayoutAndShader(fullscreenQuadSetup.Layout, normalShader);
+    this->windowDrawState.Pipeline = Gfx::CreateResource(ps);
+    this->windowDrawState.FSTexture[0] = canvasTexture;
 
-    setupCanvas(rtSetup);
+    setupCanvas(renderTargetSetup);
 
     sovapp->loader->setAppLoaded();
 
@@ -78,7 +79,7 @@ AppState::Code OryolApp::OnRunning() {
 
     // copy offscreen render target into backbuffer
     Gfx::BeginPass();
-    Gfx::ApplyDrawState(this->canvasDrawState);
+    Gfx::ApplyDrawState(this->windowDrawState);
     Gfx::Draw();
     Gfx::EndPass();
 
@@ -92,6 +93,7 @@ AppState::Code OryolApp::OnCleanup() {
 
     Gfx::Discard();
     IO::Discard();
+    Input::Discard();
 
     return App::OnCleanup();
 }
@@ -107,8 +109,8 @@ OryolApp::setupCanvas(const TextureSetup& rtSetup)
             .Add(VertexAttr::TexCoord0, VertexFormat::Float2);
     this->meshSetup.AddPrimitiveGroup(PrimitiveGroup(0, 6));
 
-    Id shd = sovapp->shaderHandler->getCanvasShader();
-    this->pipelineSetup = PipelineSetup::FromLayoutAndShader(this->meshSetup.Layout, shd);
+    Id canvasShader = sovapp->shaderHandler->getCanvasShader();
+    this->pipelineSetup = PipelineSetup::FromLayoutAndShader(this->meshSetup.Layout, canvasShader);
     this->pipelineSetup.BlendState.BlendEnabled = true;
     this->pipelineSetup.BlendState.SrcFactorRGB = BlendFactor::SrcAlpha;
     this->pipelineSetup.BlendState.DstFactorRGB = BlendFactor::OneMinusSrcAlpha;

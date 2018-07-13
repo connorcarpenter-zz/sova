@@ -62,7 +62,7 @@ private:
     Sova::App* sovapp = nullptr;
 
     Id canvasPass;
-    DrawState canvasDrawState;
+    DrawState windowDrawState;
 
     void setupCanvas(const TextureSetup& rtSetup);
 };
