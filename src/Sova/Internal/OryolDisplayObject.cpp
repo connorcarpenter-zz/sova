@@ -29,7 +29,7 @@ namespace Sova
         this->visible = true;
     }
 
-    void OryolDisplayObject::draw(int xoffset, int yoffset, Ref<Viewport> viewport, Ref<Camera> camera)
+    void OryolDisplayObject::draw(int xoffset, int yoffset)
     {
         if (this->visible)
         {

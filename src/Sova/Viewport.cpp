@@ -7,14 +7,13 @@
 namespace Sova {
     Sova::Viewport::Viewport(int x, int y, int width, int height, Ref<Camera> camera)
     {
-        this->x = x;
-        this->y = y;
+        this->position = NewRef<Point>(x, y);
         this->width = width;
         this->height = height;
         this->camera = camera;
     }
 
     void Viewport::draw() {
-        this->camera->draw(ThisRef<Viewport>());
+        this->camera->draw(this->position->x, this->position->y);
     }
 }

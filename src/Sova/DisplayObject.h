@@ -22,7 +22,7 @@ namespace Sova
         SovaBaseTypeDecl(DisplayObject);
         DisplayObject();
         ~DisplayObject();
-        void drawSelf(int xoffset, int yoffset, Ref<Viewport> viewport, Ref<Camera> camera);
+        void drawSelf(int xoffset, int yoffset);
 
         Ref<Point> position = NullRef<Point>();
         int getWidth();

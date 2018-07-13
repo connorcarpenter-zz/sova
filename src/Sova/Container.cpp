@@ -3,6 +3,7 @@
 //
 
 #include "Container.h"
+#include "Point.h"
 
 namespace Sova
 {
@@ -31,15 +32,15 @@ namespace Sova
         }
     }
 
-    void Container::draw(int xoffset, int yoffset, Ref<Viewport> viewport, Ref<Camera> camera)
+    void Container::draw(int xoffset, int yoffset)
     {
-        this->drawSelf(xoffset, yoffset, viewport, camera);
+        this->drawSelf(xoffset, yoffset);
 
         //Draw children
         for (Ref<ListIterator<Container>> iterator = this->children->GetIterator(); iterator->Valid(); iterator->Next())
         {
             Ref<Container> childContainer = iterator->Get();
-            childContainer->draw(xoffset, yoffset, viewport, camera);
+            childContainer->draw(xoffset + this->position->x, yoffset + this->position->y);
         }
     }
 }

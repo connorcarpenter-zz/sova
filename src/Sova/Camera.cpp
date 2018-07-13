@@ -9,15 +9,14 @@ namespace Sova
 {
     Sova::Camera::Camera(int x, int y, int width, int height, Ref <Container> target)
     {
+        this->position = NewRef<Point>(x, y);
         this->width = width;
-        this->x = x;
-        this->y = y;
         this->height = height;
         this->target = target;
     }
 
-    void Sova::Camera::draw(Ref<Viewport> viewport)
+    void Sova::Camera::draw(int xoffset, int yoffset)
     {
-        this->target->draw(0, 0, viewport, ThisRef<Camera>());
+        this->target->draw(xoffset - this->position->x, yoffset - this->position->y);
     }
 }

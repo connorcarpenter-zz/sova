@@ -25,7 +25,7 @@ namespace Sova
         void updateChildren();
         std::function<void()> updateFunction = nullptr;
 
-        void draw(int xoffset, int yoffset, Ref<Viewport> viewport, Ref<Camera> camera);
+        void draw(int xoffset, int yoffset);
 
     private:
 

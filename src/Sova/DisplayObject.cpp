@@ -24,9 +24,9 @@ namespace Sova
         this->oryolDisplayObject->setTexture(textureName);
     }
 
-    void DisplayObject::drawSelf(int xoffset, int yoffset, Ref<Viewport> viewport, Ref<Camera> camera)
+    void DisplayObject::drawSelf(int xoffset, int yoffset)
     {
-        this->oryolDisplayObject->draw(xoffset + this->position->x, yoffset + this->position->y, viewport, camera);
+        this->oryolDisplayObject->draw(xoffset + this->position->x, yoffset + this->position->y);
     }
 
     int DisplayObject::getWidth() {

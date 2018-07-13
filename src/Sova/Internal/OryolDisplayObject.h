@@ -18,7 +18,7 @@ namespace Sova
     {
     public:
         explicit OryolDisplayObject();//DisplayObject* sovaDisplayObject);
-        void draw(int xoffset, int yoffset, Ref<Viewport> viewport, Ref<Camera> camera);
+        void draw(int xoffset, int yoffset);
         void setTexture(Ref<String> textureName);
         int getWidth();
         int getHeight();

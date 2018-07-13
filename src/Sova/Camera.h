@@ -9,16 +9,16 @@
 
 namespace Sova
 {
-    class Viewport;
     class Container;
+    class Point;
 
     class Camera : public Refable
     {
     public:
         Camera(int x, int y, int width, int height, Ref <Container> target);
-        void draw(Ref<Viewport> viewport);
-        int x;
-        int y;
+        void draw(int xoffset, int yoffset);
+
+        Ref<Point> position = NullRef<Point>();
         int width;
         int height;
     private:

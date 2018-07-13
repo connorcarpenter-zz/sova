@@ -5,6 +5,7 @@
 //
 
 #include "Camera.h"
+#include "Point.h"
 
 namespace Sova
 {
@@ -14,9 +15,9 @@ namespace Sova
     public:
         Viewport(int x, int y, int width, int height, Ref<Camera> camera);
         void draw();
+
+        Ref<Point> position = NullRef<Point>();
     private:
-        int x;
-        int y;
         int width;
         int height;
         Ref<Camera> camera = NullRef<Camera>();
