@@ -90,8 +90,8 @@ namespace Sova
                     return;
                 }
 
-                head->item = head->next->item;
-                head->next = head->next->next;
+                auto headNext = head->next; //important that this is executed before the next line (idk why yet :/)
+                head = headNext;
                 size -= 1;
                 return;
             }
@@ -107,7 +107,8 @@ namespace Sova
             }
 
             //cut item out of the linked list
-            previous->next = previous->next->next;
+            auto nextNext = previous->next->next; //important that this is executed before the next line (idk why yet :/)
+            previous->next = nextNext;
             size -= 1;
         }
 

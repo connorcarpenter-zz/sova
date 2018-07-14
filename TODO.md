@@ -61,5 +61,7 @@ Future Performance Todo:
     - Animation
             
     - Quick calculation for how many render passes we need to do
-    
-        Each Depth level can only have one texture in it
+        
+        Draw State can have 4 meshes and 4 textures in it...
+        
+        Textures can be all put into some big sprite sheet, mesh can have more vertexes

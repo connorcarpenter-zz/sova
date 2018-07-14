@@ -30,6 +30,7 @@ fips_begin_module(Sova)
             Internal/shaders.h Internal/shaders.cpp
             Internal/OryolDisplayObject.h Internal/OryolDisplayObject.cpp
             Internal/OryolTexture.h Internal/OryolTexture.cpp
-            Internal/OryolResourceManager.h Internal/OryolResourceManager.cpp)
+            Internal/OryolResourceManager.h Internal/OryolResourceManager.cpp
+            Internal/InternalDestructionManager.h Internal/InternalDestructionManager.cpp)
     fips_deps(Core IO Gfx Input Assets HttpFS LocalFS lodepng)
 fips_end_module()

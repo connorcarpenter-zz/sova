@@ -12,24 +12,16 @@ namespace Sova
 {
     Sova::OryolDisplayObject::OryolDisplayObject()//DisplayObject* sovaDisplayObject)
     {
-        //this->sovaDisplayObject = sovaDisplayObject;
-
-        this->oryolApp = OryolApp::getOryolApp();
-
-        this->drawState.Mesh[0] = OryolApp::getOryolApp()->meshResource;
-        this->drawState.Pipeline = OryolApp::getOryolApp()->pipelineResource;
     }
 
     Sova::OryolDisplayObject::~OryolDisplayObject()
     {
-        OryolApp::getOryolApp()->resourceManager.releaseMesh(this->drawState.Mesh[0]);
     }
 
     void OryolDisplayObject::setTexture(Ref<String> textureName)
     {
         Oryol::String textureString = Oryol::String(textureName->AsCStr());
         this->texture = OryolApp::getOryolApp()->resourceManager.textures[textureString];
-        this->drawState.FSTexture[0] = this->texture->textureId;
 
         this->visible = true;
     }
@@ -41,10 +33,15 @@ namespace Sova
             const auto resState = Gfx::QueryResourceInfo(this->texture->textureId).State;
             if (resState == ResourceState::Valid)
             {
-                const void *data = this->updateVertices(xoffset, yoffset, this->texture->width, this->texture->height, this->oryolApp->canvasWidth,
-                                                        this->oryolApp->canvasHeight);
-                Gfx::UpdateVertices(this->drawState.Mesh[0], data, OryolApp::numVertexesInQuad);
-                Gfx::ApplyDrawState(this->drawState);
+                OryolApp::getOryolApp()->drawState.FSTexture[0] = this->texture->textureId;
+                const void *data = this->updateVertices(xoffset,
+                                                        yoffset,
+                                                        this->texture->width,
+                                                        this->texture->height,
+                                                        OryolApp::getOryolApp()->canvasWidth,
+                                                        OryolApp::getOryolApp()->canvasHeight);
+                Gfx::UpdateVertices(OryolApp::getOryolApp()->drawState.Mesh[0], data, OryolApp::numVertexesInQuad);
+                Gfx::ApplyDrawState(OryolApp::getOryolApp()->drawState);
             }
         }
 

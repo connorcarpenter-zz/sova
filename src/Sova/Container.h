@@ -32,6 +32,7 @@ namespace Sova
         void Destroy();
 
         void SetParent(Ref<Container> newParent);
+        void SetParent(std::nullptr_t);
 
     private:
 

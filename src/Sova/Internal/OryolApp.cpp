@@ -3,6 +3,8 @@
 //
 
 #include <Modules/Input/Input.h>
+#include <Modules/Core/Time/TimePoint.h>
+#include <Modules/Core/Time/Clock.h>
 #include "OryolApp.h"
 
 OryolApp::OryolApp(Sova::App* sovaApp) {
@@ -67,11 +69,36 @@ AppState::Code OryolApp::OnInit()
     return App::OnInit();
 }
 
+static TimePoint tp;
+const static double msPerUpdateFrame = 1000 / 20; //(1000 ms / 20 (frame/second)) = ms/frame
+static double msUntilUpdate = msPerUpdateFrame;
+
 AppState::Code OryolApp::OnRunning() {
 
     // update the game in the Sova app
 
+    /*
+    Duration frameDuration = Clock::LapTime(tp);
+    double ms = frameDuration.AsMilliSeconds();
+    if (ms > msPerUpdateFrame * 2)
+    {
+        msUntilUpdate = -msPerUpdateFrame;
+    }
+    else
+    {
+        msUntilUpdate -= ms;
+    }
+
+    if (msUntilUpdate <= 0)
+    {
+        sovapp->updateFunction();
+        msUntilUpdate += msPerUpdateFrame;
+    }
+     */
+
     sovapp->updateFunction();
+
+    destructionManager.FinalizeDestruction();
 
     Gfx::BeginPass(this->canvasPass);
     sovapp->draw();
@@ -121,6 +148,9 @@ OryolApp::setupCanvas(const TextureSetup& rtSetup)
 
     this->meshResource = Gfx::CreateResource(this->meshSetup);
     this->pipelineResource = Gfx::CreateResource(this->pipelineSetup);
+
+    this->drawState.Mesh[0] = this->meshResource;
+    this->drawState.Pipeline = this->pipelineResource;
 
     // clear the vertex buffer
     Memory::Clear(this->vertexBuffer, sizeof(this->vertexBuffer));

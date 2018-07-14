@@ -47,7 +47,6 @@ namespace Sova
         void removeRef(Ref<Obj>* obj) {
 
             //static_assert(std::is_base_of<Refable, Obj>{}, "Obj should inherit from Refable");
-
             refs.erase(obj);
         }
 

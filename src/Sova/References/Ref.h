@@ -45,10 +45,11 @@ namespace Sova
         //destructor
         ~Ref()
         {
-            release();
             //remove self from parent's list of children
             if (this->parent != nullptr)
                 this->parent->removeRef(this);
+
+            release();
         };
 
         // copy constructor, happens when a method has a Ref as a parameter

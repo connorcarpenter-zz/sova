@@ -24,9 +24,7 @@ namespace Sova
         int getWidth();
         int getHeight();
     private:
-        //DisplayObject* sovaDisplayObject = nullptr;
-        OryolApp* oryolApp;
-        Oryol::DrawState drawState;
+
         OryolTexture* texture = nullptr;
         bool visible = false;
 

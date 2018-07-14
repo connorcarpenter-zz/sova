@@ -16,6 +16,7 @@
 #include "glm/mat4x4.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "OryolResourceManager.h"
+#include "InternalDestructionManager.h"
 
 #include <Sova/App.h>
 
@@ -41,6 +42,7 @@ public:
     MeshSetup meshSetup;
     Id pipelineResource;
     Id meshResource;
+    DrawState drawState;
 
     static const int numVertexesInQuad = 6 * sizeof(vertex);
 
@@ -50,6 +52,7 @@ public:
     int dispHeight = 0;
 
     OryolResourceManager resourceManager;
+    InternalDestructionManager destructionManager;
 
     bool keyPressed(Sova::Key::Code key);
 

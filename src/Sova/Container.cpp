@@ -2,6 +2,7 @@
 // Created by connor on 7/8/18.
 //
 
+#include <Sova/Internal/OryolApp.h>
 #include "Container.h"
 #include "Point.h"
 
@@ -23,7 +24,7 @@ namespace Sova
     {
         this->children->Remove(container);
 
-        container->SetParent(NullRef<Container>());
+        container->SetParent(nullptr);
     }
 
     void Container::OnUpdate(std::function<void()> updateFunction)
@@ -58,6 +59,17 @@ namespace Sova
         }
     }
 
+    void Container::SetParent(std::nullptr_t)
+    {
+        auto oldParent = this->parent;
+        this->parent = nullptr;
+
+        if (oldParent != nullptr)
+        {
+            oldParent->RemoveChild(ThisRef<Container>());
+        }
+    }
+
     void Container::SetParent(Ref<Container> newParent)
     {
         auto oldParent = this->parent;
@@ -71,10 +83,8 @@ namespace Sova
 
     void Container::Destroy()
     {
-        SetParent(NullRef<Container>());
-
+        OryolApp::getOryolApp()->destructionManager.QueueForDestruction(this);
         this->UpdateFunction = nullptr;
-
         this->destroyed = true;
     }
 }
