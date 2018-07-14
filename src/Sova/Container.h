@@ -20,16 +20,24 @@ namespace Sova
 
         SovaTypeDecl(Container, DisplayObject);
         Container();
-        void addChild(Ref<Container> container);
-        void onUpdate(std::function<void()> updateFunction);
-        void updateChildren();
-        std::function<void()> updateFunction = nullptr;
+        void AddChild(Ref<Container> container);
+        void RemoveChild(Ref<Container> container);
 
-        void draw(int xoffset, int yoffset);
+        void OnUpdate(std::function<void()> updateFunction);
+        void UpdateChildren();
+        std::function<void()> UpdateFunction = nullptr;
+
+        void Draw(int xoffset, int yoffset);
+
+        void Destroy();
+
+        void SetParent(Ref<Container> newParent);
 
     private:
 
+        Ref<Container> parent = NullRef<Container>();
         Ref<List<Container>> children = NullRef<List<Container>>();
+        bool destroyed = false;
     };
 
 }

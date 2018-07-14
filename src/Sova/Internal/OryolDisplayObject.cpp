@@ -16,8 +16,13 @@ namespace Sova
 
         this->oryolApp = OryolApp::getOryolApp();
 
-        this->drawState.Mesh[0] = Gfx::CreateResource(this->oryolApp->meshSetup);
-        this->drawState.Pipeline = Gfx::CreateResource(this->oryolApp->pipelineSetup);
+        this->drawState.Mesh[0] = OryolApp::getOryolApp()->meshResource;
+        this->drawState.Pipeline = OryolApp::getOryolApp()->pipelineResource;
+    }
+
+    Sova::OryolDisplayObject::~OryolDisplayObject()
+    {
+        OryolApp::getOryolApp()->resourceManager.releaseMesh(this->drawState.Mesh[0]);
     }
 
     void OryolDisplayObject::setTexture(Ref<String> textureName)

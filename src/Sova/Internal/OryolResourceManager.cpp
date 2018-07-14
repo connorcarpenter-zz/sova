@@ -7,6 +7,7 @@
 #include <Modules/Gfx/private/gfxResourceContainer.h>
 #include "OryolResourceManager.h"
 #include "PNGLoader.h"
+#include "OryolApp.h"
 
 using namespace Oryol;
 
@@ -49,6 +50,30 @@ OryolResourceManager::~OryolResourceManager() {
 
     for (auto textureKV : textures){
         delete textureKV.value;
+    }
+}
+
+Id OryolResourceManager::getMesh() {
+    if (freeMeshes.Size() > 0)
+    {
+        Id id = freeMeshes.ValueAtIndex(0);
+        freeMeshes.Erase(id);
+        usedMeshes.Add(id);
+        return id;
+    }
+    else
+    {
+        Id newId = Gfx::CreateResource(OryolApp::getOryolApp()->meshSetup);
+        usedMeshes.Add(newId);
+        return newId;
+    }
+}
+
+void OryolResourceManager::releaseMesh(const Id& id) {
+    if (usedMeshes.Contains(id))
+    {
+        usedMeshes.Erase(id);
+        freeMeshes.Add(id);
     }
 }
 

@@ -17,6 +17,6 @@ namespace Sova
 
     void Sova::Camera::draw(int xoffset, int yoffset)
     {
-        this->target->draw(xoffset - this->position->x, yoffset - this->position->y);
+        this->target->Draw(xoffset - this->position->x, yoffset - this->position->y);
     }
 }

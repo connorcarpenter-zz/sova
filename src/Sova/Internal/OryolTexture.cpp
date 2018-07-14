@@ -9,7 +9,6 @@ namespace Sova
     OryolTexture::OryolTexture(const Oryol::Id& id)
     {
         this->textureId = id;
-        this->loaded = false;
     }
 
     void OryolTexture::updateAfterLoad(int width, int height)

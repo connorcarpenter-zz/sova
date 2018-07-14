@@ -34,6 +34,8 @@ namespace Sova {
         root->Mark();
 
         sweep();
+
+        root->marked = false;
     }
 
     void GarbageCollector::sweep() {

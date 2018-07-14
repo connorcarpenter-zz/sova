@@ -55,6 +55,7 @@ namespace Sova
             }
         }
 
+        this->resourcesReadyToLoad = NullRef<List<String>>();
         this->finishFunction();
     }
 

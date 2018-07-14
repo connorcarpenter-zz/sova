@@ -12,35 +12,69 @@ namespace Sova
         this->children = NewRef<List<Container>>();
     }
 
-    void Container::addChild(Ref<Container> container)
+    void Container::AddChild(Ref<Container> container)
     {
         this->children->Add(container);
+
+        container->SetParent(ThisRef<Container>());
     }
 
-    void Container::onUpdate(std::function<void()> updateFunction)
+    void Container::RemoveChild(Ref<Container> container)
     {
-        this->updateFunction = updateFunction;
+        this->children->Remove(container);
+
+        container->SetParent(NullRef<Container>());
     }
 
-    void Container::updateChildren()
+    void Container::OnUpdate(std::function<void()> updateFunction)
     {
-        for (Ref<ListIterator<Container>> iterator = this->children->GetIterator(); iterator->Valid(); iterator->Next())
+        this->UpdateFunction = updateFunction;
+    }
+
+    void Container::UpdateChildren()
+    {
+        if (this->destroyed) return;
+
+        for (auto iterator = this->children->GetIterator(); iterator->Valid(); iterator->Next())
         {
             Ref<Container> childContainer = iterator->Get();
-            childContainer->updateFunction();
-            childContainer->updateChildren();
+            if (childContainer->UpdateFunction != nullptr)
+                childContainer->UpdateFunction();
+            childContainer->UpdateChildren();
         }
     }
 
-    void Container::draw(int xoffset, int yoffset)
+    void Container::Draw(int xoffset, int yoffset)
     {
+        if (this->destroyed) return;
+
         this->drawSelf(xoffset, yoffset);
 
         //Draw children
-        for (Ref<ListIterator<Container>> iterator = this->children->GetIterator(); iterator->Valid(); iterator->Next())
+        for (auto iterator = this->children->GetIterator(); iterator->Valid(); iterator->Next())
         {
             Ref<Container> childContainer = iterator->Get();
-            childContainer->draw(xoffset + this->position->x, yoffset + this->position->y);
+            childContainer->Draw(xoffset + this->position->x, yoffset + this->position->y);
         }
+    }
+
+    void Container::SetParent(Ref<Container> newParent)
+    {
+        auto oldParent = this->parent;
+        this->parent = newParent;
+
+        if (oldParent != nullptr)
+        {
+            oldParent->RemoveChild(ThisRef<Container>());
+        }
+    }
+
+    void Container::Destroy()
+    {
+        SetParent(NullRef<Container>());
+
+        this->UpdateFunction = nullptr;
+
+        this->destroyed = true;
     }
 }

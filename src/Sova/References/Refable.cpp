@@ -9,13 +9,21 @@ namespace Sova
 {
     void Refable::Mark()
     {
-        marked = true;
-        for (auto it = refs.begin();
-             it != refs.end();
-             ++it) {
-            Refable* obj = (*it)->getObj();
-            if (obj != nullptr)
-                obj->Mark();
+        if (!marked)
+        {
+            marked = true;
+            for (auto it = refs.begin();
+                 it != refs.end();
+                 ++it) {
+                Refable *obj = (*it)->getObj();
+                if (obj != nullptr)
+                    obj->Mark();
+            }
+        }
+        else
+        {
+            //how is this happening?
+            auto i = 0;
         }
     }
 

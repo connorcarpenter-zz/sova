@@ -108,6 +108,7 @@ OryolApp::setupCanvas(const TextureSetup& rtSetup)
             .Add(VertexAttr::Position, VertexFormat::Float2)
             .Add(VertexAttr::TexCoord0, VertexFormat::Float2);
     this->meshSetup.AddPrimitiveGroup(PrimitiveGroup(0, 6));
+    this->meshSetup.Locator = Locator("2d_sprite_mesh");
 
     Id canvasShader = sovapp->shaderHandler->getCanvasShader();
     this->pipelineSetup = PipelineSetup::FromLayoutAndShader(this->meshSetup.Layout, canvasShader);
@@ -117,6 +118,9 @@ OryolApp::setupCanvas(const TextureSetup& rtSetup)
     this->pipelineSetup.BlendState.ColorFormat = rtSetup.ColorFormat;
     this->pipelineSetup.BlendState.DepthFormat = rtSetup.DepthFormat;
     this->pipelineSetup.RasterizerState.CullFaceEnabled = false;
+
+    this->meshResource = Gfx::CreateResource(this->meshSetup);
+    this->pipelineResource = Gfx::CreateResource(this->pipelineSetup);
 
     // clear the vertex buffer
     Memory::Clear(this->vertexBuffer, sizeof(this->vertexBuffer));

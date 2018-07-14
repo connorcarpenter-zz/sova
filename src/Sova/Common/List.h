@@ -77,6 +77,40 @@ namespace Sova
             }
         }
 
+        void Remove(Ref<T> removeItem)
+        {
+            if (head->item == removeItem)
+            {
+                if (head->next == nullptr)
+                {
+                    //there's only 1 node in this list
+                    head = nullptr;
+                    tail = nullptr;
+                    size = 0;
+                    return;
+                }
+
+                head->item = head->next->item;
+                head->next = head->next->next;
+                size -= 1;
+                return;
+            }
+
+            auto previous = head;
+            while (previous->next != nullptr && previous->next->item != removeItem)
+                previous = previous->next;
+
+            if (previous->next == nullptr)
+            {
+                // node is not in linked list
+                return;
+            }
+
+            //cut item out of the linked list
+            previous->next = previous->next->next;
+            size -= 1;
+        }
+
         int Size() const
         {
             return size;

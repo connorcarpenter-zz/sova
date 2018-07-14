@@ -13,9 +13,9 @@ namespace Sova
     public:
         OryolTexture(const Oryol::Id& id);
         Oryol::Id textureId;
-        int width;
-        int height;
-        bool loaded;
+        int width = 0;
+        int height = 0;
+        bool loaded = false;
 
         void updateAfterLoad(int width, int height);
     };

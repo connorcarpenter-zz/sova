@@ -8,6 +8,7 @@ using namespace Sova;
 
 namespace Sova
 {
+    Sprite::Sprite(){}
 
     Sprite::Sprite(Ref<String> textureName)
     {

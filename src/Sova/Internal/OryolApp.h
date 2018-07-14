@@ -39,6 +39,8 @@ public:
     vertex vertexBuffer[6];
     PipelineSetup pipelineSetup;
     MeshSetup meshSetup;
+    Id pipelineResource;
+    Id meshResource;
 
     static const int numVertexesInQuad = 6 * sizeof(vertex);
 

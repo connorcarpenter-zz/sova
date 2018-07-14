@@ -16,10 +16,12 @@ namespace Sova
     {
     public:
         SovaTypeDecl(Sprite, Container);
+        Sprite();
         Sprite(Ref<String> textureName);
     private:
 
         Ref<String> textureName = NullRef<String>();
+    protected:
         void setTexture(Ref<String> textureName);
     };
 }

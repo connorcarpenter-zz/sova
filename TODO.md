@@ -60,4 +60,6 @@ Future Performance Todo:
     
     - Animation
             
-                
+    - Quick calculation for how many render passes we need to do
+    
+        Each Depth level can only have one texture in it

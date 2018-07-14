@@ -22,10 +22,17 @@ namespace Sova
         void setup();
 
         Oryol::Map<Oryol::String, OryolTexture*> textures;
+
+        Oryol::Id getMesh();
+        void releaseMesh(const Oryol::Id& id);
+
     private:
         Oryol::TextureSetup textureSetup;
 
         void updateResource(Oryol::String resourceString, const Oryol::TextureSetup& texSetup);
+
+        Oryol::Set<Oryol::Id> freeMeshes;
+        Oryol::Set<Oryol::Id> usedMeshes;
     };
 }
 

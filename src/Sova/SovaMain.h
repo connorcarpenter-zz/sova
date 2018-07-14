@@ -13,6 +13,7 @@
 #include "Loader.h"
 #include "Log.h"
 #include "Input.h"
+#include "Math.h"
 #include "Common/String.h"
 #include "Sova/Common/List.h"
 #include "References/Ref.h"
