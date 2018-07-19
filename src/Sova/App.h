@@ -8,7 +8,7 @@
 
 #include "Sova/References/Ref.h"
 #include "Internal/ShaderHandler.h"
-#include "Viewport.h"
+#include "Sova/Graphics/Viewport.h"
 #include "Loader.h"
 #include "Sova/Common/List.h"
 #include "Input.h"

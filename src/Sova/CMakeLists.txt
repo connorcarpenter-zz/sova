@@ -3,16 +3,18 @@ fips_begin_module(Sova)
     fips_files(
             SovaMain.h SovaMain.cpp
             App.h App.cpp
-            Container.h Container.cpp
-            Sprite.h Sprite.cpp
-            Camera.h Camera.cpp
-            Viewport.h Viewport.cpp
             Loader.h Loader.cpp
-            DisplayObject.h DisplayObject.cpp
-            Point.h Point.cpp
             Log.h Log.cpp
             Input.h Input.cpp
-            Math.h Math.cpp
+
+            Graphics/Container.h Graphics/Container.cpp
+            Graphics/Sprite.h Graphics/Sprite.cpp
+            Graphics/Camera.h Graphics/Camera.cpp
+            Graphics/Viewport.h Graphics/Viewport.cpp
+            Graphics/DisplayObject.h Graphics/DisplayObject.cpp
+
+            Math/Point.h Math/Point.cpp
+            Math/Math.h Math/Math.cpp
 
             Network/Websocket.h Network/Websocket.cpp
             Network/HttpRequest.h Network/HttpRequest.cpp
