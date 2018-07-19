@@ -12,6 +12,9 @@
 #include "IRef.h"
 #include "GarbageCollector.h"
 
+//#include <iostream> //remove this after testing
+//using namespace std;//remove this after testing
+
 namespace Sova
 {
     template<class T>
@@ -166,7 +169,10 @@ namespace Sova
         };
 
         Refable* getObj() const {
-            return (Refable*) obj;
+            //cout << "GC: before cast" << endl;
+            Refable* output = (Refable*) obj;
+            //cout << "GC: after cast" << endl;
+            return output;
         }
 
         // operator*, dereferencer

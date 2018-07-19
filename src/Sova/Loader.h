@@ -15,6 +15,8 @@ namespace Sova
     {
     public:
 
+        virtual const char* getClassName() { return "Loader"; }
+
         Ref<Loader> onProgress(std::function<void(Ref<String>)> progressFunction);
         void onFinish(std::function<void()> finishFunction);
 

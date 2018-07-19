@@ -66,7 +66,7 @@ namespace Sova {
 
     Ref<Websocket> App::openWebsocket(Ref<String> address)
     {
-        auto newWebsocket = NewRef<Websocket>(address);
+        Ref<Websocket> newWebsocket = NewRef<Websocket>(address);
         websockets->Add(newWebsocket);
         return newWebsocket;
     }

@@ -17,6 +17,7 @@ namespace Sova
     {
     public:
         explicit Websocket(Ref<String> address);
+        virtual const char* getClassName() { return "Websocket"; }
         ~Websocket();
         void onOpen(std::function<void()> openFunction);
         void onError(std::function<void(Ref<String>)> errorFunction);

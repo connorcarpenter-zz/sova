@@ -22,6 +22,7 @@ namespace Sova {
     {
     public:
         App(int width, int height, Ref<String> windowTitle, Ref<ShaderHandler> shaderHandler);
+        virtual const char* getClassName() { return "App"; }
 
         Ref<Loader> load(Ref<List<String>> resources);
         void start();

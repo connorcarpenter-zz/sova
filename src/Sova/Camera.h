@@ -16,6 +16,7 @@ namespace Sova
     {
     public:
         Camera(int x, int y, int width, int height, Ref <Container> target);
+        virtual const char* getClassName() { return "Camera"; }
         void draw(int xoffset, int yoffset);
 
         Ref<Point> position = NullRef<Point>();

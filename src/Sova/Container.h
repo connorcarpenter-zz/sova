@@ -20,6 +20,7 @@ namespace Sova
 
         SovaTypeDecl(Container, DisplayObject);
         Container();
+        virtual const char* getClassName() { return "Container"; }
         void AddChild(Ref<Container> container);
         void RemoveChild(Ref<Container> container);
 

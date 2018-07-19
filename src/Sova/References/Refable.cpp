@@ -5,25 +5,46 @@
 #include "Refable.h"
 #include "IRef.h"
 
+//#include <iostream> //remove this after testing
+//using namespace std;//remove this after testing
+
 namespace Sova
 {
     void Refable::Mark()
     {
         if (!marked)
         {
+            //int size = refs.size();
+            //int count = 0;
+            //cout << "GC: marking object " << this->getClassName() << ", # of refs: " << size << endl;
+
             marked = true;
             for (auto it = refs.begin();
                  it != refs.end();
                  ++it) {
-                Refable *obj = (*it)->getObj();
-                if (obj != nullptr)
-                    obj->Mark();
+
+                //count += 1;
+                //cout << "GC: inside iterator of " << this->getClassName() << ". Ref # " << count << " of " << size << "" << endl;
+
+                IRef* ref = (*it);
+
+                //cout << "GC: de-reffed good" << endl;
+
+                if (ref != nullptr) {
+                    //cout << "GC: before getobj: " << ref << endl;
+                    Refable *obj = ref->getObj();
+                    //cout << "GC: after getobj" << endl;
+
+                    if (obj != nullptr) {
+                        //cout << "GC: inside iterator marking child: " << obj->getClassName() << "" << endl;
+                        obj->Mark();
+                    }
+                }
             }
         }
         else
         {
-            //how is this happening?
-            auto i = 0;
+            //cout << "GC: already marked " << this->getClassName() << "" << endl;
         }
     }
 
@@ -37,5 +58,9 @@ namespace Sova
 
     Refable::~Refable() {
         delete refCounter;
+    }
+
+    const char* Refable::getClassName() {
+        return "DefaultRefable";
     }
 }

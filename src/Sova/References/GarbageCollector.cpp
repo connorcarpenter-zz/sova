@@ -4,7 +4,7 @@
 //
 
 #include <vector>
-#include <iostream>
+//#include <iostream>
 #include "GarbageCollector.h"
 #include "IRef.h"
 
@@ -29,7 +29,7 @@ namespace Sova {
 
     void GarbageCollector::collect(Refable* root) {
 
-        cout << "GC: " << objHeap.size() << " objects in heap" << endl;
+        //cout << "GC: " << objHeap.size() << " objects in heap" << endl;
 
         root->Mark();
 
@@ -39,6 +39,9 @@ namespace Sova {
     }
 
     void GarbageCollector::sweep() {
+
+        //cout << "GC: start sweep" << endl;
+
         unsigned int live = 0;
         unsigned int dead = 0;
         unsigned int total = 0;
@@ -67,8 +70,8 @@ namespace Sova {
             objHeap.erase(obj);
         }
 
-        cout << "GC: " << live << " objects live after sweep" << endl;
-        cout << "GC: " << dead << " objects dead after sweep" << endl;
+        //cout << "GC: " << live << " objects live after sweep" << endl;
+        //cout << "GC: " << dead << " objects dead after sweep" << endl;
     }
 
     int GarbageCollector::getHeapObjectsNumber() {

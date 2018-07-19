@@ -15,6 +15,7 @@ namespace Sova
     public:
         explicit String(const char* cstr);
         const char* AsCStr() const;
+        virtual const char* getClassName() { return "String"; }
     private:
         const char* strPtr;     // direct pointer to string data, necessary to see something in the debugger
     };

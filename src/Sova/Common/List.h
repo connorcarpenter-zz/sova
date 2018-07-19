@@ -18,6 +18,8 @@ namespace Sova
             this->item = item;
         }
 
+        virtual const char* getClassName() { return "ListNode"; }
+
         Ref<T> item = NullRef<T>();
         Ref<ListNode<T>> next = NullRef<ListNode<T>>();
     };
@@ -31,6 +33,8 @@ namespace Sova
         {
             this->currentNode = headNode;
         }
+
+        virtual const char* getClassName() { return "ListIterator"; }
 
         Ref<T> Get()
         {
@@ -58,6 +62,7 @@ namespace Sova
     public:
 
         List() = default;
+        virtual const char* getClassName() { return "List"; }
 
         void Add(Ref<T> item)
         {

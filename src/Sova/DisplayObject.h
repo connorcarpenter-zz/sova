@@ -21,6 +21,7 @@ namespace Sova
     public:
         SovaBaseTypeDecl(DisplayObject);
         DisplayObject();
+        virtual const char* getClassName() { return "DisplayObject"; }
         ~DisplayObject();
         void drawSelf(int xoffset, int yoffset);
 

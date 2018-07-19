@@ -13,6 +13,7 @@ namespace Sova
     public:
         Point();
         Point(int x, int y);
+        virtual const char* getClassName() { return "Point"; }
         void set(int x, int y);
 
         int x;

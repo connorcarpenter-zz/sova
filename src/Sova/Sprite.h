@@ -18,6 +18,7 @@ namespace Sova
         SovaTypeDecl(Sprite, Container);
         Sprite();
         Sprite(Ref<String> textureName);
+        virtual const char* getClassName() { return "Sprite"; }
     private:
 
         Ref<String> textureName = NullRef<String>();

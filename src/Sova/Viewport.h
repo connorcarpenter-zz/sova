@@ -14,6 +14,7 @@ namespace Sova
 
     public:
         Viewport(int x, int y, int width, int height, Ref<Camera> camera);
+        virtual const char* getClassName() { return "Viewport"; }
         void draw();
 
         Ref<Point> position = NullRef<Point>();

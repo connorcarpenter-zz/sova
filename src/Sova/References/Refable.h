@@ -58,6 +58,7 @@ namespace Sova
         void Mark(); // Mark the object and all its children as live
         void Hold();
         int Release();
+        virtual const char* getClassName();
 
         virtual ~Refable();
 

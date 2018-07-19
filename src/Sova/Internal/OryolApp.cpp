@@ -97,7 +97,6 @@ AppState::Code OryolApp::OnRunning() {
      */
 
     sovapp->updateFunction();
-    sovapp->updateWebsockets();
 
     destructionManager.FinalizeDestruction();
 
@@ -112,6 +111,8 @@ AppState::Code OryolApp::OnRunning() {
     Gfx::EndPass();
 
     Gfx::CommitFrame();
+
+    sovapp->updateWebsockets();
 
     // continue running or quit?
     return Gfx::QuitRequested() ? AppState::Cleanup : AppState::Running;
