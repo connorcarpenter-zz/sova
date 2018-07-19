@@ -20,8 +20,8 @@ namespace Sova
 
         virtual const char* getClassName() { return "ListNode"; }
 
-        Ref<T> item = NullRef<T>();
-        Ref<ListNode<T>> next = NullRef<ListNode<T>>();
+        Ref<T> item = Null<T>();
+        Ref<ListNode<T>> next = Null<ListNode<T>>();
     };
 
     template<class T>
@@ -53,7 +53,7 @@ namespace Sova
 
     private:
 
-        Ref<ListNode<T>> currentNode = NullRef<ListNode<T>>();
+        Ref<ListNode<T>> currentNode = Null<ListNode<T>>();
     };
 
     template<class T>
@@ -66,7 +66,7 @@ namespace Sova
 
         void Add(Ref<T> item)
         {
-            Ref<ListNode<T>> newNode = NewRef<ListNode<T>>(item);
+            Ref<ListNode<T>> newNode = New<ListNode<T>>(item);
 
             if (head == nullptr)
             {
@@ -124,13 +124,13 @@ namespace Sova
 
         Ref<ListIterator<T>> GetIterator()
         {
-            return NewRef<ListIterator<T>>(head);
+            return New<ListIterator<T>>(head);
         }
 
     private:
 
-        Ref<ListNode<T>> head = NullRef<ListNode<T>>();
-        Ref<ListNode<T>> tail = NullRef<ListNode<T>>();
+        Ref<ListNode<T>> head = Null<ListNode<T>>();
+        Ref<ListNode<T>> tail = Null<ListNode<T>>();
         int size = 0;
     };
 }

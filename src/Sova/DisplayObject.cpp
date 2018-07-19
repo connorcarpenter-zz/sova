@@ -11,7 +11,7 @@ namespace Sova
     Sova::DisplayObject::DisplayObject()
     : oryolDisplayObject(new OryolDisplayObject())
     {
-        this->position = NewRef<Point>();
+        this->position = New<Point>();
     }
 
     Sova::DisplayObject::~DisplayObject()

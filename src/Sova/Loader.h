@@ -32,6 +32,6 @@ namespace Sova
         std::function<void(Ref<String>)> progressFunction = nullptr;
         std::function<void()> finishFunction = nullptr;
         bool appHasLoaded = false;
-        Ref<List<String>> resourcesReadyToLoad = NewRef<List<String>>();
+        Ref<List<String>> resourcesReadyToLoad = New<List<String>>();
     };
 }

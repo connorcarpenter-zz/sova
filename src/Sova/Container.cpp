@@ -10,7 +10,7 @@ namespace Sova
 {
     Container::Container()
     {
-        this->children = NewRef<List<Container>>();
+        this->children = New<List<Container>>();
     }
 
     void Container::AddChild(Ref<Container> container)

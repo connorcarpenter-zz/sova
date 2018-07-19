@@ -17,14 +17,14 @@ namespace Sova
     {
     public:
         template<typename DerivedObj, typename... ARGS>
-        Ref<DerivedObj> NewRef(ARGS&&... args) {
+        Ref<DerivedObj> New(ARGS &&... args) {
             Ref<DerivedObj> ref = Ref<DerivedObj>(this);
             ref.initObj(std::forward<ARGS>(args)...);
             return ref;
         }
 
         template<typename DerivedObj>
-        Ref<DerivedObj> NullRef() {
+        Ref<DerivedObj> Null() {
             return Ref<DerivedObj>(this);
         }
 

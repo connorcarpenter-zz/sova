@@ -47,11 +47,11 @@ namespace Sova
     }
 
     void Websocket::receiveMessage(const char* message) {
-        this->messageFunction(NewRef<String>(message));
+        this->messageFunction(New<String>(message));
     }
 
     void Websocket::receiveError(const char* message) {
-        this->errorFunction(NewRef<String>(message));
+        this->errorFunction(New<String>(message));
     }
 
     void Websocket::receiveOpen() {
@@ -59,7 +59,7 @@ namespace Sova
     }
 
     void Websocket::receiveClose(const char* message) {
-        this->closeFunction(NewRef<String>(message));
+        this->closeFunction(New<String>(message));
     }
 
     ReadyState Websocket::getReadyState() {

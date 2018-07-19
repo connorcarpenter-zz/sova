@@ -19,11 +19,11 @@ namespace Sova
         virtual const char* getClassName() { return "Camera"; }
         void draw(int xoffset, int yoffset);
 
-        Ref<Point> position = NullRef<Point>();
+        Ref<Point> position = Null<Point>();
         int width;
         int height;
     private:
 
-        Ref<Container> target = NullRef<Container>();
+        Ref<Container> target = Null<Container>();
     };
 }

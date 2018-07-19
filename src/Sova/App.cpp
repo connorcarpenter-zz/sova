@@ -16,9 +16,9 @@ namespace Sova {
         this->windowTitle = windowTitle;
         this->shaderHandler = shaderHandler;
 
-        this->loader = NewRef<Loader>();
-        this->viewports = NewRef<List<Viewport>>();
-        this->websockets = NewRef<List<Websocket>>();
+        this->loader = New<Loader>();
+        this->viewports = New<List<Viewport>>();
+        this->websockets = New<List<Websocket>>();
     }
 
     void App::start() {
@@ -66,7 +66,7 @@ namespace Sova {
 
     Ref<Websocket> App::openWebsocket(Ref<String> address)
     {
-        Ref<Websocket> newWebsocket = NewRef<Websocket>(address);
+        Ref<Websocket> newWebsocket = New<Websocket>(address);
         websockets->Add(newWebsocket);
         return newWebsocket;
     }

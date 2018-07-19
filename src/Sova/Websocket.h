@@ -35,7 +35,7 @@ namespace Sova
         void receiveOpen();
         void receiveClose(const char* message);
 
-        Ref<String> url = NullRef<String>();
+        Ref<String> url = Null<String>();
 
 
     private:

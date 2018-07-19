@@ -17,10 +17,10 @@ namespace Sova
         virtual const char* getClassName() { return "Viewport"; }
         void draw();
 
-        Ref<Point> position = NullRef<Point>();
+        Ref<Point> position = Null<Point>();
     private:
         int width;
         int height;
-        Ref<Camera> camera = NullRef<Camera>();
+        Ref<Camera> camera = Null<Camera>();
     };
 }

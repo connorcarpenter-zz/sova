@@ -37,8 +37,8 @@ namespace Sova
 
     private:
 
-        Ref<Container> parent = NullRef<Container>();
-        Ref<List<Container>> children = NullRef<List<Container>>();
+        Ref<Container> parent = Null<Container>();
+        Ref<List<Container>> children = Null<List<Container>>();
         bool destroyed = false;
     };
 

@@ -25,7 +25,7 @@ namespace Sova
         ~DisplayObject();
         void drawSelf(int xoffset, int yoffset);
 
-        Ref<Point> position = NullRef<Point>();
+        Ref<Point> position = Null<Point>();
         int getWidth();
         int getHeight();
 

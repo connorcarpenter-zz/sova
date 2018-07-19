@@ -21,7 +21,7 @@ namespace Sova
         virtual const char* getClassName() { return "Sprite"; }
     private:
 
-        Ref<String> textureName = NullRef<String>();
+        Ref<String> textureName = Null<String>();
     protected:
         void setTexture(Ref<String> textureName);
     };

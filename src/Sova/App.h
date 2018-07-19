@@ -41,11 +41,11 @@ namespace Sova {
         //Window
         int width;
         int height;
-        Ref<String> windowTitle = NullRef<String>();
-        Ref<ShaderHandler> shaderHandler = NullRef<ShaderHandler>();
+        Ref<String> windowTitle = Null<String>();
+        Ref<ShaderHandler> shaderHandler = Null<ShaderHandler>();
         
         //Resource loading
-        Ref<Loader> loader = NullRef<Loader>();
+        Ref<Loader> loader = Null<Loader>();
 
         //Sockets
         Ref<Websocket> openWebsocket(Ref<String> address);
@@ -53,8 +53,8 @@ namespace Sova {
         void updateWebsockets();
 
     private:
-        Ref<List<Viewport>> viewports = NullRef<List<Viewport>>();
-        Ref<List<Websocket>> websockets = NullRef<List<Websocket>>();
+        Ref<List<Viewport>> viewports = Null<List<Viewport>>();
+        Ref<List<Websocket>> websockets = Null<List<Websocket>>();
     };
 
 }
