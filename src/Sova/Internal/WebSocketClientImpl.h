@@ -7,7 +7,7 @@
 #include <Sova/Common/String.h>
 #include <Sova/References/Ref.h>
 #include "WebSocketClient/WebSocketClient.h"
-#include "Sova/Websocket.h"
+#include "Sova/Network/Websocket.h"
 
 namespace Sova
 {

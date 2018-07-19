@@ -183,7 +183,7 @@ namespace Sova
         };
 
         T* obj = nullptr;
-        
+
     private:
         
         Refable* parent = nullptr;

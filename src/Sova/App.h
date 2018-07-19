@@ -12,7 +12,7 @@
 #include "Loader.h"
 #include "Sova/Common/List.h"
 #include "Input.h"
-#include "Websocket.h"
+#include "Sova/Network/Websocket.h"
 
 using namespace Sova;
 

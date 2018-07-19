@@ -13,8 +13,10 @@ fips_begin_module(Sova)
             Log.h Log.cpp
             Input.h Input.cpp
             Math.h Math.cpp
-            Websocket.h Websocket.cpp
 
+            Network/Websocket.h Network/Websocket.cpp
+            Network/HttpRequest.h Network/HttpRequest.cpp
+            Network/HttpResponse.h Network/HttpResponse.cpp
 
             Common/List.h
             Common/String.cpp
