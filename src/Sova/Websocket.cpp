@@ -3,19 +3,14 @@
 //
 
 #include "Websocket.h"
-#include "WebSocketClient/WebSocketClient.h"
+#include "Sova/Internal/WebSocketClientImpl.h"
 
 namespace Sova
 {
-
-    Websocket::Websocket(Ref<String> address)
+    Sova::Websocket::Websocket(Ref<String> address)
     {
         this->address = address;
-        this->webSocketClient = new Oryol::WebSocketClient();
-        this->webSocketClient->connect(address->AsCStr());
-        this->webSocketClient->receive([&](Oryol::String msg){
-            this->messageFunction(NewRef<String>(msg.AsCStr()));
-        });
+        this->webSocketClient = new Sova::WebSocketClientImpl(this, address);
     }
 
     Websocket::~Websocket()
@@ -47,5 +42,7 @@ namespace Sova
         this->webSocketClient->update();
     }
 
-
+    void Websocket::receiveMessage(const char* message) {
+        this->messageFunction(NewRef<String>(message));
+    }
 }

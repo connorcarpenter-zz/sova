@@ -11,7 +11,8 @@
 
 namespace Sova
 {
-    class WebSocketClient;
+    class WebSocketClientImpl;
+
     class Websocket : public Refable
     {
     public:
@@ -23,6 +24,7 @@ namespace Sova
         void send(Ref<String> message);
         void close();
         void update();
+        void receiveMessage(const char* message);
 
         Ref<String> address = NullRef<String>();
 
@@ -31,6 +33,6 @@ namespace Sova
         std::function<void(Ref<String>)> errorFunction = nullptr;
         std::function<void(Ref<String>)> messageFunction = nullptr;
 
-        WebSocketClient* webSocketClient = nullptr;
+        WebSocketClientImpl* webSocketClient = nullptr;
     };
 }
