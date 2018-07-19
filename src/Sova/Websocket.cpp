@@ -9,7 +9,7 @@ namespace Sova
 {
     Sova::Websocket::Websocket(Ref<String> address)
     {
-        this->address = address;
+        this->url = address;
         this->webSocketClient = new Sova::WebSocketClientImpl(this, address);
     }
 
@@ -30,12 +30,16 @@ namespace Sova
         this->messageFunction = messageFunction;
     }
 
+    void Websocket::onClose(std::function<void(Ref<String>)> closeFunction) {
+        this->closeFunction = closeFunction;
+    }
+
     void Websocket::send(Ref<String> message) {
         this->webSocketClient->send(Oryol::String(message->AsCStr()));
     }
 
     void Websocket::close() {
-
+        this->webSocketClient->close();
     }
 
     void Websocket::update() {
@@ -44,5 +48,21 @@ namespace Sova
 
     void Websocket::receiveMessage(const char* message) {
         this->messageFunction(NewRef<String>(message));
+    }
+
+    void Websocket::receiveError(const char* message) {
+        this->errorFunction(NewRef<String>(message));
+    }
+
+    void Websocket::receiveOpen() {
+        this->openFunction();
+    }
+
+    void Websocket::receiveClose(const char* message) {
+        this->closeFunction(NewRef<String>(message));
+    }
+
+    ReadyState Websocket::getReadyState() {
+        return static_cast<ReadyState>(this->webSocketClient->getReadyState());
     }
 }

@@ -17,6 +17,10 @@ namespace Sova
         WebSocketClientImpl(Sova::Websocket* wrapperWebsocket, Ref<String> address);
         void update();
         void send(Oryol::String message);
+
+        void close();
+        int getReadyState();
+
     private:
         Oryol::WebSocketClient webSocketClient;
         Sova::Websocket* wrapperWebsocket = nullptr;

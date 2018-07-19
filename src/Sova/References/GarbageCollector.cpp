@@ -10,25 +10,27 @@
 
 using namespace std;
 
-namespace Sova {
-
+namespace Sova
+{
     GarbageCollector* GarbageCollector::singleton = nullptr;
 
-    GarbageCollector* GarbageCollector::getGC() {
+    GarbageCollector* GarbageCollector::getGC()
+    {
         if (singleton == nullptr)
             singleton = new GarbageCollector();
         return singleton;
     }
 
-    void GarbageCollector::resetGC() {
+    void GarbageCollector::resetGC()
+    {
         if (singleton != nullptr)
             delete singleton;
         singleton = nullptr;
         getGC();
     }
 
-    void GarbageCollector::collect(Refable* root) {
-
+    void GarbageCollector::collect(Refable* root)
+    {
         //cout << "GC: " << objHeap.size() << " objects in heap" << endl;
 
         root->Mark();
@@ -38,8 +40,8 @@ namespace Sova {
         root->marked = false;
     }
 
-    void GarbageCollector::sweep() {
-
+    void GarbageCollector::sweep()
+    {
         //cout << "GC: start sweep" << endl;
 
         unsigned int live = 0;
@@ -74,7 +76,8 @@ namespace Sova {
         //cout << "GC: " << dead << " objects dead after sweep" << endl;
     }
 
-    int GarbageCollector::getHeapObjectsNumber() {
+    int GarbageCollector::getHeapObjectsNumber()
+    {
         return (int) objHeap.size();
     }
 

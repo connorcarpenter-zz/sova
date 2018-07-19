@@ -11,6 +11,8 @@
 
 namespace Sova
 {
+    enum ReadyState { CONNECTING, OPEN, CLOSING, CLOSED };
+
     class WebSocketClientImpl;
 
     class Websocket : public Refable
@@ -22,17 +24,25 @@ namespace Sova
         void onOpen(std::function<void()> openFunction);
         void onError(std::function<void(Ref<String>)> errorFunction);
         void onMessage(std::function<void(Ref<String>)> messageFunction);
+        void onClose(std::function<void(Ref<String>)> closeFunction);
         void send(Ref<String> message);
         void close();
         void update();
-        void receiveMessage(const char* message);
+        ReadyState getReadyState();
 
-        Ref<String> address = NullRef<String>();
+        void receiveMessage(const char* message);
+        void receiveError(const char* message);
+        void receiveOpen();
+        void receiveClose(const char* message);
+
+        Ref<String> url = NullRef<String>();
+
 
     private:
         std::function<void()> openFunction = nullptr;
         std::function<void(Ref<String>)> errorFunction = nullptr;
         std::function<void(Ref<String>)> messageFunction = nullptr;
+        std::function<void(Ref<String>)> closeFunction = nullptr;
 
         WebSocketClientImpl* webSocketClient = nullptr;
     };
