@@ -18,6 +18,7 @@ namespace Sova {
 
         this->loader = NewRef<Loader>();
         this->viewports = NewRef<List<Viewport>>();
+        this->websockets = NewRef<List<Websocket>>();
     }
 
     void App::start() {
@@ -61,5 +62,21 @@ namespace Sova {
 
     int App::getMouseY() {
         return OryolApp::getOryolApp()->getMouseY();
+    }
+
+    Ref<Websocket> App::openWebsocket(Ref<String> address)
+    {
+        auto newWebsocket = NewRef<Websocket>(address);
+        websockets->Add(newWebsocket);
+        return newWebsocket;
+    }
+
+    void App::updateWebsockets()
+    {
+        for (Ref<ListIterator<Websocket>> iterator = this->websockets->GetIterator(); iterator->Valid(); iterator->Next())
+        {
+            Ref<Websocket> websocket = iterator->Get();
+            websocket->update();
+        }
     }
 }

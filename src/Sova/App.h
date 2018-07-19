@@ -12,6 +12,7 @@
 #include "Loader.h"
 #include "Sova/Common/List.h"
 #include "Input.h"
+#include "Websocket.h"
 
 using namespace Sova;
 
@@ -44,10 +45,15 @@ namespace Sova {
         
         //Resource loading
         Ref<Loader> loader = NullRef<Loader>();
-        
+
+        //Sockets
+        Ref<Websocket> openWebsocket(Ref<String> address);
+
+        void updateWebsockets();
+
     private:
         Ref<List<Viewport>> viewports = NullRef<List<Viewport>>();
-
+        Ref<List<Websocket>> websockets = NullRef<List<Websocket>>();
     };
 
 }

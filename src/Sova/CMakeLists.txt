@@ -13,6 +13,7 @@ fips_begin_module(Sova)
             Log.h Log.cpp
             Input.h Input.cpp
             Math.h Math.cpp
+            Websocket.h Websocket.cpp
 
             Common/List.h
             Common/String.cpp
@@ -32,5 +33,5 @@ fips_begin_module(Sova)
             Internal/OryolTexture.h Internal/OryolTexture.cpp
             Internal/OryolResourceManager.h Internal/OryolResourceManager.cpp
             Internal/InternalDestructionManager.h Internal/InternalDestructionManager.cpp)
-    fips_deps(Core IO Gfx Input Assets HttpFS LocalFS lodepng)
+    fips_deps(Core IO Gfx Input Assets HttpFS LocalFS lodepng WebSocketClient)
 fips_end_module()

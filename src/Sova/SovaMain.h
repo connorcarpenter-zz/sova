@@ -14,6 +14,7 @@
 #include "Log.h"
 #include "Input.h"
 #include "Math.h"
+#include "Websocket.h"
 #include "Common/String.h"
 #include "Sova/Common/List.h"
 #include "References/Ref.h"

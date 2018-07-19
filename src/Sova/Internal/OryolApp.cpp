@@ -97,6 +97,7 @@ AppState::Code OryolApp::OnRunning() {
      */
 
     sovapp->updateFunction();
+    sovapp->updateWebsockets();
 
     destructionManager.FinalizeDestruction();
 
