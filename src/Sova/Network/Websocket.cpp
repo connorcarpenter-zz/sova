@@ -3,14 +3,14 @@
 //
 
 #include "Websocket.h"
-#include "Sova/Internal/WebSocketClientImpl.h"
+#include "Sova/Network/Impls/WebsocketImpl.h"
 
 namespace Sova
 {
     Sova::Websocket::Websocket(Ref<String> address)
     {
         this->url = address;
-        this->webSocketClient = new Sova::WebSocketClientImpl(this, address);
+        this->webSocketClient = new Sova::WebsocketImpl(this, address);
     }
 
     Websocket::~Websocket()

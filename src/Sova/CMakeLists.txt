@@ -19,10 +19,12 @@ fips_begin_module(Sova)
             Network/Websocket.h Network/Websocket.cpp
             Network/HttpRequest.h Network/HttpRequest.cpp
             Network/HttpResponse.h Network/HttpResponse.cpp
+            Network/Impls/HttpRequestImpl.h Network/Impls/HttpRequestImpl.cpp
+            Network/Impls/WebsocketImpl.h Network/Impls/WebsocketImpl.cpp
+            Network/Impls/HttpRequest/baseHttpRequest.h
 
             Common/List.h
-            Common/String.cpp
-            Common/String.h
+            Common/String.h Common/String.cpp
 
             References/Ref.h References/IRef.h
             References/Refable.h References/Refable.cpp
@@ -38,6 +40,11 @@ fips_begin_module(Sova)
             Internal/OryolTexture.h Internal/OryolTexture.cpp
             Internal/OryolResourceManager.h Internal/OryolResourceManager.cpp
             Internal/InternalDestructionManager.h Internal/InternalDestructionManager.cpp
-            Internal/WebSocketClientImpl.h Internal/WebSocketClientImpl.cpp)
+    )
+    if (ORYOL_USE_LIBCURL)
+        fips_files(Network/Impls/HttpRequest/curl/curlHttpRequest.h Network/Impls/HttpRequest/curl/curlHttpRequest.cpp)
+    elseif (FIPS_EMSCRIPTEN)
+        fips_files(Network/Impls/HttpRequest/emsc/emscHttpRequest.h Network/Impls/HttpRequest/emsc/emscHttpRequest.cpp)
+    endif()
     fips_deps(Core IO Gfx Input Assets HttpFS LocalFS lodepng WebSocketClient)
 fips_end_module()

@@ -11,10 +11,10 @@
 
 namespace Sova
 {
-    class WebSocketClientImpl
+    class WebsocketImpl
     {
     public:
-        WebSocketClientImpl(Sova::Websocket* wrapperWebsocket, Ref<String> address);
+        WebsocketImpl(Sova::Websocket* wrapperWebsocket, Ref<String> address);
         void update();
         void send(Oryol::String message);
 

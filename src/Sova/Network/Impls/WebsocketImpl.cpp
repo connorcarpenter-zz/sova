@@ -2,11 +2,11 @@
 // Created by connor on 7/18/18.
 //
 
-#include "WebSocketClientImpl.h"
+#include "WebsocketImpl.h"
 
 namespace Sova
 {
-    WebSocketClientImpl::WebSocketClientImpl(Websocket* wrapperWebsocket, Ref <String> address)
+    WebsocketImpl::WebsocketImpl(Websocket* wrapperWebsocket, Ref <String> address)
     {
         this->wrapperWebsocket = wrapperWebsocket;
 
@@ -29,22 +29,22 @@ namespace Sova
         this->webSocketClient.connect(address->AsCStr());
     }
 
-    void WebSocketClientImpl::update()
+    void WebsocketImpl::update()
     {
         this->webSocketClient.update();
     }
 
-    void WebSocketClientImpl::send(Oryol::String message)
+    void WebsocketImpl::send(Oryol::String message)
     {
         this->webSocketClient.send(message);
     }
 
-    void WebSocketClientImpl::close()
+    void WebsocketImpl::close()
     {
         this->webSocketClient.close();
     }
 
-    int WebSocketClientImpl::getReadyState() {
+    int WebsocketImpl::getReadyState() {
         return this->webSocketClient.getReadyState();
     }
 }
