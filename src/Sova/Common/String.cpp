@@ -4,6 +4,7 @@
 
 #include <cstring>
 #include <Modules/Core/Assertion.h>
+#include <Sova/References/Ref.h>
 #include "String.h"
 
 namespace Sova
@@ -56,6 +57,109 @@ namespace Sova
     }
 
     int String::Length() const {
-        return length;
+        return this->length;
+    }
+
+    const char String::CharAt(int index) const {
+        o_assert(index < this->length);
+        if (this->useCharArray)
+            return this->charArray[index];
+        return strPtr[index];
+    }
+
+    Ref<List<String>> String::Split(char separator)
+    {
+        Ref<List<String>> stringList = New<List<String>>();
+
+        int start = 0;
+        int i = 0;
+        while(i <= this->length)
+        {
+            bool foundSeparator = false;
+            if (i==this->length) foundSeparator = true;
+            if (!foundSeparator)
+                foundSeparator = (CharAt(i) == separator);
+            if (foundSeparator)
+            {
+                //found a separator! lets make a new string
+                int newLength = i-start;
+
+                if (newLength == 0)
+                {
+                    //add new string here and bypass string allocation later
+                    auto i = 12;
+                }
+                else
+                {
+                    char* newCharArray = new char[newLength];
+                    for (int j = 0; j < newLength; j++)
+                    {
+                        newCharArray[j] = CharAt(start+j);
+                    }
+                    auto newString = New<String>(newCharArray, newLength, true);
+                    stringList->Add(newString);
+
+                    delete newCharArray;//not sure if this is necessary, or will break things, just checking
+                    start = i+1;
+                }
+            }
+
+            if (i==this->length) break;
+            i += 1;
+        }
+
+        //We want to return a null list instead of an empty list... I think
+        if (stringList->Size() == 0)
+            return Null<List<String>>();
+
+        return stringList;
+    }
+
+    const bool String::Equals(const char *cstr) const
+    {
+        for (int i = 0; i<this->length; i++)
+        {
+            if (CharAt(i) != cstr[i])
+                return false;
+        }
+
+        return true;
+    }
+
+    const bool String::EndsWith(const char *cstr) const
+    {
+        int cstrlength = (int) strlen(cstr);
+        for (int i = 0; i<cstrlength; i++)
+        {
+            if(CharAt(this->length-1-i) != cstr[cstrlength-1-i])
+                return false;
+        }
+
+        return true;
+    }
+
+    Ref<String> String::TrimEnd(const char *cstr)
+    {
+        if (EndsWith(cstr)){
+            int cstrlength = (int) strlen(cstr);
+            return Substring(0, this->length - cstrlength);
+        }
+        else
+        {
+            return ThisRef<String>();
+        }
+    }
+
+    Ref<String> String::Substring(int start, int end)
+    {
+        int newLength = end - start;
+        char* newCharArray = new char[newLength];
+        for (int i = 0; i < newLength; i++)
+        {
+            newCharArray[i] = CharAt(start+i);
+        }
+        Ref<String> newString = New<String>(newCharArray, newLength, true);
+        delete newCharArray;
+        return newString;
     }
 }

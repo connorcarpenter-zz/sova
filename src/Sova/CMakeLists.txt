@@ -25,6 +25,7 @@ fips_begin_module(Sova)
 
             Common/List.h
             Common/String.h Common/String.cpp
+            Common/StringBuilder.h Common/StringBuilder.cpp
 
             References/Ref.h References/IRef.h
             References/Refable.h References/Refable.cpp

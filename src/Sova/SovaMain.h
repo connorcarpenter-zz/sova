@@ -18,6 +18,7 @@
 #include "Sova/Network/HttpRequest.h"
 #include "Sova/Network/HttpResponse.h"
 #include "Common/String.h"
+#include "Common/StringBuilder.h"
 #include "Sova/Common/List.h"
 #include "References/Ref.h"
 #include "References/Refable.h"

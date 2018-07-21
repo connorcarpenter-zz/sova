@@ -19,6 +19,7 @@ namespace Sova
             this->ioReq->Url = Oryol::URL(this->parentRequest->url->AsCStr());
             this->receiveFunction = [&](HttpRequestImpl* req)
             {
+                //erroring out here probably means server isn't running
                 this->parentRequest->receiveResponse(req->getIoReq()->Status, (char*) req->getIoReq()->Data.Data(), req->getIoReq()->Data.Size());
             };
             this->doRequest(this);

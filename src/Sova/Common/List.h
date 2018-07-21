@@ -4,6 +4,7 @@
 // Created by connor on 7/9/18.
 //
 #include <Sova/References/Refable.h>
+#include <Modules/Core/Assertion.h>
 
 namespace Sova
 {
@@ -121,7 +122,7 @@ namespace Sova
         {
             return size;
         }
-        
+
         void Clear()
         {
             size = 0;
@@ -133,6 +134,24 @@ namespace Sova
         Ref<ListIterator<T>> GetIterator()
         {
             return New<ListIterator<T>>(head);
+        }
+
+        Ref<T> At(int index)
+        {
+            o_assert(index < size);
+            if (index == 0) return head->item;
+            if (index == size-1) return tail->item;
+
+            int count = 0;
+            for (Ref<ListIterator<T>> iterator = this->GetIterator(); iterator->Valid(); iterator->Next())
+            {
+                if (count == index)
+                    return iterator->Get();
+                count += 1;
+            }
+
+            //Should never arrive here..
+            o_assert(false);
         }
 
     private:
