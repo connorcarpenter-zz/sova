@@ -6,6 +6,14 @@
 
 #include "IO/private/ioRequests.h"
 
+namespace Sova
+{
+    namespace _priv
+    {
+        class HttpRequestImpl;
+    }
+}
+
 namespace Oryol
 {
     namespace _priv
@@ -14,7 +22,7 @@ namespace Oryol
         {
         public:
             /// process one HTTPRequest
-            bool doRequest(const Ptr<IORead>& ioRequest) {}
+            bool doRequest(Sova::_priv::HttpRequestImpl* req) {}
         };
     }
 }

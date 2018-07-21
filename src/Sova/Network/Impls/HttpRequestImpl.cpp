@@ -15,11 +15,23 @@ namespace Sova
 
         void HttpRequestImpl::send()
         {
-            Oryol::Ptr<Oryol::IORead> ioReq = Oryol::IORead::Create();
-            ioReq->Url = Oryol::URL(this->parentRequest->url->AsCStr());
-            this->doRequest(ioReq);
+            this->ioReq = Oryol::IORead::Create();
+            this->ioReq->Url = Oryol::URL(this->parentRequest->url->AsCStr());
+            this->receiveFunction = [&](HttpRequestImpl* req)
+            {
+                this->parentRequest->receiveResponse(req->getIoReq()->Status, (char*) req->getIoReq()->Data.Data(), req->getIoReq()->Data.Size());
+            };
+            this->doRequest(this);
+        }
 
-            this->parentRequest->receiveResponse(ioReq->Status, (char*) ioReq->Data.Data(), ioReq->Data.Size());
+        Oryol::Ptr<Oryol::IORead>& HttpRequestImpl::getIoReq()
+        {
+            return this->ioReq;
+        }
+
+        void HttpRequestImpl::onReceive(HttpRequestImpl *req)
+        {
+            this->receiveFunction(req);
         }
     }
 }

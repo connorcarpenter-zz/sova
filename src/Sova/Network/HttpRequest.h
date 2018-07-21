@@ -28,8 +28,10 @@ namespace Sova
         void setRequestHeader(Ref<String> headerName, Ref<String> headerValue);
         void onResponse(std::function<void(Ref<HttpResponse>)> responseFunction);
         void send();
+        void update();
+        bool isFinished();
 
-        void receiveResponse(int status, char* data, int dataSize);
+        void receiveResponse(int status, const char* data, int dataSize);
 
         Ref<List<String>> headerKeys = Null<List<String>>();
         Ref<List<String>> headerValues = Null<List<String>>();
@@ -41,6 +43,7 @@ namespace Sova
 
         std::function<void(Ref<HttpResponse>)> responseFunction = nullptr;
 
-
+        bool responseSent = false;
+        Ref<HttpResponse> response = Null<HttpResponse>();
     };
 }

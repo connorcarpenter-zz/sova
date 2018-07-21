@@ -8,6 +8,7 @@
 #include <mutex>
 
 #include "curlHttpRequest.h"
+#include "Sova/Network/Impls/HttpRequestImpl.h"
 
 #if LIBCURL_VERSION_NUM != 0x072400
 #error "Not using the right curl version, header search path fuckup?"
@@ -101,19 +102,20 @@ curlHttpRequest::curlWriteDataCallback(char* ptr, int size, int nmemb, void* use
 
 //------------------------------------------------------------------------------
 bool
-curlHttpRequest::doRequest(const Ptr<IORead>& req) {
+curlHttpRequest::doRequest(Sova::_priv::HttpRequestImpl* req) {
         this->doRequestInternal(req);
-        req->Handled = true;
+        req->onReceive(req);
         return true;
 }
 
 //------------------------------------------------------------------------------
 void
-curlHttpRequest::doRequestInternal(const Ptr<IORead>& req) {
+curlHttpRequest::doRequestInternal(Sova::_priv::HttpRequestImpl* httpReq) {
     o_assert(0 != this->curlSession);
     o_assert(0 != this->curlError);
 
     // set URL in curl
+    const Ptr<IORead>& req = httpReq->getIoReq();
     const URL& url = req->Url;
     o_assert(url.Scheme() == "http");
     curl_easy_setopt(this->curlSession, CURLOPT_URL, url.AsCStr());

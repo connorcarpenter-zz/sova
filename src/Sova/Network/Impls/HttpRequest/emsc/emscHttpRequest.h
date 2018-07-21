@@ -12,10 +12,10 @@ namespace _priv {
 class emscHttpRequest : public baseHttpRequest {
 public:
     /// process one request
-    bool doRequest(const Ptr<IORead>& req);
+    bool doRequest(Sova::_priv::HttpRequestImpl* req);
 
     /// start the next, called from doWork
-    void startRequest(const Ptr<IORead>& req);
+    void startRequest(Sova::_priv::HttpRequestImpl* req);
     /// success callback
     static void onLoaded(void* userData, void* buffer, int size);
     /// failure callback

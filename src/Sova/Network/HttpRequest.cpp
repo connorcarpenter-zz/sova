@@ -40,10 +40,22 @@ namespace Sova
         this->impl->send();
     }
 
-    void HttpRequest::receiveResponse(int status, char* data, int dataSize)
+    void HttpRequest::receiveResponse(int status, const char* data, int dataSize)
     {
-        Ref<String> responseText = New<String>(data);
-        Ref<HttpResponse> response = New<HttpResponse>(status, responseText);
-        this->responseFunction(response);
+        Ref<String> responseText = New<String>(data, dataSize, true);
+
+        this->response = New<HttpResponse>(status, responseText);
+    }
+
+    void HttpRequest::update() {
+        if (this->response != nullptr)
+        {
+            this->responseFunction(this->response);
+            responseSent = true;
+        }
+    }
+
+    bool HttpRequest::isFinished() {
+        return responseSent;
     }
 }

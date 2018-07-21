@@ -34,8 +34,14 @@ namespace Sova
 
             void send();
 
+            Oryol::Ptr<Oryol::IORead>& getIoReq();
+            
+            void onReceive(HttpRequestImpl* req);
+
         private:
             Sova::HttpRequest* parentRequest = nullptr;
+            Oryol::Ptr<Oryol::IORead> ioReq;
+            std::function<void(Sova::_priv::HttpRequestImpl* req)> receiveFunction;
         };
     }
 }

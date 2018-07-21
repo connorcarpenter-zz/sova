@@ -19,6 +19,8 @@ namespace Sova {
         this->loader = New<Loader>();
         this->viewports = New<List<Viewport>>();
         this->websockets = New<List<Websocket>>();
+        this->httpRequests = New<List<HttpRequest>>();
+        this->finishedHttpRequests = New<List<HttpRequest>>();
     }
 
     void App::start() {
@@ -73,10 +75,40 @@ namespace Sova {
 
     void App::updateWebsockets()
     {
-        for (Ref<ListIterator<Websocket>> iterator = this->websockets->GetIterator(); iterator->Valid(); iterator->Next())
+        if (this->websockets->Size() > 0) {
+            for (Ref<ListIterator<Websocket>> iterator = this->websockets->GetIterator(); iterator->Valid(); iterator->Next()) {
+                Ref<Websocket> websocket = iterator->Get();
+                websocket->update();
+            }
+        }
+    }
+
+    Ref<HttpRequest> App::makeHttpRequest(Ref<String> method, Ref<String> address)
+    {
+        Ref<HttpRequest> newRequest = New<HttpRequest>(method, address);
+        httpRequests->Add(newRequest);
+        return newRequest;
+    }
+
+    void App::updateHttpRequests()
+    {
+        if (this->httpRequests->Size() > 0) {
+            for (Ref<ListIterator<HttpRequest>> iterator = this->httpRequests->GetIterator(); iterator->Valid(); iterator->Next()) {
+                Ref<HttpRequest> request = iterator->Get();
+                request->update();
+                if (request->isFinished())
+                    finishedHttpRequests->Add(request);
+            }
+        }
+        
+        if (this->finishedHttpRequests->Size() > 0)
         {
-            Ref<Websocket> websocket = iterator->Get();
-            websocket->update();
+            for (Ref<ListIterator<HttpRequest>> iterator = this->finishedHttpRequests->GetIterator(); iterator->Valid(); iterator->Next())
+            {
+                Ref<HttpRequest> request = iterator->Get();
+                this->httpRequests->Remove(request);
+            }
+            this->finishedHttpRequests->Clear();
         }
     }
 }

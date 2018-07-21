@@ -113,6 +113,7 @@ AppState::Code OryolApp::OnRunning() {
     Gfx::CommitFrame();
 
     sovapp->updateWebsockets();
+    sovapp->updateHttpRequests();
 
     // continue running or quit?
     return Gfx::QuitRequested() ? AppState::Cleanup : AppState::Running;

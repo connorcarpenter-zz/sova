@@ -5,6 +5,7 @@
 //
 
 #include <functional>
+#include <Sova/Network/HttpRequest.h>
 
 #include "Sova/References/Ref.h"
 #include "Internal/ShaderHandler.h"
@@ -49,12 +50,18 @@ namespace Sova {
 
         //Sockets
         Ref<Websocket> openWebsocket(Ref<String> address);
+        Ref<HttpRequest> makeHttpRequest(Ref<String> method, Ref<String> address);
 
         void updateWebsockets();
+        void updateHttpRequests();
 
     private:
         Ref<List<Viewport>> viewports = Null<List<Viewport>>();
         Ref<List<Websocket>> websockets = Null<List<Websocket>>();
+        Ref<List<HttpRequest>> httpRequests = Null<List<HttpRequest>>();
+        Ref<List<HttpRequest>> finishedHttpRequests = Null<List<HttpRequest>>();
+
+
     };
 
 }

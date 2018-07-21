@@ -16,14 +16,14 @@ public:
     /// destructor
     ~curlHttpRequest();
     /// process one request
-    bool doRequest(const Ptr<IORead>& req);
+    bool doRequest(Sova::_priv::HttpRequestImpl* req);
 
     /// setup curl session
     void setupCurlSession();
     /// discard the curl session
     void discardCurlSession();
     /// process one request (internal)
-    void doRequestInternal(const Ptr<IORead>& req);
+    void doRequestInternal(Sova::_priv::HttpRequestImpl* httpReq);
     /// curl write-data callback
     static int curlWriteDataCallback(char* ptr, int size, int nmemb, void* userData);
     /// curl header-data callback

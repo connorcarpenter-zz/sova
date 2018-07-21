@@ -121,6 +121,14 @@ namespace Sova
         {
             return size;
         }
+        
+        void Clear()
+        {
+            size = 0;
+            Ref<ListNode<T>> head = Null<ListNode<T>>();
+            Ref<ListNode<T>> tail = Null<ListNode<T>>();
+            //GC should pick up abandoned ListNodes
+        }
 
         Ref<ListIterator<T>> GetIterator()
         {
