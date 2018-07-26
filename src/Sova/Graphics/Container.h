@@ -28,7 +28,7 @@ namespace Sova
         void UpdateChildren();
         std::function<void()> UpdateFunction = nullptr;
 
-        void Draw(int xoffset, int yoffset);
+        virtual void Draw(int xoffset, int yoffset);
 
         void Destroy();
 
@@ -39,6 +39,7 @@ namespace Sova
 
         Ref<Container> parent = Null<Container>();
         Ref<List<Container>> children = Null<List<Container>>();
+    protected:
         bool destroyed = false;
     };
 

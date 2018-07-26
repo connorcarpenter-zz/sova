@@ -5,6 +5,7 @@
 #include <cstring>
 #include <Modules/Core/Assertion.h>
 #include <Sova/References/Ref.h>
+#include <iostream>
 #include "String.h"
 
 namespace Sova
@@ -56,6 +57,21 @@ namespace Sova
         return strPtr;
     }
 
+    void String::PrintChars()
+    {
+        for (int i = 0; i<this->length;i++)
+        {
+            char c = CharAt(i);
+            if (c == '\n'){
+                std::cout << "'newline'";
+            } else if (c == '\r'){
+                std::cout << "'backr'";
+            } else {
+                std::cout << "'" << c << "'";
+            }
+        }
+    }
+
     int String::Length() const {
         return this->length;
     }
@@ -87,7 +103,7 @@ namespace Sova
                 if (newLength == 0)
                 {
                     //add new string here and bypass string allocation later
-                    auto i = 12;
+                    stringList->Add(New<String>(""));
                 }
                 else
                 {
@@ -119,7 +135,23 @@ namespace Sova
     {
         for (int i = 0; i<this->length; i++)
         {
-            if (CharAt(i) != cstr[i])
+//            std::cout << "Equals(): '" << CharAt(i) << "'=='"<< cstr[i] << "'?" << std::endl;
+            if (CharAt(i) != cstr[i]) {
+//                std::cout << "Equals() return false" << std::endl;
+                return false;
+            }
+        }
+
+//        std::cout << "Equals() return true" << std::endl;
+        return true;
+    }
+
+    const bool String::StartsWith(const char *cstr) const
+    {
+        int cstrlength = (int) strlen(cstr);
+        for (int i = 0; i<cstrlength; i++)
+        {
+            if(CharAt(i) != cstr[i])
                 return false;
         }
 
@@ -143,6 +175,18 @@ namespace Sova
         if (EndsWith(cstr)){
             int cstrlength = (int) strlen(cstr);
             return Substring(0, this->length - cstrlength);
+        }
+        else
+        {
+            return ThisRef<String>();
+        }
+    }
+
+    Ref<String> String::TrimStart(const char *cstr)
+    {
+        if (StartsWith(cstr)){
+            int cstrlength = (int) strlen(cstr);
+            return Substring(cstrlength, this->length);
         }
         else
         {
