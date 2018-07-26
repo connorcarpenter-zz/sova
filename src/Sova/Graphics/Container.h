@@ -41,6 +41,8 @@ namespace Sova
         Ref<List<Container>> children = Null<List<Container>>();
     protected:
         bool destroyed = false;
+
+        virtual void Update();
     };
 
 }

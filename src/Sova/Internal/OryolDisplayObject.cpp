@@ -5,6 +5,7 @@
 #include "OryolDisplayObject.h"
 //#include "../DisplayObject.h"
 #include "OryolApp.h"
+#include "Sova/Graphics/Internal/InternalCamera.h"
 
 using namespace Oryol;
 
@@ -26,37 +27,63 @@ namespace Sova
         this->visible = true;
     }
 
-    void OryolDisplayObject::draw(Oryol::DrawState drawState, int xoffset, int yoffset)
+    void OryolDisplayObject::draw(Sova::InternalCamera* internalCamera, int xoffset, int yoffset)
     {
         if (this->visible)
         {
             const auto resState = Gfx::QueryResourceInfo(this->texture->textureId).State;
             if (resState == ResourceState::Valid)
             {
-                drawState.FSTexture[0] = this->texture->textureId;
+                internalCamera->getDrawState().FSTexture[0] = this->texture->textureId;
                 const void *data = this->updateVertices(xoffset,
                                                         yoffset,
                                                         this->texture->width,
                                                         this->texture->height,
-                                                        OryolApp::getOryolApp()->canvasWidth,
-                                                        OryolApp::getOryolApp()->canvasHeight);
-                Gfx::UpdateVertices(drawState.Mesh[0], data, OryolApp::numVertexesInQuad);
-                Gfx::ApplyDrawState(drawState);
+                                                        internalCamera->getWidth(),
+                                                        internalCamera->getHeight());
+                Gfx::UpdateVertices(internalCamera->getDrawState().Mesh[0], data, OryolApp::numVertexesInQuad);
+                Gfx::ApplyDrawState(internalCamera->getDrawState());
             }
         }
 
         Gfx::Draw();
     }
 
-    const void* OryolDisplayObject::updateVertices(int x, int y, int width, int height, int canvasWidth, int canvasHeight)
+    void OryolDisplayObject::draw(Sova::InternalCamera *internalCamera, int xoffset, int yoffset, int frameWidth,
+                                  int frameHeight, int padding, int imageIndex)
+    {
+        if (this->visible)
+        {
+            const auto resState = Gfx::QueryResourceInfo(this->texture->textureId).State;
+            if (resState == ResourceState::Valid)
+            {
+                internalCamera->getDrawState().FSTexture[0] = this->texture->textureId;
+                const void *data = this->updateVertices(xoffset,
+                                                        yoffset,
+                                                        this->texture->width,
+                                                        this->texture->height,
+                                                        internalCamera->getWidth(),
+                                                        internalCamera->getHeight(),
+                                                        frameWidth, frameHeight, padding,
+                                                        imageIndex);
+                Gfx::UpdateVertices(internalCamera->getDrawState().Mesh[0], data, OryolApp::numVertexesInQuad);
+                Gfx::ApplyDrawState(internalCamera->getDrawState());
+            }
+        }
+
+        Gfx::Draw();
+    }
+
+    const void* OryolDisplayObject::updateVertices(int x, int y, int texWidth, int texHeight, int canvasWidth,
+                                                   int canvasHeight)
     {
         int vIndex = 0;
 
         //0 is 0, 1 is canvasWidth, canvasHeight
         float x0 = (float) x / (float) canvasWidth;
         float y0 = (float) y / (float) canvasHeight;
-        float x1 = (float) (width + x) / (float) canvasWidth;
-        float y1 = (float) (height + y) / (float) canvasHeight;
+        float x1 = (float) (texWidth + x) / (float) canvasWidth;
+        float y1 = (float) (texHeight + y) / (float) canvasHeight;
 
         //0 is 0, 1 is texWidth/texHeight
         //This is the texture
@@ -64,6 +91,35 @@ namespace Sova
         float v0 = 0.0f;
         float u1 = 1.0f;
         float v1 = 1.0f;
+
+        vIndex = this->writeVertex(vIndex, x0, y0, u0, v0);
+        vIndex = this->writeVertex(vIndex, x1, y0, u1, v0);
+        vIndex = this->writeVertex(vIndex, x1, y1, u1, v1);
+        vIndex = this->writeVertex(vIndex, x0, y0, u0, v0);
+        vIndex = this->writeVertex(vIndex, x1, y1, u1, v1);
+        vIndex = this->writeVertex(vIndex, x0, y1, u0, v1);
+
+        return OryolApp::getOryolApp()->vertexBuffer;
+    }
+
+    const void* OryolDisplayObject::updateVertices(int x, int y, int texWidth, int texHeight, int canWidth,
+                                                   int canHeight, int frameWidth, int frameHeight, int padding,
+                                                   int frameIndex)
+    {
+        int vIndex = 0;
+
+        //0 is 0, 1 is canvasWidth, canvasHeight
+        float x0 = x / (float) canWidth;
+        float y0 = y / (float) canHeight;
+        float x1 = (frameWidth - (padding*2) + x) / (float) canWidth;
+        float y1 = (frameHeight - (padding*2) + y) / (float) canHeight;
+
+        //0 is 0, 1 is texWidth/texHeight
+        //This is the texture
+        float u0 = (float) ((frameIndex * frameWidth) + padding) / (float) texWidth;
+        float v0 = (float) padding / (float) texHeight;
+        float u1 = (float) (((frameIndex+1) * frameWidth) - padding) / (float) texWidth;
+        float v1 = (float) (frameHeight - padding) / (float) texHeight;
 
         vIndex = this->writeVertex(vIndex, x0, y0, u0, v0);
         vIndex = this->writeVertex(vIndex, x1, y0, u1, v0);
@@ -95,4 +151,6 @@ namespace Sova
             return this->texture->height;
         return 0;
     }
+
+
 }

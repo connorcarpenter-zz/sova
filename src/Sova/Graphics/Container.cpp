@@ -32,6 +32,11 @@ namespace Sova
         this->UpdateFunction = updateFunction;
     }
 
+    void Container::Update(){
+        if (this->UpdateFunction != nullptr)
+            this->UpdateFunction();
+    }
+
     void Container::UpdateChildren()
     {
         if (this->destroyed) return;
@@ -39,8 +44,7 @@ namespace Sova
         for (auto iterator = this->children->GetIterator(); iterator->Valid(); iterator->Next())
         {
             Ref<Container> childContainer = iterator->Get();
-            if (childContainer->UpdateFunction != nullptr)
-                childContainer->UpdateFunction();
+            childContainer->Update();
             childContainer->UpdateChildren();
         }
     }

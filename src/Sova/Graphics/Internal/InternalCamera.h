@@ -17,6 +17,10 @@ namespace Sova {
         Oryol::Id getCanvasTexture();
         Oryol::DrawState getDrawState();
 
+        int getWidth();
+
+        int getHeight();
+
     private:
         Camera* mainCamera = nullptr;
         Oryol::Id canvasPass;

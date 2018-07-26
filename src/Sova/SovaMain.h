@@ -7,6 +7,7 @@
 #include "App.h"
 #include "Sova/Graphics/Container.h"
 #include "Sova/Graphics/Sprite.h"
+#include "Sova/Graphics/AnimatedSprite.h"
 #include "Sova/Math/Point.h"
 #include "Sova/Graphics/Viewport.h"
 #include "Sova/Graphics/Camera.h"

@@ -19,17 +19,23 @@ namespace Sova
     public:
         explicit OryolDisplayObject();//DisplayObject* sovaDisplayObject);
         ~OryolDisplayObject();
-        void draw(Oryol::DrawState drawState, int xoffset, int yoffset);
+        void draw(Sova::InternalCamera* internalCamera, int xoffset, int yoffset);
+        void draw(Sova::InternalCamera *internalCamera, int xoffset, int yoffset, int frameWidth, int frameHeight,
+                  int padding, int imageIndex);
         void setTexture(Ref<String> textureName);
         int getWidth();
         int getHeight();
+
     private:
 
         OryolTexture* texture = nullptr;
         bool visible = false;
 
-        const void* updateVertices(int x, int y, int width, int height, int canvasWidth, int canvasHeight);
+        const void* updateVertices(int x, int y, int texWidth, int texHeight, int canvasWidth, int canvasHeight);
         int writeVertex(int index, float x, float y, float u, float v);
 
+        const void *updateVertices(int x, int y, int texWidth, int texHeight, int canWidth, int canHeight,
+                                   int frameWidth,
+                                   int frameHeight, int padding, int frameIndex);
     };
 }

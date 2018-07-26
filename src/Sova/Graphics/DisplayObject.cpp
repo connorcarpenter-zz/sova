@@ -27,7 +27,7 @@ namespace Sova
 
     void DisplayObject::drawSelf(Ref<Camera> camera, int xoffset, int yoffset)
     {
-        this->oryolDisplayObject->draw(camera->getInternalCamera()->getDrawState(), xoffset + this->position->x, yoffset + this->position->y);
+        this->oryolDisplayObject->draw(camera->getInternalCamera(), xoffset + this->position->x, yoffset + this->position->y);
     }
 
     int DisplayObject::getWidth() {

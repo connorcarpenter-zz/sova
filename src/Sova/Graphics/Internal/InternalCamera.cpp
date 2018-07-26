@@ -39,4 +39,12 @@ namespace Sova {
     Oryol::DrawState InternalCamera::getDrawState() {
         return this->drawState;
     }
+
+    int InternalCamera::getWidth() {
+        return this->mainCamera->width;
+    }
+
+    int InternalCamera::getHeight() {
+        return this->mainCamera->height;
+    }
 }

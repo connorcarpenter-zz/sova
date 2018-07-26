@@ -23,8 +23,6 @@ OryolApp* OryolApp::getOryolApp() {
 
 AppState::Code OryolApp::OnInit()
 {
-    canvasWidth = sovapp->width / 5;
-    canvasHeight = sovapp->height / 5;
     dispWidth = sovapp->width;
     dispHeight = sovapp->height;
 

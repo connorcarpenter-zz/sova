@@ -23,7 +23,7 @@ namespace Sova
         DisplayObject();
         virtual const char* getClassName() { return "DisplayObject"; }
         ~DisplayObject();
-        void drawSelf(Ref<Camera> camera, int xoffset, int yoffset);
+        virtual void drawSelf(Ref<Camera> camera, int xoffset, int yoffset);
 
         Ref<Point> position = Null<Point>();
         int getWidth();

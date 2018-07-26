@@ -45,8 +45,6 @@ public:
 
     static const int numVertexesInQuad = 6 * sizeof(vertex);
 
-    int canvasWidth = 0;
-    int canvasHeight = 0;
     int dispWidth = 0;
     int dispHeight = 0;
 
