@@ -46,23 +46,28 @@ AppState::Code OryolApp::OnInit()
 
     resourceManager.setup();
 
-    //Setup offscreen render target
-    auto renderTargetSetup = TextureSetup::RenderTarget2D(canvasWidth, canvasHeight);
-    renderTargetSetup.Sampler.MinFilter = TextureFilterMode::Nearest;
-    renderTargetSetup.Sampler.MagFilter = TextureFilterMode::Nearest;
-    Id canvasTexture = Gfx::CreateResource(renderTargetSetup);
-    this->canvasPass = Gfx::CreateResource(PassSetup::From(canvasTexture));
+    // setup draw state with dynamic mesh
+    this->meshSetup = MeshSetup::Empty(6, Usage::Stream);
+    this->meshSetup.Layout
+            .Add(VertexAttr::Position, VertexFormat::Float2)
+            .Add(VertexAttr::TexCoord0, VertexFormat::Float2);
+    this->meshSetup.AddPrimitiveGroup(PrimitiveGroup(0, 6));
+    this->meshSetup.Locator = Locator("2d_sprite_mesh");
 
-    //Setup onscreen render
-    auto fullscreenQuadSetup = MeshSetup::FullScreenQuad(Gfx::QueryFeature(GfxFeature::OriginTopLeft));
-    this->windowDrawState.Mesh[0] = Gfx::CreateResource(fullscreenQuadSetup);
+    Id canvasShader = sovapp->shaderHandler->getCanvasShader();
+    auto pipelineSetup = PipelineSetup::FromLayoutAndShader(this->meshSetup.Layout, canvasShader);
+    pipelineSetup.BlendState.BlendEnabled = true;
+    pipelineSetup.BlendState.SrcFactorRGB = BlendFactor::SrcAlpha;
+    pipelineSetup.BlendState.DstFactorRGB = BlendFactor::OneMinusSrcAlpha;
+    pipelineSetup.BlendState.ColorFormat = PixelFormat::RGBA8;
+    pipelineSetup.BlendState.DepthFormat = PixelFormat::None;
+    pipelineSetup.RasterizerState.CullFaceEnabled = false;
 
-    Id normalShader = sovapp->shaderHandler->getNormalShader();
-    auto ps = PipelineSetup::FromLayoutAndShader(fullscreenQuadSetup.Layout, normalShader);
-    this->windowDrawState.Pipeline = Gfx::CreateResource(ps);
-    this->windowDrawState.FSTexture[0] = canvasTexture;
+    this->meshResource = Gfx::CreateResource(this->meshSetup);
+    this->pipelineResource = Gfx::CreateResource(pipelineSetup);
 
-    setupCanvas(renderTargetSetup);
+    // clear the vertex buffer
+    Memory::Clear(this->vertexBuffer, sizeof(this->vertexBuffer));
 
     sovapp->loader->setAppLoaded();
 
@@ -100,15 +105,8 @@ AppState::Code OryolApp::OnRunning() {
 
     destructionManager.FinalizeDestruction();
 
-    Gfx::BeginPass(this->canvasPass);
-    sovapp->draw();
-    Gfx::EndPass();
-
-    // copy offscreen render target into backbuffer
-    Gfx::BeginPass();
-    Gfx::ApplyDrawState(this->windowDrawState);
-    Gfx::Draw();
-    Gfx::EndPass();
+    sovapp->drawCameras();
+    sovapp->drawViewports();
 
     Gfx::CommitFrame();
 
@@ -129,35 +127,7 @@ AppState::Code OryolApp::OnCleanup() {
 }
 
 //--
-void
-OryolApp::setupCanvas(const TextureSetup& rtSetup)
-{
-    // setup draw state with dynamic mesh
-    this->meshSetup = MeshSetup::Empty(6, Usage::Stream);
-    this->meshSetup.Layout
-            .Add(VertexAttr::Position, VertexFormat::Float2)
-            .Add(VertexAttr::TexCoord0, VertexFormat::Float2);
-    this->meshSetup.AddPrimitiveGroup(PrimitiveGroup(0, 6));
-    this->meshSetup.Locator = Locator("2d_sprite_mesh");
 
-    Id canvasShader = sovapp->shaderHandler->getCanvasShader();
-    this->pipelineSetup = PipelineSetup::FromLayoutAndShader(this->meshSetup.Layout, canvasShader);
-    this->pipelineSetup.BlendState.BlendEnabled = true;
-    this->pipelineSetup.BlendState.SrcFactorRGB = BlendFactor::SrcAlpha;
-    this->pipelineSetup.BlendState.DstFactorRGB = BlendFactor::OneMinusSrcAlpha;
-    this->pipelineSetup.BlendState.ColorFormat = rtSetup.ColorFormat;
-    this->pipelineSetup.BlendState.DepthFormat = rtSetup.DepthFormat;
-    this->pipelineSetup.RasterizerState.CullFaceEnabled = false;
-
-    this->meshResource = Gfx::CreateResource(this->meshSetup);
-    this->pipelineResource = Gfx::CreateResource(this->pipelineSetup);
-
-    this->drawState.Mesh[0] = this->meshResource;
-    this->drawState.Pipeline = this->pipelineResource;
-
-    // clear the vertex buffer
-    Memory::Clear(this->vertexBuffer, sizeof(this->vertexBuffer));
-}
 
 bool OryolApp::keyPressed(Sova::Key::Code key) {
     Oryol::Key::Code oryolKey = (Oryol::Key::Code) key;
@@ -175,4 +145,8 @@ int OryolApp::getMouseX() {
 
 int OryolApp::getMouseY() {
     return (int) Input::MousePosition().y;
+}
+
+Sova::App *OryolApp::getSovaApp() {
+    return sovapp;
 }

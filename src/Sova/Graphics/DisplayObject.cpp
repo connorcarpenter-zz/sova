@@ -5,6 +5,7 @@
 #include "DisplayObject.h"
 #include "Sova/Math/Point.h"
 #include "Sova/Internal/OryolDisplayObject.h"
+#include "Sova/Graphics/Internal/InternalCamera.h"
 
 namespace Sova
 {
@@ -24,9 +25,9 @@ namespace Sova
         this->oryolDisplayObject->setTexture(textureName);
     }
 
-    void DisplayObject::drawSelf(int xoffset, int yoffset)
+    void DisplayObject::drawSelf(Ref<Camera> camera, int xoffset, int yoffset)
     {
-        this->oryolDisplayObject->draw(xoffset + this->position->x, yoffset + this->position->y);
+        this->oryolDisplayObject->draw(camera->getInternalCamera()->getDrawState(), xoffset + this->position->x, yoffset + this->position->y);
     }
 
     int DisplayObject::getWidth() {

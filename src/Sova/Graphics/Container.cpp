@@ -45,17 +45,17 @@ namespace Sova
         }
     }
 
-    void Container::Draw(int xoffset, int yoffset)
+    void Container::Draw(Ref<Camera> camera, int xoffset, int yoffset)
     {
         if (this->destroyed) return;
 
-        this->drawSelf(xoffset, yoffset);
+        this->drawSelf(camera, xoffset, yoffset);
 
         //Draw children
         for (auto iterator = this->children->GetIterator(); iterator->Valid(); iterator->Next())
         {
             Ref<Container> childContainer = iterator->Get();
-            childContainer->Draw(xoffset + this->position->x, yoffset + this->position->y);
+            childContainer->Draw(camera, xoffset + this->position->x, yoffset + this->position->y);
         }
     }
 

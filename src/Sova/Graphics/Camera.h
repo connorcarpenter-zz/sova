@@ -11,13 +11,16 @@ namespace Sova
 {
     class Container;
     class Point;
+    class InternalCamera;
 
     class Camera : public Refable
     {
     public:
         Camera(int x, int y, int width, int height, Ref <Container> target);
+        ~Camera();
         virtual const char* getClassName() { return "Camera"; }
         void draw(int xoffset, int yoffset);
+        InternalCamera* getInternalCamera();
 
         Ref<Point> position = Null<Point>();
         int width;
@@ -25,5 +28,6 @@ namespace Sova
     private:
 
         Ref<Container> target = Null<Container>();
+        InternalCamera* internalCamera = nullptr;
     };
 }

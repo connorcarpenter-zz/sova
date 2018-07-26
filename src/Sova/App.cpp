@@ -41,12 +41,21 @@ namespace Sova {
         this->viewports->Add(viewport);
     }
 
-    void App::draw()
+    void App::drawCameras()
     {
         for (Ref<ListIterator<Viewport>> iterator = this->viewports->GetIterator(); iterator->Valid(); iterator->Next())
         {
             Ref<Viewport> viewport = iterator->Get();
-            viewport->draw();
+            viewport->drawCamera();
+        }
+    }
+
+    void App::drawViewports()
+    {
+        for (Ref<ListIterator<Viewport>> iterator = this->viewports->GetIterator(); iterator->Valid(); iterator->Next())
+        {
+            Ref<Viewport> viewport = iterator->Get();
+            viewport->drawViewport();
         }
     }
 

@@ -38,11 +38,10 @@ public:
         float x, y, u, v;
     };
     vertex vertexBuffer[6];
-    PipelineSetup pipelineSetup;
+    //PipelineSetup pipelineSetup;
     MeshSetup meshSetup;
     Id pipelineResource;
     Id meshResource;
-    DrawState drawState;
 
     static const int numVertexesInQuad = 6 * sizeof(vertex);
 
@@ -62,12 +61,9 @@ public:
 
     int getMouseY();
 
+    Sova::App* getSovaApp();
+
 private:
     static OryolApp* singleton;
     Sova::App* sovapp = nullptr;
-
-    Id canvasPass;
-    DrawState windowDrawState;
-
-    void setupCanvas(const TextureSetup& rtSetup);
 };

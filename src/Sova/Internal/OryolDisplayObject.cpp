@@ -26,22 +26,22 @@ namespace Sova
         this->visible = true;
     }
 
-    void OryolDisplayObject::draw(int xoffset, int yoffset)
+    void OryolDisplayObject::draw(Oryol::DrawState drawState, int xoffset, int yoffset)
     {
         if (this->visible)
         {
             const auto resState = Gfx::QueryResourceInfo(this->texture->textureId).State;
             if (resState == ResourceState::Valid)
             {
-                OryolApp::getOryolApp()->drawState.FSTexture[0] = this->texture->textureId;
+                drawState.FSTexture[0] = this->texture->textureId;
                 const void *data = this->updateVertices(xoffset,
                                                         yoffset,
                                                         this->texture->width,
                                                         this->texture->height,
                                                         OryolApp::getOryolApp()->canvasWidth,
                                                         OryolApp::getOryolApp()->canvasHeight);
-                Gfx::UpdateVertices(OryolApp::getOryolApp()->drawState.Mesh[0], data, OryolApp::numVertexesInQuad);
-                Gfx::ApplyDrawState(OryolApp::getOryolApp()->drawState);
+                Gfx::UpdateVertices(drawState.Mesh[0], data, OryolApp::numVertexesInQuad);
+                Gfx::ApplyDrawState(drawState);
             }
         }
 

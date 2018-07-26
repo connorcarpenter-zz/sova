@@ -13,6 +13,9 @@ fips_begin_module(Sova)
             Graphics/Viewport.h Graphics/Viewport.cpp
             Graphics/DisplayObject.h Graphics/DisplayObject.cpp
 
+            Graphics/Internal/InternalCamera.h Graphics/Internal/InternalCamera.cpp
+            Graphics/Internal/InternalViewport.h Graphics/Internal/InternalViewport.cpp
+
             Math/Point.h Math/Point.cpp
             Math/Math.h Math/Math.cpp
 

@@ -9,18 +9,26 @@
 
 namespace Sova
 {
+    class InternalViewport;
+    class InternalCamera;
+
     class Viewport : public Refable
     {
 
     public:
         Viewport(int x, int y, int width, int height, Ref<Camera> camera);
+        ~Viewport();
         virtual const char* getClassName() { return "Viewport"; }
-        void draw();
+        void drawCamera();
+        void drawViewport();
+        InternalCamera* getInternalCamera();
 
         Ref<Point> position = Null<Point>();
     private:
         int width;
         int height;
         Ref<Camera> camera = Null<Camera>();
+        InternalViewport* internalViewport = nullptr;
+
     };
 }

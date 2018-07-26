@@ -29,7 +29,8 @@ namespace Sova {
         void start();
         void onUpdate(std::function<void()> updateFunction);
         void addViewport(Ref<Viewport> viewport);
-        void draw();
+        void drawCameras();
+        void drawViewports();
 
         std::function<void()> updateFunction = nullptr;
         
@@ -60,8 +61,6 @@ namespace Sova {
         Ref<List<Websocket>> websockets = Null<List<Websocket>>();
         Ref<List<HttpRequest>> httpRequests = Null<List<HttpRequest>>();
         Ref<List<HttpRequest>> finishedHttpRequests = Null<List<HttpRequest>>();
-
-
     };
 
 }
