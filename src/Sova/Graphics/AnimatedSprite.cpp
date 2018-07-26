@@ -6,7 +6,10 @@
 #include "Sova/Internal/OryolDisplayObject.h"
 #include "Sova/Graphics/Internal/InternalCamera.h"
 
-namespace Sova {
+namespace Sova
+{
+
+    AnimatedSprite::AnimatedSprite() {}
 
     AnimatedSprite::AnimatedSprite(Ref<String> textureName, int frameWidth, int frameHeight, int padding) {
         this->setTexture(textureName);
@@ -16,7 +19,12 @@ namespace Sova {
     }
 
     void AnimatedSprite::Update() {
-        if (imageIndex < imageNumber)
+        if (imageNumber == -1)
+        {
+            if (this->getTextureLoaded())
+                this->imageNumber = this->getWidth() / this->frameWidth;
+        }
+        else
         {
             imageIndex += imageSpeed;
             if (imageIndex >= imageNumber)
@@ -28,8 +36,12 @@ namespace Sova {
 
     void AnimatedSprite::drawSelf(Ref<Camera> camera, int xoffset, int yoffset) {
         this->oryolDisplayObject->draw(camera->getInternalCamera(),
-                                       xoffset + this->position->x,
-                                       yoffset + this->position->y,
+                                       xoffset + this->position->x - this->anchor->x,
+                                       yoffset + this->position->y - this->anchor->y,
                                        frameWidth, frameHeight, padding, (int) imageIndex);
+    }
+
+    bool AnimatedSprite::getTextureLoaded() {
+        return this->oryolDisplayObject->getTextureLoaded();
     }
 }

@@ -25,6 +25,7 @@ namespace Sova
         void setTexture(Ref<String> textureName);
         int getWidth();
         int getHeight();
+        bool getTextureLoaded();
 
     private:
 

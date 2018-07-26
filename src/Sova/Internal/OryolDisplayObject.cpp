@@ -153,4 +153,8 @@ namespace Sova
             return this->texture->height;
         return 0;
     }
+
+    bool OryolDisplayObject::getTextureLoaded() {
+        return this->texture->loaded;
+    }
 }

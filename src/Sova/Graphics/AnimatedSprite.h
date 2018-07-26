@@ -11,15 +11,21 @@ namespace Sova {
         SovaTypeDecl(AnimatedSprite, Sprite);
         virtual const char* getClassName() { return "AnimatedSprite"; }
         AnimatedSprite(Ref<String> textureName, int frameWidth, int frameHeight, int padding);
+
+        AnimatedSprite();
+
         void Update() override;
         void drawSelf(Ref<Camera> camera, int xoffset, int yoffset) override;
-
+        float imageSpeed = 0;
+        float imageIndex = 0;
     private:
+        int imageNumber = -1;
+
+        bool getTextureLoaded();
+
+    protected:
         int frameWidth = 0;
         int frameHeight = 0;
         int padding = 0;
-        float imageSpeed = 0.1f;
-        float imageIndex = 0;
-        int imageNumber = -1;
     };
 }

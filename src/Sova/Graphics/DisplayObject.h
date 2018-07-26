@@ -26,6 +26,7 @@ namespace Sova
         virtual void drawSelf(Ref<Camera> camera, int xoffset, int yoffset);
 
         Ref<Point> position = Null<Point>();
+        Ref<Point> anchor = Null<Point>();
         int getWidth();
         int getHeight();
 

@@ -13,6 +13,7 @@ namespace Sova
     : oryolDisplayObject(new OryolDisplayObject())
     {
         this->position = New<Point>();
+        this->anchor = New<Point>();
     }
 
     Sova::DisplayObject::~DisplayObject()
@@ -27,7 +28,7 @@ namespace Sova
 
     void DisplayObject::drawSelf(Ref<Camera> camera, int xoffset, int yoffset)
     {
-        this->oryolDisplayObject->draw(camera->getInternalCamera(), xoffset + this->position->x, yoffset + this->position->y);
+        this->oryolDisplayObject->draw(camera->getInternalCamera(), xoffset + this->position->x - this->anchor->x, yoffset + this->position->y - this->anchor->y);
     }
 
     int DisplayObject::getWidth() {
