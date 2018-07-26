@@ -29,35 +29,38 @@ namespace Sova
 
     void OryolDisplayObject::draw(Sova::InternalCamera* internalCamera, int xoffset, int yoffset)
     {
+        auto drawState = internalCamera->getDrawState(); //for some reason, copying the DrawState is necessary before using it... perhaps it's because only one DrawState can be used at a time
+
         if (this->visible)
         {
             const auto resState = Gfx::QueryResourceInfo(this->texture->textureId).State;
             if (resState == ResourceState::Valid)
             {
-                internalCamera->getDrawState().FSTexture[0] = this->texture->textureId;
+                drawState.FSTexture[0] = this->texture->textureId;
                 const void *data = this->updateVertices(xoffset,
                                                         yoffset,
                                                         this->texture->width,
                                                         this->texture->height,
                                                         internalCamera->getWidth(),
                                                         internalCamera->getHeight());
-                Gfx::UpdateVertices(internalCamera->getDrawState().Mesh[0], data, OryolApp::numVertexesInQuad);
-                Gfx::ApplyDrawState(internalCamera->getDrawState());
+                Gfx::UpdateVertices(drawState.Mesh[0], data, OryolApp::numVertexesInQuad);
+                Gfx::ApplyDrawState(drawState);
             }
         }
 
         Gfx::Draw();
     }
 
-    void OryolDisplayObject::draw(Sova::InternalCamera *internalCamera, int xoffset, int yoffset, int frameWidth,
-                                  int frameHeight, int padding, int imageIndex)
+    void OryolDisplayObject::draw(Sova::InternalCamera *internalCamera, int xoffset, int yoffset, int frameWidth, int frameHeight, int padding, int imageIndex)
     {
+        auto drawState = internalCamera->getDrawState(); //for some reason, copying the DrawState is necessary before using it... perhaps it's because only one DrawState can be used at a time
+
         if (this->visible)
         {
             const auto resState = Gfx::QueryResourceInfo(this->texture->textureId).State;
             if (resState == ResourceState::Valid)
             {
-                internalCamera->getDrawState().FSTexture[0] = this->texture->textureId;
+                drawState.FSTexture[0] = this->texture->textureId;
                 const void *data = this->updateVertices(xoffset,
                                                         yoffset,
                                                         this->texture->width,
@@ -66,16 +69,15 @@ namespace Sova
                                                         internalCamera->getHeight(),
                                                         frameWidth, frameHeight, padding,
                                                         imageIndex);
-                Gfx::UpdateVertices(internalCamera->getDrawState().Mesh[0], data, OryolApp::numVertexesInQuad);
-                Gfx::ApplyDrawState(internalCamera->getDrawState());
+                Gfx::UpdateVertices(drawState.Mesh[0], data, OryolApp::numVertexesInQuad);
+                Gfx::ApplyDrawState(drawState);
             }
         }
 
         Gfx::Draw();
     }
 
-    const void* OryolDisplayObject::updateVertices(int x, int y, int texWidth, int texHeight, int canvasWidth,
-                                                   int canvasHeight)
+    const void* OryolDisplayObject::updateVertices(int x, int y, int texWidth, int texHeight, int canvasWidth, int canvasHeight)
     {
         int vIndex = 0;
 
@@ -151,6 +153,4 @@ namespace Sova
             return this->texture->height;
         return 0;
     }
-
-
 }
