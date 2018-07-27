@@ -56,11 +56,17 @@ namespace Sova {
         void updateWebsockets();
         void updateHttpRequests();
 
+        //Global vars
+        void setGlobal(void* globalPtr);
+        void* getGlobal();
+
     private:
         Ref<List<Viewport>> viewports = Null<List<Viewport>>();
         Ref<List<Websocket>> websockets = Null<List<Websocket>>();
         Ref<List<HttpRequest>> httpRequests = Null<List<HttpRequest>>();
         Ref<List<HttpRequest>> finishedHttpRequests = Null<List<HttpRequest>>();
+
+        void* globalObj = nullptr;
     };
 
 }

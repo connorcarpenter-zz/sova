@@ -32,6 +32,7 @@ public:
     AppState::Code OnCleanup();
 
     static OryolApp* getOryolApp();
+    static Sova::App* getSovaApp();
     static void initOryolApp(Sova::App* sovaApp);
 
     struct vertex {
@@ -59,9 +60,10 @@ public:
 
     int getMouseY();
 
-    Sova::App* getSovaApp();
+    static void *getController();
 
 private:
     static OryolApp* singleton;
     Sova::App* sovapp = nullptr;
+
 };

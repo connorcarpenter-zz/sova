@@ -29,6 +29,8 @@ namespace Sova
         Ref<Point> anchor = Null<Point>();
         int getWidth();
         int getHeight();
+        bool getVisible();
+        void setVisible(bool visible);
 
     protected:
         OryolDisplayObject* oryolDisplayObject;

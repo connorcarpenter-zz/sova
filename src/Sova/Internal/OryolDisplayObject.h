@@ -27,10 +27,10 @@ namespace Sova
         int getHeight();
         bool getTextureLoaded();
 
+        bool visible = false;
     private:
 
         OryolTexture* texture = nullptr;
-        bool visible = false;
 
         const void* updateVertices(int x, int y, int texWidth, int texHeight, int canvasWidth, int canvasHeight);
         int writeVertex(int index, float x, float y, float u, float v);

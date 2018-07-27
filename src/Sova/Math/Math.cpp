@@ -27,4 +27,8 @@ namespace Sova
     float Math::Sin(float degrees) {
         return glm::sin(glm::radians(degrees));
     }
+
+    bool Math::PointInBox(int pointX, int pointY, int boxX1, int boxY1, int boxX2, int boxY2) {
+        return (pointX >= boxX1 && pointX <= boxX2 && pointY >= boxY1 && pointY <= boxY2);
+    }
 }

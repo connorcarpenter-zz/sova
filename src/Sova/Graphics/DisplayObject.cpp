@@ -38,4 +38,12 @@ namespace Sova
     int DisplayObject::getHeight() {
         return this->oryolDisplayObject->getHeight();
     }
+
+    bool DisplayObject::getVisible() {
+        return this->oryolDisplayObject->visible;
+    }
+
+    void DisplayObject::setVisible(bool visible) {
+        this->oryolDisplayObject->visible = visible;
+    }
 }

@@ -21,6 +21,10 @@ OryolApp* OryolApp::getOryolApp() {
     return singleton;
 }
 
+Sova::App *OryolApp::getSovaApp() {
+    return singleton->sovapp;
+}
+
 AppState::Code OryolApp::OnInit()
 {
     dispWidth = sovapp->width;
@@ -143,8 +147,4 @@ int OryolApp::getMouseX() {
 
 int OryolApp::getMouseY() {
     return (int) Input::MousePosition().y;
-}
-
-Sova::App *OryolApp::getSovaApp() {
-    return sovapp;
 }

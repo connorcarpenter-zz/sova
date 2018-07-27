@@ -120,4 +120,12 @@ namespace Sova {
             this->finishedHttpRequests->Clear();
         }
     }
+
+    void App::setGlobal(void *globalPtr) {
+        this->globalObj = globalPtr;
+    }
+
+    void *App::getGlobal() {
+        return this->globalObj;
+    }
 }
