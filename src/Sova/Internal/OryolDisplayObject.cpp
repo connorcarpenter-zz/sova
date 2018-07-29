@@ -51,7 +51,8 @@ namespace Sova
         Gfx::Draw();
     }
 
-    void OryolDisplayObject::draw(Sova::InternalCamera *internalCamera, int xoffset, int yoffset, int frameWidth, int frameHeight, int padding, int imageIndex)
+    void OryolDisplayObject::draw(Sova::InternalCamera *internalCamera, int xoffset, int yoffset, int frameWidth,
+                                      int frameHeight, int padding, int imageIndex, int xscale, int yscale)
     {
         if (this->visible)
         {
@@ -61,14 +62,9 @@ namespace Sova
                 auto drawState = internalCamera->getDrawState(); //for some reason, copying the DrawState is necessary before using it... perhaps it's because only one DrawState can be used at a time
 
                 drawState.FSTexture[0] = this->texture->textureId;
-                const void *data = this->updateVertices(xoffset,
-                                                        yoffset,
-                                                        this->texture->width,
-                                                        this->texture->height,
-                                                        internalCamera->getWidth(),
-                                                        internalCamera->getHeight(),
-                                                        frameWidth, frameHeight, padding,
-                                                        imageIndex);
+                const void *data = this->updateVertices(xoffset, yoffset, this->texture->width, this->texture->height,
+                                                        internalCamera->getWidth(), internalCamera->getHeight(),
+                                                        frameWidth, frameHeight, padding, imageIndex, xscale, yscale);
                 Gfx::UpdateVertices(drawState.Mesh[0], data, OryolApp::numVertexesInQuad);
                 Gfx::ApplyDrawState(drawState);
             }
@@ -104,17 +100,18 @@ namespace Sova
         return OryolApp::getOryolApp()->vertexBuffer;
     }
 
-    const void* OryolDisplayObject::updateVertices(int x, int y, int texWidth, int texHeight, int canWidth,
-                                                   int canHeight, int frameWidth, int frameHeight, int padding,
-                                                   int frameIndex)
+    const void * OryolDisplayObject::updateVertices(int x, int y, int texWidth, int texHeight, int canWidth, int canHeight, int frameWidth, int frameHeight,
+                                                        int padding, int frameIndex, int xscale, int yscale)
     {
         int vIndex = 0;
 
         //0 is 0, 1 is canvasWidth, canvasHeight
+        int tw = (frameWidth - (padding*2)) * xscale;
+        int th = (frameHeight - (padding*2)) * yscale;
         float x0 = x / (float) canWidth;
         float y0 = y / (float) canHeight;
-        float x1 = (frameWidth - (padding*2) + x) / (float) canWidth;
-        float y1 = (frameHeight - (padding*2) + y) / (float) canHeight;
+        float x1 = (x + tw) / (float) canWidth;
+        float y1 = (y + th) / (float) canHeight;
 
         //0 is 0, 1 is texWidth/texHeight
         //This is the texture

@@ -26,6 +26,7 @@ namespace Sova
         const char CharAt(int index) const;
         Ref<List<String>> Split(char separator);
         const bool Equals(const char* cstr) const;
+        const bool Equals(Ref<String> other) const;
         const bool StartsWith(const char* cstr) const;
         const bool EndsWith(const char* cstr) const;
         Ref<String> TrimEnd(const char* cstr);

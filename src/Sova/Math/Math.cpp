@@ -31,4 +31,24 @@ namespace Sova
     bool Math::PointInBox(int pointX, int pointY, int boxX1, int boxY1, int boxX2, int boxY2) {
         return (pointX >= boxX1 && pointX <= boxX2 && pointY >= boxY1 && pointY <= boxY2);
     }
+
+    int Math::Abs(int value) {
+        return value * Math::Sign(value);
+    }
+
+    int Math::Sign(int value) {
+        if (value < 0)return -1;
+        return 1;
+    }
+
+    float Math::Lerp(int value1, int value2, float between)
+    {
+        float range = (value2 - value1);
+        return value1 + (range * between / 100);
+    }
+
+    int Math::SignOrZero(int value) {
+        if (value == 0) return 0;
+        return Math::Sign(value);
+    }
 }

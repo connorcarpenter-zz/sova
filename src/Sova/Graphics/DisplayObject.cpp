@@ -14,6 +14,7 @@ namespace Sova
     {
         this->position = New<Point>();
         this->anchor = New<Point>();
+        this->scale = New<Point>(1,1);
     }
 
     Sova::DisplayObject::~DisplayObject()

@@ -146,6 +146,10 @@ namespace Sova
         return true;
     }
 
+    const bool String::Equals(Ref<String> other) const {
+        return Equals(other->AsCStr());
+    }
+
     const bool String::StartsWith(const char *cstr) const
     {
         int cstrlength = (int) strlen(cstr);
@@ -206,4 +210,6 @@ namespace Sova
         delete newCharArray;
         return newString;
     }
+
+
 }

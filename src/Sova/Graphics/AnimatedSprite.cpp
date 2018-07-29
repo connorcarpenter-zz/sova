@@ -35,10 +35,9 @@ namespace Sova
     }
 
     void AnimatedSprite::drawSelf(Ref<Camera> camera, int xoffset, int yoffset) {
-        this->oryolDisplayObject->draw(camera->getInternalCamera(),
-                                       xoffset + this->position->x - this->anchor->x,
-                                       yoffset + this->position->y - this->anchor->y,
-                                       frameWidth, frameHeight, padding, (int) imageIndex);
+        this->oryolDisplayObject->draw(camera->getInternalCamera(), xoffset + this->position->x - this->anchor->x,
+                                       yoffset + this->position->y - this->anchor->y, frameWidth, frameHeight, padding,
+                                       (int) imageIndex, this->scale->x, this->scale->y);
     }
 
     bool AnimatedSprite::getTextureLoaded() {

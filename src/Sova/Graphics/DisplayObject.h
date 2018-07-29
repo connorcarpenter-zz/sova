@@ -27,6 +27,7 @@ namespace Sova
 
         Ref<Point> position = Null<Point>();
         Ref<Point> anchor = Null<Point>();
+        Ref<Point> scale = Null<Point>();
         int getWidth();
         int getHeight();
         bool getVisible();

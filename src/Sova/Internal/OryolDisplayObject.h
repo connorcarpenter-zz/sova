@@ -20,8 +20,8 @@ namespace Sova
         explicit OryolDisplayObject();//DisplayObject* sovaDisplayObject);
         ~OryolDisplayObject();
         void draw(Sova::InternalCamera* internalCamera, int xoffset, int yoffset);
-        void draw(Sova::InternalCamera *internalCamera, int xoffset, int yoffset, int frameWidth, int frameHeight,
-                  int padding, int imageIndex);
+        void draw(Sova::InternalCamera *internalCamera, int xoffset, int yoffset, int frameWidth,
+                          int frameHeight, int padding, int imageIndex, int xscale, int yscale);
         void setTexture(Ref<String> textureName);
         int getWidth();
         int getHeight();
@@ -35,8 +35,8 @@ namespace Sova
         const void* updateVertices(int x, int y, int texWidth, int texHeight, int canvasWidth, int canvasHeight);
         int writeVertex(int index, float x, float y, float u, float v);
 
-        const void *updateVertices(int x, int y, int texWidth, int texHeight, int canWidth, int canHeight,
-                                   int frameWidth,
-                                   int frameHeight, int padding, int frameIndex);
+        const void *
+        updateVertices(int x, int y, int texWidth, int texHeight, int canWidth, int canHeight, int frameWidth, int frameHeight,
+                               int padding, int frameIndex, int xscale, int yscale);
     };
 }
