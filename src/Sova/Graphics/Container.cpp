@@ -15,7 +15,7 @@ namespace Sova
 
     void Container::AddChild(Ref<Container> container)
     {
-        this->children->Add(container);
+        this->children->Add(container, container->depth);
 
         container->SetParent(ThisRef<Container>());
     }
@@ -90,5 +90,15 @@ namespace Sova
         OryolApp::getOryolApp()->destructionManager.QueueForDestruction(this);
         this->UpdateFunction = nullptr;
         this->destroyed = true;
+    }
+
+    void Container::SetDepth(int newDepth) {
+        if (newDepth != this->depth)
+        {
+            this->depth = newDepth;
+            if (this->parent != nullptr) {
+                this->parent->children->Resort(ThisRef<Container>(), newDepth);
+            }
+        }
     }
 }

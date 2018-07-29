@@ -8,7 +8,7 @@
 #include <Sova/References/Ref.h>
 #include <Sova/References/RefTypes.h>
 #include "DisplayObject.h"
-#include "Sova/Common/List.h"
+#include "Sova/Common/SortedList.h"
 #include "Viewport.h"
 #include "Camera.h"
 
@@ -35,10 +35,12 @@ namespace Sova
         void SetParent(Ref<Container> newParent);
         void SetParent(std::nullptr_t);
 
-    private:
+        void SetDepth(int depth);
 
+    private:
+        int depth = 0;
         Ref<Container> parent = Null<Container>();
-        Ref<List<Container>> children = Null<List<Container>>();
+        Ref<SortedList<Container>> children = Null<SortedList<Container>>();
     protected:
         bool destroyed = false;
 

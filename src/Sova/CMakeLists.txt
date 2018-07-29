@@ -27,7 +27,7 @@ fips_begin_module(Sova)
             Network/Impls/WebsocketImpl.h Network/Impls/WebsocketImpl.cpp
             Network/Impls/HttpRequest/baseHttpRequest.h
 
-            Common/List.h
+            Common/List.h Common/SortedList.h
             Common/String.h Common/String.cpp
             Common/StringBuilder.h Common/StringBuilder.cpp
 
