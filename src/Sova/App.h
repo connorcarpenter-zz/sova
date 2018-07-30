@@ -8,7 +8,7 @@
 #include <Sova/Network/HttpRequest.h>
 
 #include "Sova/References/Ref.h"
-#include "Internal/ShaderHandler.h"
+#include "Sova/Graphics/Internal/ShaderHandler.h"
 #include "Sova/Graphics/Viewport.h"
 #include "Loader.h"
 #include "Sova/Common/List.h"

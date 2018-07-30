@@ -5,27 +5,31 @@
 #include <Modules/Input/Input.h>
 #include <Modules/Core/Time/TimePoint.h>
 #include <Modules/Core/Time/Clock.h>
-#include "OryolApp.h"
+#include "InternalApp.h"
 
-OryolApp::OryolApp(Sova::App* sovaApp) {
+InternalApp::InternalApp(Sova::App* sovaApp) {
     sovapp = sovaApp;
 }
 
-OryolApp* OryolApp::singleton = nullptr;
+InternalApp* InternalApp::singleton = nullptr;
 
-void OryolApp::initOryolApp(Sova::App* sovaApp) {
-    singleton = new OryolApp(sovaApp);
+void InternalApp::initInternalApp(Sova::App *sovaApp) {
+    singleton = new InternalApp(sovaApp);
 }
 
-OryolApp* OryolApp::getOryolApp() {
+InternalApp* InternalApp::getInternalApp() {
     return singleton;
 }
 
-Sova::App *OryolApp::getSovaApp() {
+Sova::App* InternalApp::getSovaApp() {
     return singleton->sovapp;
 }
 
-AppState::Code OryolApp::OnInit()
+void* InternalApp::getGlobal() {
+    return singleton->sovapp->getGlobal();
+}
+
+AppState::Code InternalApp::OnInit()
 {
     dispWidth = sovapp->width;
     dispHeight = sovapp->height;
@@ -80,7 +84,7 @@ static TimePoint tp;
 const static double msPerUpdateFrame = 1000 / 20; //(1000 ms / 20 (frame/second)) = ms/frame
 static double msUntilUpdate = msPerUpdateFrame;
 
-AppState::Code OryolApp::OnRunning() {
+AppState::Code InternalApp::OnRunning() {
 
     // update the game in the Sova app
 
@@ -119,7 +123,7 @@ AppState::Code OryolApp::OnRunning() {
     return Gfx::QuitRequested() ? AppState::Cleanup : AppState::Running;
 }
 
-AppState::Code OryolApp::OnCleanup() {
+AppState::Code InternalApp::OnCleanup() {
 
     Gfx::Discard();
     IO::Discard();
@@ -131,20 +135,20 @@ AppState::Code OryolApp::OnCleanup() {
 //--
 
 
-bool OryolApp::keyPressed(Sova::Key::Code key) {
+bool InternalApp::keyPressed(Sova::Key::Code key) {
     Oryol::Key::Code oryolKey = (Oryol::Key::Code) key;
     return Input::KeyPressed(oryolKey);
 }
 
-bool OryolApp::mouseButtonPressed(Sova::MouseButton::Code btn) {
+bool InternalApp::mouseButtonPressed(Sova::MouseButton::Code btn) {
     Oryol::MouseButton::Code oryolBtn = (Oryol::MouseButton::Code) btn;
     return Input::MouseButtonPressed(oryolBtn);
 }
 
-int OryolApp::getMouseX() {
+int InternalApp::getMouseX() {
     return (int) Input::MousePosition().x;
 }
 
-int OryolApp::getMouseY() {
+int InternalApp::getMouseY() {
     return (int) Input::MousePosition().y;
 }

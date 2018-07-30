@@ -2,7 +2,7 @@
 // Created by connor on 7/8/18.
 //
 
-#include <Sova/Internal/OryolApp.h>
+#include <Sova/Internal/InternalApp.h>
 #include "Container.h"
 #include "Sova/Math/Point.h"
 
@@ -87,7 +87,7 @@ namespace Sova
 
     void Container::Destroy()
     {
-        OryolApp::getOryolApp()->destructionManager.QueueForDestruction(this);
+        InternalApp::getInternalApp()->destructionManager.QueueForDestruction(this);
         this->UpdateFunction = nullptr;
         this->destroyed = true;
     }

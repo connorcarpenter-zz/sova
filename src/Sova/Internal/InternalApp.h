@@ -12,10 +12,10 @@
 #include "LocalFS/LocalFileSystem.h"
 #include "Gfx/Gfx.h"
 #include "Assets/Gfx/ShapeBuilder.h"
-#include "PNGLoader.h"
+#include "Sova/Graphics/Internal/PNGLoader.h"
 #include "glm/mat4x4.hpp"
 #include "glm/gtc/matrix_transform.hpp"
-#include "OryolResourceManager.h"
+#include "Sova/Graphics/Internal/InternalResourceManager.h"
 #include "InternalDestructionManager.h"
 
 #include <Sova/App.h>
@@ -23,23 +23,23 @@
 using namespace Oryol;
 using namespace Sova;
 
-class OryolApp : public Oryol::App {
+class InternalApp : public Oryol::App {
 
 public:
-    OryolApp(Sova::App* sovaApp);
+    InternalApp(Sova::App* sovaApp);
     AppState::Code OnRunning();
     AppState::Code OnInit();
     AppState::Code OnCleanup();
 
-    static OryolApp* getOryolApp();
+    static InternalApp* getInternalApp();
     static Sova::App* getSovaApp();
-    static void initOryolApp(Sova::App* sovaApp);
+    static void initInternalApp(Sova::App *sovaApp);
+    static void* getGlobal();
 
     struct vertex {
         float x, y, u, v;
     };
     vertex vertexBuffer[6];
-    //PipelineSetup pipelineSetup;
     MeshSetup meshSetup;
     Id pipelineResource;
     Id meshResource;
@@ -49,21 +49,15 @@ public:
     int dispWidth = 0;
     int dispHeight = 0;
 
-    OryolResourceManager resourceManager;
+    InternalResourceManager resourceManager;
     InternalDestructionManager destructionManager;
 
-    bool keyPressed(Sova::Key::Code key);
-
-    bool mouseButtonPressed(Sova::MouseButton::Code btn);
-
-    int getMouseX();
-
-    int getMouseY();
-
-    static void *getController();
+    static bool keyPressed(Sova::Key::Code key);
+    static bool mouseButtonPressed(Sova::MouseButton::Code btn);
+    static int getMouseX();
+    static int getMouseY();
 
 private:
-    static OryolApp* singleton;
+    static InternalApp* singleton;
     Sova::App* sovapp = nullptr;
-
 };

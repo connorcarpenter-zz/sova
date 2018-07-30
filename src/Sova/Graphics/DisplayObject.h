@@ -14,7 +14,7 @@ namespace Sova
     class Camera;
     class Point;
     class String;
-    class OryolDisplayObject;
+    class InternalDisplayObject;
 
     class DisplayObject : public Refable
     {
@@ -34,7 +34,7 @@ namespace Sova
         void setVisible(bool visible);
 
     protected:
-        OryolDisplayObject* oryolDisplayObject;
+        InternalDisplayObject* oryolDisplayObject;
 
         virtual void setTexture(Ref <String> textureName);
     };

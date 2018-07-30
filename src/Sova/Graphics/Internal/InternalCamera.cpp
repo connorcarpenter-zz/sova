@@ -3,7 +3,7 @@
 //
 
 #include <Modules/Gfx/Gfx.h>
-#include <Sova/Internal/OryolApp.h>
+#include <Sova/Internal/InternalApp.h>
 #include "InternalCamera.h"
 
 namespace Sova {
@@ -28,8 +28,8 @@ namespace Sova {
         this->canvasTexture = Oryol::Gfx::CreateResource(renderTargetSetup);
         this->canvasPass = Oryol::Gfx::CreateResource(Oryol::PassSetup::From(this->canvasTexture));
 
-        this->drawState.Mesh[0] = OryolApp::getOryolApp()->meshResource;
-        this->drawState.Pipeline = OryolApp::getOryolApp()->pipelineResource;
+        this->drawState.Mesh[0] = InternalApp::getInternalApp()->meshResource;
+        this->drawState.Pipeline = InternalApp::getInternalApp()->pipelineResource;
     }
 
     Oryol::Id InternalCamera::getCanvasTexture() {

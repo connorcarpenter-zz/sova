@@ -8,20 +8,20 @@
 #include <Modules/Gfx/GfxTypes.h>
 
 #include <Sova/Common/String.h>
-#include "OryolTexture.h"
+#include "Sova/Graphics/Internal/InternalTexture.h"
 
 namespace Sova
 {
-    class OryolResourceManager
+    class InternalResourceManager
     {
 
     public:
-        ~OryolResourceManager();
+        ~InternalResourceManager();
         void loadResource(Ref<String> resourceString);
 
         void setup();
 
-        Oryol::Map<Oryol::String, OryolTexture*> textures;
+        Oryol::Map<Oryol::String, InternalTexture*> textures;
 
         Oryol::Id getMesh();
         void releaseMesh(const Oryol::Id& id);

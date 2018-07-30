@@ -4,13 +4,13 @@
 
 #include "DisplayObject.h"
 #include "Sova/Math/Point.h"
-#include "Sova/Internal/OryolDisplayObject.h"
+#include "Sova/Graphics/Internal/InternalDisplayObject.h"
 #include "Sova/Graphics/Internal/InternalCamera.h"
 
 namespace Sova
 {
     Sova::DisplayObject::DisplayObject()
-    : oryolDisplayObject(new OryolDisplayObject())
+    : oryolDisplayObject(new InternalDisplayObject())
     {
         this->position = New<Point>();
         this->anchor = New<Point>();

@@ -2,16 +2,16 @@
 // Created by connor on 7/12/18.
 //
 
-#include "OryolTexture.h"
+#include "InternalTexture.h"
 
 namespace Sova
 {
-    OryolTexture::OryolTexture(const Oryol::Id& id)
+    InternalTexture::InternalTexture(const Oryol::Id& id)
     {
         this->textureId = id;
     }
 
-    void OryolTexture::updateAfterLoad(int width, int height)
+    void InternalTexture::updateAfterLoad(int width, int height)
     {
         this->width = width;
         this->height = height;

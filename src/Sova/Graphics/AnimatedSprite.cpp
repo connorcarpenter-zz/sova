@@ -3,7 +3,7 @@
 //
 
 #include "AnimatedSprite.h"
-#include "Sova/Internal/OryolDisplayObject.h"
+#include "Sova/Graphics/Internal/InternalDisplayObject.h"
 #include "Sova/Graphics/Internal/InternalCamera.h"
 
 namespace Sova

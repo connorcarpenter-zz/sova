@@ -5,7 +5,7 @@
 //
 
 #include "Gfx/Gfx.h"
-#include "OryolApp.h"
+#include "Sova/Internal/InternalApp.h"
 
 #include <Sova/References/Ref.h>
 
@@ -14,11 +14,11 @@ namespace Sova
     class Viewport;
     class Camera;
 
-    class OryolDisplayObject
+    class InternalDisplayObject
     {
     public:
-        explicit OryolDisplayObject();//DisplayObject* sovaDisplayObject);
-        ~OryolDisplayObject();
+        explicit InternalDisplayObject();//DisplayObject* sovaDisplayObject);
+        ~InternalDisplayObject();
         void draw(Sova::InternalCamera* internalCamera, int xoffset, int yoffset);
         void draw(Sova::InternalCamera *internalCamera, int xoffset, int yoffset, int frameWidth,
                           int frameHeight, int padding, int imageIndex, int xscale, int yscale);
@@ -30,7 +30,7 @@ namespace Sova
         bool visible = false;
     private:
 
-        OryolTexture* texture = nullptr;
+        InternalTexture* texture = nullptr;
 
         const void* updateVertices(int x, int y, int texWidth, int texHeight, int canvasWidth, int canvasHeight);
         int writeVertex(int index, float x, float y, float u, float v);

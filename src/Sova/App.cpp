@@ -2,7 +2,7 @@
 // Created by connor on 7/8/18.
 //
 
-#include <Sova/Internal/OryolApp.h>
+#include <Sova/Internal/InternalApp.h>
 #include <Modules/Input/Input.h>
 #include "App.h"
 
@@ -24,8 +24,8 @@ namespace Sova {
     }
 
     void App::start() {
-        OryolApp::initOryolApp(this);
-        OryolApp::getOryolApp()->StartMainLoop();
+        InternalApp::initInternalApp(this);
+        InternalApp::getInternalApp()->StartMainLoop();
     };
 
     Ref<Loader> App::load(Ref<List<String>> resources) {
@@ -60,19 +60,19 @@ namespace Sova {
     }
 
     bool App::keyPressed(Sova::Key::Code key) {
-        return OryolApp::getOryolApp()->keyPressed(key);
+        return InternalApp::getInternalApp()->keyPressed(key);
     }
 
     bool App::mouseButtonPressed(MouseButton::Code btn) {
-        return OryolApp::getOryolApp()->mouseButtonPressed(btn);
+        return InternalApp::getInternalApp()->mouseButtonPressed(btn);
     }
 
     int App::getMouseX() {
-        return OryolApp::getOryolApp()->getMouseX();
+        return InternalApp::getInternalApp()->getMouseX();
     }
 
     int App::getMouseY() {
-        return OryolApp::getOryolApp()->getMouseY();
+        return InternalApp::getInternalApp()->getMouseY();
     }
 
     Ref<Websocket> App::openWebsocket(Ref<String> address)

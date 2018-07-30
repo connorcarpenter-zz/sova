@@ -8,10 +8,10 @@
 
 namespace Sova
 {
-    class OryolTexture
+    class InternalTexture
     {
     public:
-        OryolTexture(const Oryol::Id& id);
+        InternalTexture(const Oryol::Id& id);
         Oryol::Id textureId;
         int width = 0;
         int height = 0;

@@ -2,32 +2,32 @@
 // Created by connor on 7/11/18.
 //
 
-#include "OryolDisplayObject.h"
+#include "InternalDisplayObject.h"
 //#include "../DisplayObject.h"
-#include "OryolApp.h"
+#include "Sova/Internal/InternalApp.h"
 #include "Sova/Graphics/Internal/InternalCamera.h"
 
 using namespace Oryol;
 
 namespace Sova
 {
-    Sova::OryolDisplayObject::OryolDisplayObject()//DisplayObject* sovaDisplayObject)
+    Sova::InternalDisplayObject::InternalDisplayObject()//DisplayObject* sovaDisplayObject)
     {
     }
 
-    Sova::OryolDisplayObject::~OryolDisplayObject()
+    Sova::InternalDisplayObject::~InternalDisplayObject()
     {
     }
 
-    void OryolDisplayObject::setTexture(Ref<String> textureName)
+    void InternalDisplayObject::setTexture(Ref<String> textureName)
     {
         Oryol::String textureString = Oryol::String(textureName->AsCStr());
-        this->texture = OryolApp::getOryolApp()->resourceManager.textures[textureString];
+        this->texture = InternalApp::getInternalApp()->resourceManager.textures[textureString];
 
         this->visible = true;
     }
 
-    void OryolDisplayObject::draw(Sova::InternalCamera* internalCamera, int xoffset, int yoffset)
+    void InternalDisplayObject::draw(Sova::InternalCamera* internalCamera, int xoffset, int yoffset)
     {
         if (this->visible)
         {
@@ -43,7 +43,7 @@ namespace Sova
                                                         this->texture->height,
                                                         internalCamera->getWidth(),
                                                         internalCamera->getHeight());
-                Gfx::UpdateVertices(drawState.Mesh[0], data, OryolApp::numVertexesInQuad);
+                Gfx::UpdateVertices(drawState.Mesh[0], data, InternalApp::numVertexesInQuad);
                 Gfx::ApplyDrawState(drawState);
             }
         }
@@ -51,7 +51,7 @@ namespace Sova
         Gfx::Draw();
     }
 
-    void OryolDisplayObject::draw(Sova::InternalCamera *internalCamera, int xoffset, int yoffset, int frameWidth,
+    void InternalDisplayObject::draw(Sova::InternalCamera *internalCamera, int xoffset, int yoffset, int frameWidth,
                                       int frameHeight, int padding, int imageIndex, int xscale, int yscale)
     {
         if (this->visible)
@@ -65,7 +65,7 @@ namespace Sova
                 const void *data = this->updateVertices(xoffset, yoffset, this->texture->width, this->texture->height,
                                                         internalCamera->getWidth(), internalCamera->getHeight(),
                                                         frameWidth, frameHeight, padding, imageIndex, xscale, yscale);
-                Gfx::UpdateVertices(drawState.Mesh[0], data, OryolApp::numVertexesInQuad);
+                Gfx::UpdateVertices(drawState.Mesh[0], data, InternalApp::numVertexesInQuad);
                 Gfx::ApplyDrawState(drawState);
             }
         }
@@ -73,7 +73,7 @@ namespace Sova
         Gfx::Draw();
     }
 
-    const void* OryolDisplayObject::updateVertices(int x, int y, int texWidth, int texHeight, int canvasWidth, int canvasHeight)
+    const void* InternalDisplayObject::updateVertices(int x, int y, int texWidth, int texHeight, int canvasWidth, int canvasHeight)
     {
         int vIndex = 0;
 
@@ -97,10 +97,10 @@ namespace Sova
         vIndex = this->writeVertex(vIndex, x1, y1, u1, v1);
         vIndex = this->writeVertex(vIndex, x0, y1, u0, v1);
 
-        return OryolApp::getOryolApp()->vertexBuffer;
+        return InternalApp::getInternalApp()->vertexBuffer;
     }
 
-    const void * OryolDisplayObject::updateVertices(int x, int y, int texWidth, int texHeight, int canWidth, int canHeight, int frameWidth, int frameHeight,
+    const void * InternalDisplayObject::updateVertices(int x, int y, int texWidth, int texHeight, int canWidth, int canHeight, int frameWidth, int frameHeight,
                                                         int padding, int frameIndex, int xscale, int yscale)
     {
         int vIndex = 0;
@@ -127,31 +127,31 @@ namespace Sova
         vIndex = this->writeVertex(vIndex, x1, y1, u1, v1);
         vIndex = this->writeVertex(vIndex, x0, y1, u0, v1);
 
-        return OryolApp::getOryolApp()->vertexBuffer;
+        return InternalApp::getInternalApp()->vertexBuffer;
     }
 
 //------------------------------------------------------------------------------
-    int OryolDisplayObject::writeVertex(int index, float x, float y, float u, float v) {
-        OryolApp::getOryolApp()->vertexBuffer[index].x = x;
-        OryolApp::getOryolApp()->vertexBuffer[index].y = y;
-        OryolApp::getOryolApp()->vertexBuffer[index].u = u;
-        OryolApp::getOryolApp()->vertexBuffer[index].v = v;
+    int InternalDisplayObject::writeVertex(int index, float x, float y, float u, float v) {
+        InternalApp::getInternalApp()->vertexBuffer[index].x = x;
+        InternalApp::getInternalApp()->vertexBuffer[index].y = y;
+        InternalApp::getInternalApp()->vertexBuffer[index].u = u;
+        InternalApp::getInternalApp()->vertexBuffer[index].v = v;
         return index + 1;
     }
 
-    int OryolDisplayObject::getWidth() {
+    int InternalDisplayObject::getWidth() {
         if (this->texture != nullptr)
             return this->texture->width;
         return 0;
     }
 
-    int OryolDisplayObject::getHeight() {
+    int InternalDisplayObject::getHeight() {
         if (this->texture != nullptr)
             return this->texture->height;
         return 0;
     }
 
-    bool OryolDisplayObject::getTextureLoaded() {
+    bool InternalDisplayObject::getTextureLoaded() {
         return this->texture->loaded;
     }
 }

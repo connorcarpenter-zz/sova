@@ -5,13 +5,13 @@
 #include <Sova/References/Ref.h>
 #include <Modules/Gfx/Gfx.h>
 #include <Modules/Gfx/private/gfxResourceContainer.h>
-#include "OryolResourceManager.h"
+#include "InternalResourceManager.h"
 #include "PNGLoader.h"
-#include "OryolApp.h"
+#include "Sova/Internal/InternalApp.h"
 
 using namespace Oryol;
 
-void OryolResourceManager::setup()
+void InternalResourceManager::setup()
 {
     textureSetup.Sampler.MinFilter = TextureFilterMode::Nearest;
     textureSetup.Sampler.MagFilter = TextureFilterMode::Nearest;
@@ -19,7 +19,7 @@ void OryolResourceManager::setup()
     textureSetup.Sampler.WrapV = TextureWrapMode::ClampToEdge;
 }
 
-void OryolResourceManager::loadResource(Ref<String> resourceString)
+void InternalResourceManager::loadResource(Ref<String> resourceString)
 {
     Oryol::String oryolStringId = Oryol::String(resourceString->AsCStr());
 
@@ -30,22 +30,22 @@ void OryolResourceManager::loadResource(Ref<String> resourceString)
         this->updateResource(oryolStringId, texSetup);
     };
 
-    Id oryolTextureId = Gfx::LoadResource(
+    Id internalTextureId = Gfx::LoadResource(
             PNGLoader::Create(
                     TextureSetup::FromFile(sb.GetString().AsCStr(), textureSetup),
                     loadedFunc));
 
-    OryolTexture* oryolTexture = new OryolTexture(oryolTextureId);
+    InternalTexture* internalTexture = new InternalTexture(internalTextureId);
 
-    textures.Add(oryolStringId, oryolTexture);
+    textures.Add(oryolStringId, internalTexture);
 }
 
-void OryolResourceManager::updateResource(Oryol::String resourceString, const Oryol::TextureSetup& texSetup) {
-    OryolTexture* oryolTexture = textures[resourceString];
+void InternalResourceManager::updateResource(Oryol::String resourceString, const Oryol::TextureSetup& texSetup) {
+    InternalTexture* oryolTexture = textures[resourceString];
     oryolTexture->updateAfterLoad(texSetup.Width, texSetup.Height);
 }
 
-OryolResourceManager::~OryolResourceManager() {
+InternalResourceManager::~InternalResourceManager() {
     //unload all OryolTextures
 
     for (auto textureKV : textures){
@@ -53,7 +53,7 @@ OryolResourceManager::~OryolResourceManager() {
     }
 }
 
-Id OryolResourceManager::getMesh() {
+Id InternalResourceManager::getMesh() {
     if (freeMeshes.Size() > 0)
     {
         Id id = freeMeshes.ValueAtIndex(0);
@@ -63,13 +63,13 @@ Id OryolResourceManager::getMesh() {
     }
     else
     {
-        Id newId = Gfx::CreateResource(OryolApp::getOryolApp()->meshSetup);
+        Id newId = Gfx::CreateResource(InternalApp::getInternalApp()->meshSetup);
         usedMeshes.Add(newId);
         return newId;
     }
 }
 
-void OryolResourceManager::releaseMesh(const Id& id) {
+void InternalResourceManager::releaseMesh(const Id& id) {
     if (usedMeshes.Contains(id))
     {
         usedMeshes.Erase(id);

@@ -12,6 +12,7 @@ fips_begin_module(Sova)
             Graphics/AnimatedSprite.h Graphics/AnimatedSprite.cpp
             Graphics/Camera.h Graphics/Camera.cpp
             Graphics/Viewport.h Graphics/Viewport.cpp
+            Graphics/Graphic.h Graphics/Graphic.cpp
             Graphics/DisplayObject.h Graphics/DisplayObject.cpp
 
             Graphics/Internal/InternalCamera.h Graphics/Internal/InternalCamera.cpp
@@ -37,13 +38,13 @@ fips_begin_module(Sova)
             References/RefCounter.h References/RefCounter.cpp
             References/RefTypes.h
 
-            Internal/ShaderHandler.h
-            Internal/OryolApp.h Internal/OryolApp.cpp
-            Internal/PNGLoader.h Internal/PNGLoader.cpp
-            Internal/shaders.h Internal/shaders.cpp
-            Internal/OryolDisplayObject.h Internal/OryolDisplayObject.cpp
-            Internal/OryolTexture.h Internal/OryolTexture.cpp
-            Internal/OryolResourceManager.h Internal/OryolResourceManager.cpp
+            Graphics/Internal/ShaderHandler.h
+            Internal/InternalApp.h Internal/InternalApp.cpp
+            Graphics/Internal/PNGLoader.h Graphics/Internal/PNGLoader.cpp
+            Graphics/Internal/shaders.h Graphics/Internal/shaders.cpp
+            Graphics/Internal/InternalDisplayObject.h Graphics/Internal/InternalDisplayObject.cpp
+            Graphics/Internal/InternalTexture.h Graphics/Internal/InternalTexture.cpp
+            Graphics/Internal/InternalResourceManager.h Graphics/Internal/InternalResourceManager.cpp
             Internal/InternalDestructionManager.h Internal/InternalDestructionManager.cpp
     )
     if (ORYOL_USE_LIBCURL)

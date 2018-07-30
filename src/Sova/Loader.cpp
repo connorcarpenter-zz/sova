@@ -2,7 +2,7 @@
 // Created by connor on 7/8/18.
 //
 
-#include <Sova/Internal/OryolApp.h>
+#include <Sova/Internal/InternalApp.h>
 #include "Loader.h"
 #include "Log.h"
 
@@ -61,6 +61,6 @@ namespace Sova
 
     void Loader::loadResource(Ref<String> resourcePath)
     {
-        OryolApp::getOryolApp()->resourceManager.loadResource(resourcePath);
+        InternalApp::getInternalApp()->resourceManager.loadResource(resourcePath);
     }
 }
