@@ -19,3 +19,6 @@ namespace CanvasShader {
     static const int tex = 0;
     extern Oryol::ShaderSetup Setup();
 }
+namespace ShapeShader {
+    extern Oryol::ShaderSetup Setup();
+}

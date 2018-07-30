@@ -73,6 +73,38 @@ static const char* canvasFS_glsl330_src =
                 "}\n"
                 "\n"
 ;
+static const char* shapeVS_glsl330_src =
+        "#version 330\n"
+                "#ifdef GL_ARB_shading_language_420pack\n"
+                "#extension GL_ARB_shading_language_420pack : require\n"
+                "#endif\n"
+                "\n"
+                "layout(location = 0) in vec4 position;\n"
+                "out vec4 color;\n"
+                "layout(location = 10) in vec4 color0;\n"
+                "\n"
+                "void main()\n"
+                "{\n"
+                "    gl_Position = position;\n"
+                "    color = color0;\n"
+                "}\n"
+                "\n"
+;
+static const char* shapeFS_glsl330_src =
+        "#version 330\n"
+                "#ifdef GL_ARB_shading_language_420pack\n"
+                "#extension GL_ARB_shading_language_420pack : require\n"
+                "#endif\n"
+                "\n"
+                "out vec4 fragColor;\n"
+                "in vec4 color;\n"
+                "\n"
+                "void main()\n"
+                "{\n"
+                "    fragColor = color;\n"
+                "}\n"
+                "\n"
+;
 Oryol::ShaderSetup NormalShader::Setup() {
     Oryol::ShaderSetup setup("NormalShader");
     Oryol::VertexLayout crtVS_input;
@@ -91,6 +123,15 @@ Oryol::ShaderSetup CanvasShader::Setup() {
     setup.SetInputLayout(canvasVS_input);
     setup.SetProgramFromSources(Oryol::ShaderLang::GLSL330, canvasVS_glsl330_src, canvasFS_glsl330_src);
     setup.AddTexture("tex", Oryol::TextureType::Texture2D, Oryol::ShaderStage::FS, 0);
+    return setup;
+}
+Oryol::ShaderSetup ShapeShader::Setup() {
+    Oryol::ShaderSetup setup("ShapeShader");
+    Oryol::VertexLayout shapeVS_input;
+    shapeVS_input.Add(Oryol::VertexAttr::Position, Oryol::VertexFormat::Float4);
+    shapeVS_input.Add(Oryol::VertexAttr::Color0, Oryol::VertexFormat::Float4);
+    setup.SetInputLayout(shapeVS_input);
+    setup.SetProgramFromSources(Oryol::ShaderLang::GLSL330, shapeVS_glsl330_src, shapeFS_glsl330_src);
     return setup;
 }
 

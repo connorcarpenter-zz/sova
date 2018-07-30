@@ -19,5 +19,6 @@ namespace Sova
         virtual const char* getClassName() { return "ShaderHandler"; }
         virtual Oryol::Id getNormalShader() = 0;
         virtual Oryol::Id getCanvasShader() = 0;
+        virtual Oryol::Id getShapeShader() = 0;
     };
 }
