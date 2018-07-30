@@ -12,8 +12,10 @@ fips_begin_module(Sova)
             Graphics/AnimatedSprite.h Graphics/AnimatedSprite.cpp
             Graphics/Camera.h Graphics/Camera.cpp
             Graphics/Viewport.h Graphics/Viewport.cpp
-            Graphics/Graphic.h Graphics/Graphic.cpp
             Graphics/DisplayObject.h Graphics/DisplayObject.cpp
+            Graphics/Color.h Graphics/Color.cpp
+            Graphics/Shape.h Graphics/Shape.cpp
+            Graphics/Rectangle.h Graphics/Rectangle.cpp
 
             Graphics/Internal/InternalCamera.h Graphics/Internal/InternalCamera.cpp
             Graphics/Internal/InternalViewport.h Graphics/Internal/InternalViewport.cpp
