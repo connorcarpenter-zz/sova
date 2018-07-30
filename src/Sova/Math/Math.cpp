@@ -51,4 +51,12 @@ namespace Sova
         if (value == 0) return 0;
         return Math::Sign(value);
     }
+
+    int Math::Min(int value1, int value2) {
+        return (value1 < value2) ? value1 : value2;
+    }
+
+    int Math::Max(int value1, int value2) {
+        return (value1 > value2) ? value1 : value2;
+    }
 }

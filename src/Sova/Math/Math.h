@@ -21,5 +21,8 @@ namespace Sova
         static int SignOrZero(int value);
 
         static float Lerp(int value1, int value2, float between);
+
+        static int Min(int value1, int value2);
+        static int Max(int value1, int value2);
     };
 }

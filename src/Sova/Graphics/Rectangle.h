@@ -5,10 +5,7 @@
 //
 
 #include "Shape.h"
-
-namespace Oryol {
-    class DrawState;
-}
+#include "Line.h"
 
 namespace Sova
 {
@@ -17,13 +14,16 @@ namespace Sova
         SovaTypeDecl(Rectangle, Shape);
     public:
         Rectangle(int width, int height);
-        ~Rectangle();
+
         Ref<Point> size = Null<Point>();
         virtual const char* getClassName() { return "Rectangle"; }
         virtual void drawSelf(Ref<Camera> camera, int xoffset, int yoffset);
+
+        void initLines();
     private:
-        Oryol::DrawState* drawState = nullptr;
-
-
+        Ref<Line> topLine = Null<Line>();
+        Ref<Line> leftLine = Null<Line>();
+        Ref<Line> bottomLine = Null<Line>();
+        Ref<Line> rightLine = Null<Line>();
     };
 }

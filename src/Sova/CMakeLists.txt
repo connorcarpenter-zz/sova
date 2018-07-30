@@ -16,7 +16,10 @@ fips_begin_module(Sova)
             Graphics/Color.h Graphics/Color.cpp
             Graphics/Shape.h Graphics/Shape.cpp
             Graphics/Rectangle.h Graphics/Rectangle.cpp
+            Graphics/Line.h Graphics/Line.cpp
 
+            Graphics/Internal/InternalLineDrawer.h Graphics/Internal/InternalLineDrawer.cpp
+            Graphics/Internal/InternalRectangleDrawer.h Graphics/Internal/InternalRectangleDrawer.cpp
             Graphics/Internal/InternalCamera.h Graphics/Internal/InternalCamera.cpp
             Graphics/Internal/InternalViewport.h Graphics/Internal/InternalViewport.cpp
 

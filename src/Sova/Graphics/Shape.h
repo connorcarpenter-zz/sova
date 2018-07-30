@@ -10,18 +10,19 @@
 namespace Sova
 {
     class Shape : public Sova::Container {
-    protected:
-        Color fillColor = Color::White;
-        float fillAlpha = 1.0f;
     public:
         Shape() {};
         void setLineStyle(int lineWidth, Color lineColor, float lineAlpha);
         void setFillStyle(Color fillColor, float fillAlpha);
         void setFillStyle(bool filling);
-    private:
-        int lineWidth = 1;
-        Color lineColor = Color::White;
+
+        Color fillColor = Color::White;
+        float fillAlpha = 1.0f;
         float lineAlpha = 1.0f;
+        Color lineColor = Color::White;
+    private:
         bool filling = true;
+    protected:
+        int lineWidth = 1;
     };
 }
