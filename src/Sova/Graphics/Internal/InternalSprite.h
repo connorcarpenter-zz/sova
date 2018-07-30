@@ -14,11 +14,11 @@ namespace Sova
     class Viewport;
     class Camera;
 
-    class InternalDisplayObject
+    class InternalSprite
     {
     public:
-        explicit InternalDisplayObject();//DisplayObject* sovaDisplayObject);
-        ~InternalDisplayObject();
+        explicit InternalSprite();//DisplayObject* sovaDisplayObject);
+        ~InternalSprite();
         void draw(Sova::InternalCamera* internalCamera, int xoffset, int yoffset);
         void draw(Sova::InternalCamera *internalCamera, int xoffset, int yoffset, int frameWidth,
                           int frameHeight, int padding, int imageIndex, int xscale, int yscale);

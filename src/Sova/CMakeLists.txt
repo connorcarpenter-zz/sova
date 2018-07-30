@@ -42,7 +42,7 @@ fips_begin_module(Sova)
             Internal/InternalApp.h Internal/InternalApp.cpp
             Graphics/Internal/PNGLoader.h Graphics/Internal/PNGLoader.cpp
             Graphics/Internal/shaders.h Graphics/Internal/shaders.cpp
-            Graphics/Internal/InternalDisplayObject.h Graphics/Internal/InternalDisplayObject.cpp
+            Graphics/Internal/InternalSprite.h Graphics/Internal/InternalSprite.cpp
             Graphics/Internal/InternalTexture.h Graphics/Internal/InternalTexture.cpp
             Graphics/Internal/InternalResourceManager.h Graphics/Internal/InternalResourceManager.cpp
             Internal/InternalDestructionManager.h Internal/InternalDestructionManager.cpp

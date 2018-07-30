@@ -12,17 +12,33 @@ using namespace Sova;
 
 namespace Sova
 {
+    class InternalSprite;
+
     class Sprite : public Container
     {
     public:
         SovaTypeDecl(Sprite, Container);
         Sprite();
-        Sprite(Ref<String> textureName);
+        explicit Sprite(Ref<String> textureName);
+        ~Sprite();
         virtual const char* getClassName() { return "Sprite"; }
+        virtual void drawSelf(Ref<Camera> camera, int xoffset, int yoffset);
+
+        Ref<Point> anchor = Null<Point>();
 
     protected:
-        void setTexture(Ref<String> textureName);
+        InternalSprite* internalSprite;
+
+        virtual void setTexture(Ref <String> textureName);
 
         Ref<String> textureName = Null<String>();
+
+        int getWidth();
+
+        int getHeight();
+
+        bool getVisible();
+
+        void setVisible(bool visible);
     };
 }

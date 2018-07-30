@@ -3,7 +3,7 @@
 //
 
 #include "AnimatedSprite.h"
-#include "Sova/Graphics/Internal/InternalDisplayObject.h"
+#include "Sova/Graphics/Internal/InternalSprite.h"
 #include "Sova/Graphics/Internal/InternalCamera.h"
 
 namespace Sova
@@ -35,7 +35,7 @@ namespace Sova
     }
 
     void AnimatedSprite::drawSelf(Ref<Camera> camera, int xoffset, int yoffset) {
-        this->oryolDisplayObject->draw(camera->getInternalCamera(),
+        this->internalSprite->draw(camera->getInternalCamera(),
                                        xoffset + this->position->x - (this->anchor->x * this->scale->x),
                                        yoffset + this->position->y - (this->anchor->y * this->scale->y),
                                        frameWidth, frameHeight,
@@ -45,6 +45,6 @@ namespace Sova
     }
 
     bool AnimatedSprite::getTextureLoaded() {
-        return this->oryolDisplayObject->getTextureLoaded();
+        return this->internalSprite->getTextureLoaded();
     }
 }

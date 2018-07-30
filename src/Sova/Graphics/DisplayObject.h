@@ -14,7 +14,6 @@ namespace Sova
     class Camera;
     class Point;
     class String;
-    class InternalDisplayObject;
 
     class DisplayObject : public Refable
     {
@@ -22,20 +21,17 @@ namespace Sova
         SovaBaseTypeDecl(DisplayObject);
         DisplayObject();
         virtual const char* getClassName() { return "DisplayObject"; }
-        ~DisplayObject();
+//        ~DisplayObject();
         virtual void drawSelf(Ref<Camera> camera, int xoffset, int yoffset);
 
         Ref<Point> position = Null<Point>();
-        Ref<Point> anchor = Null<Point>();
         Ref<Point> scale = Null<Point>();
-        int getWidth();
-        int getHeight();
-        bool getVisible();
-        void setVisible(bool visible);
+//        int getWidth();
+//        int getHeight();
+//        bool getVisible();
+//        void setVisible(bool visible);
 
     protected:
-        InternalDisplayObject* oryolDisplayObject;
 
-        virtual void setTexture(Ref <String> textureName);
     };
 }

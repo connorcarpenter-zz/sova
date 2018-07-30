@@ -59,7 +59,7 @@ namespace Sova
         for (auto iterator = this->children->GetIterator(); iterator->Valid(); iterator->Next())
         {
             Ref<Container> childContainer = iterator->Get();
-            childContainer->Draw(camera, xoffset + this->position->x - this->anchor->x, yoffset + this->position->y - this->anchor->y);
+            childContainer->Draw(camera, xoffset + this->position->x, yoffset + this->position->y);
         }
     }
 

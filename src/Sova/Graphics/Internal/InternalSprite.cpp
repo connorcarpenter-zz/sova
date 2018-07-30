@@ -2,7 +2,7 @@
 // Created by connor on 7/11/18.
 //
 
-#include "InternalDisplayObject.h"
+#include "InternalSprite.h"
 //#include "../DisplayObject.h"
 #include "Sova/Internal/InternalApp.h"
 #include "Sova/Graphics/Internal/InternalCamera.h"
@@ -11,15 +11,15 @@ using namespace Oryol;
 
 namespace Sova
 {
-    Sova::InternalDisplayObject::InternalDisplayObject()//DisplayObject* sovaDisplayObject)
+    Sova::InternalSprite::InternalSprite()//DisplayObject* sovaDisplayObject)
     {
     }
 
-    Sova::InternalDisplayObject::~InternalDisplayObject()
+    Sova::InternalSprite::~InternalSprite()
     {
     }
 
-    void InternalDisplayObject::setTexture(Ref<String> textureName)
+    void InternalSprite::setTexture(Ref<String> textureName)
     {
         Oryol::String textureString = Oryol::String(textureName->AsCStr());
         this->texture = InternalApp::getInternalApp()->resourceManager.textures[textureString];
@@ -27,7 +27,7 @@ namespace Sova
         this->visible = true;
     }
 
-    void InternalDisplayObject::draw(Sova::InternalCamera* internalCamera, int xoffset, int yoffset)
+    void InternalSprite::draw(Sova::InternalCamera* internalCamera, int xoffset, int yoffset)
     {
         if (this->visible)
         {
@@ -51,7 +51,7 @@ namespace Sova
         Gfx::Draw();
     }
 
-    void InternalDisplayObject::draw(Sova::InternalCamera *internalCamera, int xoffset, int yoffset, int frameWidth,
+    void InternalSprite::draw(Sova::InternalCamera *internalCamera, int xoffset, int yoffset, int frameWidth,
                                       int frameHeight, int padding, int imageIndex, int xscale, int yscale)
     {
         if (this->visible)
@@ -73,7 +73,7 @@ namespace Sova
         Gfx::Draw();
     }
 
-    const void* InternalDisplayObject::updateVertices(int x, int y, int texWidth, int texHeight, int canvasWidth, int canvasHeight)
+    const void* InternalSprite::updateVertices(int x, int y, int texWidth, int texHeight, int canvasWidth, int canvasHeight)
     {
         int vIndex = 0;
 
@@ -100,7 +100,7 @@ namespace Sova
         return InternalApp::getInternalApp()->vertexBuffer;
     }
 
-    const void * InternalDisplayObject::updateVertices(int x, int y, int texWidth, int texHeight, int canWidth, int canHeight, int frameWidth, int frameHeight,
+    const void * InternalSprite::updateVertices(int x, int y, int texWidth, int texHeight, int canWidth, int canHeight, int frameWidth, int frameHeight,
                                                         int padding, int frameIndex, int xscale, int yscale)
     {
         int vIndex = 0;
@@ -131,7 +131,7 @@ namespace Sova
     }
 
 //------------------------------------------------------------------------------
-    int InternalDisplayObject::writeVertex(int index, float x, float y, float u, float v) {
+    int InternalSprite::writeVertex(int index, float x, float y, float u, float v) {
         InternalApp::getInternalApp()->vertexBuffer[index].x = x;
         InternalApp::getInternalApp()->vertexBuffer[index].y = y;
         InternalApp::getInternalApp()->vertexBuffer[index].u = u;
@@ -139,19 +139,19 @@ namespace Sova
         return index + 1;
     }
 
-    int InternalDisplayObject::getWidth() {
+    int InternalSprite::getWidth() {
         if (this->texture != nullptr)
             return this->texture->width;
         return 0;
     }
 
-    int InternalDisplayObject::getHeight() {
+    int InternalSprite::getHeight() {
         if (this->texture != nullptr)
             return this->texture->height;
         return 0;
     }
 
-    bool InternalDisplayObject::getTextureLoaded() {
+    bool InternalSprite::getTextureLoaded() {
         return this->texture->loaded;
     }
 }
