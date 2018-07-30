@@ -12,10 +12,4 @@ namespace Sova
         this->position = New<Point>();
         this->scale = New<Point>(1,1);
     }
-
-
-    void DisplayObject::drawSelf(Ref<Camera> camera, int xoffset, int yoffset)
-    {
-        // do nothing, this should be overrided
-    }
 }

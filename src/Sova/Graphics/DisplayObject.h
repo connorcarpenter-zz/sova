@@ -21,15 +21,10 @@ namespace Sova
         SovaBaseTypeDecl(DisplayObject);
         DisplayObject();
         virtual const char* getClassName() { return "DisplayObject"; }
-//        ~DisplayObject();
-        virtual void drawSelf(Ref<Camera> camera, int xoffset, int yoffset);
+        virtual void drawSelf(Ref<Camera> camera, int xoffset, int yoffset) {};
 
         Ref<Point> position = Null<Point>();
         Ref<Point> scale = Null<Point>();
-//        int getWidth();
-//        int getHeight();
-//        bool getVisible();
-//        void setVisible(bool visible);
 
     protected:
 
