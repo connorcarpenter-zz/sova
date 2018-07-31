@@ -35,6 +35,7 @@ fips_begin_module(Sova)
 
             Common/List.h Common/SortedList.h
             Common/String.h Common/String.cpp
+            Common/Int.h Common/Int.cpp
             Common/StringBuilder.h Common/StringBuilder.cpp
 
             References/Ref.h References/IRef.h

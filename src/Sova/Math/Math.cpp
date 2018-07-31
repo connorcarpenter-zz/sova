@@ -59,4 +59,29 @@ namespace Sova
     int Math::Max(int value1, int value2) {
         return (value1 > value2) ? value1 : value2;
     }
+
+    bool Math::BoxesOverlap(int box1a, int box1b, int box1c, int box1d, int box2a, int box2b, int box2c, int box2d)
+    {
+        int box1topleftx = Math::Min(box1a, box1c);
+        int box1toplefty = Math::Min(box1b, box1d);
+        int box1bottomrightx = Math::Max(box1a, box1c);
+        int box1bottomrighty = Math::Max(box1b, box1d);
+
+        int box2topleftx = Math::Min(box2a, box2c);
+        int box2toplefty = Math::Min(box2b, box2d);
+        int box2bottomrightx = Math::Max(box2a, box2c);
+        int box2bottomrighty = Math::Max(box2b, box2d);
+
+        if (box1topleftx > box2bottomrightx || box2topleftx > box1bottomrightx) return false;
+        if (box1toplefty > box2bottomrighty || box2toplefty > box1bottomrighty) return false;
+        return true;
+    }
+
+    int Math::Ceiling(float value) {
+        return (int) glm::ceil(value);
+    }
+
+    float Math::Sqrt(int value) {
+        return (float) glm::sqrt(value);
+    }
 }

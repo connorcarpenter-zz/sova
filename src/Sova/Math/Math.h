@@ -24,5 +24,9 @@ namespace Sova
 
         static int Min(int value1, int value2);
         static int Max(int value1, int value2);
+        static int Ceiling(float value);
+        static float Sqrt(int value);
+
+        static bool BoxesOverlap(int box1a, int box1b, int box1c, int box1d, int box2a, int box2b, int box2c, int box2d);
     };
 }
