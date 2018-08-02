@@ -5,6 +5,8 @@
 #include "Int.h"
 
 #include <string>
+#include <Sova/References/Ref.h>
+#include <cstring>
 
 namespace Sova
 {
@@ -13,8 +15,10 @@ namespace Sova
         this->value = i;
     }
 
-    Ref<String> Int::ToString()
+    Ref<Sova::String> Int::ToString()
     {
-        return New<String>(std::to_string(this->value).c_str());
+        const char* cstr = std::to_string(this->value).c_str();
+        Ref<Sova::String> newStr = New<String>(cstr, strlen(cstr), true);
+        return newStr;
     }
 }

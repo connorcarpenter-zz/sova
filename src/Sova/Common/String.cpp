@@ -40,7 +40,7 @@ namespace Sova
         {
             this->charArray[i] = str[i];
         }
-        this->charArray[this->length] = '\n';
+        this->charArray[this->length] = '\0';
         this->useCharArray = true;
     }
 

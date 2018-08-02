@@ -11,7 +11,7 @@ namespace Sova {
     class Int : public Refable {
     public:
         Int(int i);
-        Ref<String> ToString();
+        Ref<Sova::String> ToString();
     private:
         int value;
     };

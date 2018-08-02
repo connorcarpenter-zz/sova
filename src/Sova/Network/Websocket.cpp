@@ -47,19 +47,23 @@ namespace Sova
     }
 
     void Websocket::receiveMessage(const char* message) {
-        this->messageFunction(New<String>(message));
+        if (this->messageFunction != nullptr)
+            this->messageFunction(New<String>(message));
     }
 
     void Websocket::receiveError(const char* message) {
-        this->errorFunction(New<String>(message));
+        if (this->errorFunction != nullptr)
+            this->errorFunction(New<String>(message));
     }
 
     void Websocket::receiveOpen() {
-        this->openFunction();
+        if (this->openFunction != nullptr)
+            this->openFunction();
     }
 
     void Websocket::receiveClose(const char* message) {
-        this->closeFunction(New<String>(message));
+        if (this->closeFunction != nullptr)
+            this->closeFunction(New<String>(message));
     }
 
     ReadyState Websocket::getReadyState() {
