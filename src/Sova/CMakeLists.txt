@@ -44,6 +44,8 @@ fips_begin_module(Sova)
             References/RefCounter.h References/RefCounter.cpp
             References/RefTypes.h
 
+            Time/Timer.h Time/Timer.cpp
+
             Graphics/Internal/ShaderHandler.h
             Internal/InternalApp.h Internal/InternalApp.cpp
             Graphics/Internal/PNGLoader.h Graphics/Internal/PNGLoader.cpp

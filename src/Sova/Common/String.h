@@ -5,6 +5,7 @@
 //
 
 #include <Sova/References/Refable.h>
+#include <Sova/References/Ref.h>
 #include "List.h"
 
 using namespace Sova;

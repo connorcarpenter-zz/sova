@@ -6,6 +6,7 @@
 
 #include <functional>
 #include <Sova/Network/HttpRequest.h>
+#include <Sova/Time/Timer.h>
 
 #include "Sova/References/Ref.h"
 #include "Sova/Graphics/Internal/ShaderHandler.h"
@@ -53,6 +54,9 @@ namespace Sova {
         Ref<Websocket> openWebsocket(Ref<String> address);
         Ref<HttpRequest> makeHttpRequest(Ref<String> method, Ref<String> address);
 
+        //Timers
+        Ref<Timer> makeTimer(std::function<void()> updateFunction, int msStart, int msRepeat);
+
         void updateWebsockets();
         void updateHttpRequests();
 
@@ -60,11 +64,14 @@ namespace Sova {
         void setGlobal(void* globalPtr);
         void* getGlobal();
 
+        void updateTimers(double frameDelta);
+
     private:
         Ref<List<Viewport>> viewports = Null<List<Viewport>>();
         Ref<List<Websocket>> websockets = Null<List<Websocket>>();
         Ref<List<HttpRequest>> httpRequests = Null<List<HttpRequest>>();
         Ref<List<HttpRequest>> finishedHttpRequests = Null<List<HttpRequest>>();
+        Ref<List<Timer>> timers = Null<List<Timer>>();
 
         void* globalObj = nullptr;
     };

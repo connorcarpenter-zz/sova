@@ -4,6 +4,7 @@
 
 #include <Sova/Internal/InternalApp.h>
 #include <Modules/Input/Input.h>
+#include <Sova/Time/Timer.h>
 #include "App.h"
 
 using namespace Sova;
@@ -21,6 +22,7 @@ namespace Sova {
         this->websockets = New<List<Websocket>>();
         this->httpRequests = New<List<HttpRequest>>();
         this->finishedHttpRequests = New<List<HttpRequest>>();
+        this->timers = New<List<Timer>>();
     }
 
     void App::start() {
@@ -102,8 +104,8 @@ namespace Sova {
     void App::updateHttpRequests()
     {
         if (this->httpRequests->Size() > 0) {
-            for (Ref<ListIterator<HttpRequest>> iterator = this->httpRequests->GetIterator(); iterator->Valid(); iterator->Next()) {
-                Ref<HttpRequest> request = iterator->Get();
+            for (auto iterator = this->httpRequests->GetIterator(); iterator->Valid(); iterator->Next()) {
+                auto request = iterator->Get();
                 request->update();
                 if (request->isFinished())
                     finishedHttpRequests->Add(request);
@@ -112,12 +114,29 @@ namespace Sova {
         
         if (this->finishedHttpRequests->Size() > 0)
         {
-            for (Ref<ListIterator<HttpRequest>> iterator = this->finishedHttpRequests->GetIterator(); iterator->Valid(); iterator->Next())
+            for (auto iterator = this->finishedHttpRequests->GetIterator(); iterator->Valid(); iterator->Next())
             {
-                Ref<HttpRequest> request = iterator->Get();
+                auto request = iterator->Get();
                 this->httpRequests->Remove(request);
             }
             this->finishedHttpRequests->Clear();
+        }
+    }
+
+    Ref<Timer> App::makeTimer(std::function<void()> updateFunction, int msStart, int msRepeat)
+    {
+        auto newTimer = New<Timer>(updateFunction, msStart, msRepeat);
+        this->timers->Add(newTimer);
+        return newTimer;
+    }
+
+    void App::updateTimers(double frameDelta)
+    {
+        if (this->timers->Size() > 0) {
+            for (auto iterator = this->timers->GetIterator(); iterator->Valid(); iterator->Next()) {
+                auto timer = iterator->Get();
+                timer->update(frameDelta);
+            }
         }
     }
 

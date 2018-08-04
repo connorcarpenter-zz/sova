@@ -5,6 +5,7 @@
 //
 #include <Sova/References/Refable.h>
 #include <Modules/Core/Assertion.h>
+#include <functional>
 
 namespace Sova
 {
@@ -152,6 +153,17 @@ namespace Sova
 
             //Should never arrive here..
             o_assert(false);
+        }
+
+        Ref<T> Find(std::function<bool(Sova::Ref<T>)> evalFunc)
+        {
+            for (Ref<ListIterator<T>> iterator = this->GetIterator(); iterator->Valid(); iterator->Next())
+            {
+                auto evaledObj = iterator->Get();
+                if (evalFunc(evaledObj)) return evaledObj;
+            }
+
+            return Null<T>();
         }
 
     private:

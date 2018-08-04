@@ -12,6 +12,7 @@ namespace Sova {
     public:
         Int(int i);
         Ref<Sova::String> ToString();
+        int getInt();
     private:
         int value;
     };

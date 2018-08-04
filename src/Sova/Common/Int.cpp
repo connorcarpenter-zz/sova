@@ -21,4 +21,8 @@ namespace Sova
         Ref<Sova::String> newStr = New<String>(cstr, strlen(cstr), true);
         return newStr;
     }
+
+    int Int::getInt() {
+        return value;
+    }
 }
