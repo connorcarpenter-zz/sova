@@ -24,4 +24,10 @@ namespace Sova {
     bool Point::Equals(Ref<Sova::Point> other) {
         return (this->x == other->x && this->y == other->y);
     }
+
+    void Point::set(Ref<Point> other) {
+        this->x = other->x;
+        this->y = other->y;
+
+    }
 }

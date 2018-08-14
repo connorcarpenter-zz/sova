@@ -127,8 +127,8 @@ namespace Sova
         void Clear()
         {
             size = 0;
-            Ref<ListNode<T>> head = Null<ListNode<T>>();
-            Ref<ListNode<T>> tail = Null<ListNode<T>>();
+            head = Null<ListNode<T>>();
+            tail = Null<ListNode<T>>();
             //GC should pick up abandoned ListNodes
         }
 

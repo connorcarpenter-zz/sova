@@ -27,25 +27,25 @@ namespace Sova
         container->SetParent(nullptr);
     }
 
-    void Container::OnUpdate(std::function<void()> updateFunction)
+    void Container::OnUpdate(std::function<void(float)> updateFunction)
     {
         this->UpdateFunction = updateFunction;
     }
 
-    void Container::Update(){
+    void Container::Update(float deltaFrameMs) {
         if (this->UpdateFunction != nullptr)
-            this->UpdateFunction();
+            this->UpdateFunction(deltaFrameMs);
     }
 
-    void Container::UpdateChildren()
+    void Container::UpdateChildren(float deltaFrameMs)
     {
         if (this->destroyed) return;
 
         for (auto iterator = this->children->GetIterator(); iterator->Valid(); iterator->Next())
         {
             Ref<Container> childContainer = iterator->Get();
-            childContainer->Update();
-            childContainer->UpdateChildren();
+            childContainer->Update(deltaFrameMs);
+            childContainer->UpdateChildren(deltaFrameMs);
         }
     }
 

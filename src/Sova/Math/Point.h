@@ -19,6 +19,7 @@ namespace Sova
 
         int x;
         int y;
-    private:
+
+        void set(Ref<Point> other);
     };
 }

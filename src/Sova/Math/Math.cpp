@@ -44,7 +44,7 @@ namespace Sova
     float Math::Lerp(int value1, int value2, float between)
     {
         float range = (value2 - value1);
-        return value1 + (range * between / 100);
+        return value1 + (range * between);
     }
 
     int Math::SignOrZero(int value) {
@@ -62,19 +62,17 @@ namespace Sova
 
     bool Math::BoxesOverlap(int box1a, int box1b, int box1c, int box1d, int box2a, int box2b, int box2c, int box2d)
     {
-        int box1topleftx = Math::Min(box1a, box1c);
-        int box1toplefty = Math::Min(box1b, box1d);
-        int box1bottomrightx = Math::Max(box1a, box1c);
-        int box1bottomrighty = Math::Max(box1b, box1d);
+        int box1left = Math::Min(box1a, box1c);
+        int box1top = Math::Min(box1b, box1d);
+        int box1right = Math::Max(box1a, box1c);
+        int box1bottom = Math::Max(box1b, box1d);
 
-        int box2topleftx = Math::Min(box2a, box2c);
-        int box2toplefty = Math::Min(box2b, box2d);
-        int box2bottomrightx = Math::Max(box2a, box2c);
-        int box2bottomrighty = Math::Max(box2b, box2d);
+        int box2left = Math::Min(box2a, box2c);
+        int box2top = Math::Min(box2b, box2d);
+        int box2right = Math::Max(box2a, box2c);
+        int box2bottom = Math::Max(box2b, box2d);
 
-        if (box1topleftx > box2bottomrightx || box2topleftx > box1bottomrightx) return false;
-        if (box1toplefty > box2bottomrighty || box2toplefty > box1bottomrighty) return false;
-        return true;
+        return !(box1left > box2right || box2left > box1right || box1top > box2bottom || box2top > box1bottom);
     }
 
     int Math::Ceiling(float value) {

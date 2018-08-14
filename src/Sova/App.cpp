@@ -35,7 +35,7 @@ namespace Sova {
         return this->loader;
     };
 
-    void App::onUpdate(std::function<void()> updateFunction){
+    void App::onUpdate(std::function<void(float)> updateFunction){
         this->updateFunction = updateFunction;
     }
 

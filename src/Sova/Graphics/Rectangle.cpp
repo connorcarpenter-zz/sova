@@ -23,10 +23,10 @@ namespace Sova
         {
             initLines();
 
-            int topLeftX = Math::Min(this->position->x, this->position->x + this->size->x) + 1;
-            int topLeftY = Math::Min(this->position->y, this->position->y + this->size->y);
-            int bottomRightX = Math::Max(this->position->x, this->position->x + this->size->x);
-            int bottomRightY = Math::Max(this->position->y, this->position->y + this->size->y) - 1;
+            int topLeftX = Math::Min(this->position->x, this->position->x + this->size->x) + 1 + xoffset;
+            int topLeftY = Math::Min(this->position->y, this->position->y + this->size->y) + yoffset;
+            int bottomRightX = Math::Max(this->position->x, this->position->x + this->size->x) + xoffset;
+            int bottomRightY = Math::Max(this->position->y, this->position->y + this->size->y) - 1 + yoffset;
 
             //int ax = topLeftX;     int ay = topLeftY;
             //int bx = bottomRightX;    int by = ay;

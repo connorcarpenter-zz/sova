@@ -14,7 +14,7 @@ namespace Sova {
 
         AnimatedSprite();
 
-        void Update() override;
+        void Update(float deltaFrameMs) override;
         void drawSelf(Ref<Camera> camera, int xoffset, int yoffset) override;
         float imageSpeed = 0;
         float imageIndex = 0;

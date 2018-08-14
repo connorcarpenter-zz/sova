@@ -24,9 +24,9 @@ namespace Sova
         void AddChild(Ref<Container> container);
         void RemoveChild(Ref<Container> container);
 
-        void OnUpdate(std::function<void()> updateFunction);
-        void UpdateChildren();
-        std::function<void()> UpdateFunction = nullptr;
+        void OnUpdate(std::function<void(float)> updateFunction);
+        void UpdateChildren(float deltaFrameMs);
+        std::function<void(float)> UpdateFunction = nullptr;
 
         virtual void Draw(Ref<Camera> camera, int xoffset, int yoffset);
 
@@ -44,7 +44,7 @@ namespace Sova
     protected:
         bool destroyed = false;
 
-        virtual void Update();
+        virtual void Update(float deltaFrameMs);
     };
 
 }

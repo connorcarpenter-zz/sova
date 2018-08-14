@@ -28,12 +28,12 @@ namespace Sova {
 
         Ref<Loader> load(Ref<List<String>> resources);
         void start();
-        void onUpdate(std::function<void()> updateFunction);
+        void onUpdate(std::function<void(float)> updateFunction);
         void addViewport(Ref<Viewport> viewport);
         void drawCameras();
         void drawViewports();
 
-        std::function<void()> updateFunction = nullptr;
+        std::function<void(float)> updateFunction = nullptr;
         
         //Input
         bool keyPressed(Key::Code key);

@@ -57,10 +57,10 @@ namespace Sova
         float canW = internalCamera->getWidth();
         float canH = internalCamera->getHeight();
 
-        int topLeftX = Math::Min(mainRectangle->position->x, mainRectangle->position->x + mainRectangle->size->x) + 1;
-        int topLeftY = Math::Min(mainRectangle->position->y, mainRectangle->position->y + mainRectangle->size->y) + 1;
-        int bottomRightX = Math::Max(mainRectangle->position->x, mainRectangle->position->x + mainRectangle->size->x) - 1;
-        int bottomRightY = Math::Max(mainRectangle->position->y, mainRectangle->position->y + mainRectangle->size->y) - 1;
+        int topLeftX = Math::Min(mainRectangle->position->x, mainRectangle->position->x + mainRectangle->size->x) + 1 + xoffset;
+        int topLeftY = Math::Min(mainRectangle->position->y, mainRectangle->position->y + mainRectangle->size->y) + 1 + yoffset;
+        int bottomRightX = Math::Max(mainRectangle->position->x, mainRectangle->position->x + mainRectangle->size->x) - 1 + xoffset;
+        int bottomRightY = Math::Max(mainRectangle->position->y, mainRectangle->position->y + mainRectangle->size->y) - 1 + yoffset;
 
         //up-left
         data.vertices[0] = (float) topLeftX / canW;

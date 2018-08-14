@@ -18,7 +18,7 @@ namespace Sova
         this->padding = padding;
     }
 
-    void AnimatedSprite::Update() {
+    void AnimatedSprite::Update(float deltaFrameMs) {
         if (imageNumber == -1)
         {
             if (this->getTextureLoaded())
@@ -31,7 +31,7 @@ namespace Sova
                 imageIndex -= imageNumber;
         }
 
-        Container::Update();
+        Container::Update(deltaFrameMs);
     }
 
     void AnimatedSprite::drawSelf(Ref<Camera> camera, int xoffset, int yoffset) {

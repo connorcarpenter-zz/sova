@@ -88,7 +88,7 @@ AppState::Code InternalApp::OnRunning()
     double frameDelta = Clock::LapTime(frameTimePoint).AsMilliSeconds();
 
     sovapp->updateTimers(frameDelta);
-    sovapp->updateFunction();
+    sovapp->updateFunction((float) frameDelta);
     destructionManager.FinalizeDestruction();
 
     //Drawing

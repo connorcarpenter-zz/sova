@@ -168,8 +168,8 @@ namespace Sova
         void Clear()
         {
             size = 0;
-            Ref<SortedListNode<T>> head = Null<SortedListNode<T>>();
-            Ref<SortedListNode<T>> tail = Null<SortedListNode<T>>();
+            head = Null<SortedListNode<T>>();
+            tail = Null<SortedListNode<T>>();
             //GC should pick up abandoned SortedListNodes
         }
 
