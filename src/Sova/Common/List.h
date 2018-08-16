@@ -116,6 +116,11 @@ namespace Sova
             //cut item out of the linked list
             auto nextNext = previous->next->next; //important that this is executed before the next line (idk why yet :/)
             previous->next = nextNext;
+            if (nextNext == nullptr)
+            {
+                //we just cut out the tail, so reassign it
+                tail = previous;
+            }
             size -= 1;
         }
 
@@ -164,6 +169,14 @@ namespace Sova
             }
 
             return Null<T>();
+        }
+
+        bool Contains(Ref<T> item)
+        {
+            auto foundItem = this->Find([&](Ref<T> inspectUnit) { //replace this with a Hash lookup someday!
+                return (inspectUnit.obj == item.obj);
+            });
+            return foundItem != nullptr;
         }
 
     private:
