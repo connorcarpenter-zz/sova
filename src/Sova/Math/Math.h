@@ -28,5 +28,9 @@ namespace Sova
         static float Sqrt(int value);
 
         static bool BoxesOverlap(int box1a, int box1b, int box1c, int box1d, int box2a, int box2b, int box2c, int box2d);
+
+        static int Power(int value, int power);
+
+        static float Distance(float x1, float y1, float x2, float y2);
     };
 }

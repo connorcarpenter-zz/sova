@@ -12,7 +12,7 @@ namespace Sova
     class Shape : public Sova::Container {
     public:
         Shape() {};
-        void setLineStyle(int lineWidth, Color lineColor, float lineAlpha);
+        void setLineStyle(int lineWidth, Color lineColor, float lineAlpha = 1.0f);
         void setFillStyle(Color fillColor, float fillAlpha);
         void setFillStyle(bool filling);
 
