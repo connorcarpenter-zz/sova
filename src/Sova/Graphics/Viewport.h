@@ -24,9 +24,10 @@ namespace Sova
         InternalCamera* getInternalCamera();
 
         Ref<Point> position = Null<Point>();
-    private:
         int width;
         int height;
+    private:
+
         Ref<Camera> camera = Null<Camera>();
         InternalViewport* internalViewport = nullptr;
 

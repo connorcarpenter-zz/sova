@@ -26,7 +26,10 @@ namespace Sova {
         renderTargetSetup.Sampler.MinFilter = Oryol::TextureFilterMode::Nearest;
         renderTargetSetup.Sampler.MagFilter = Oryol::TextureFilterMode::Nearest;
         this->canvasTexture = Oryol::Gfx::CreateResource(renderTargetSetup);
-        this->canvasPass = Oryol::Gfx::CreateResource(Oryol::PassSetup::From(this->canvasTexture));
+        auto passSetup = Oryol::PassSetup::From(this->canvasTexture);
+        if (!this->mainCamera->autoDraw)
+            passSetup.DefaultAction = PassAction::Load();
+        this->canvasPass = Oryol::Gfx::CreateResource(passSetup);
 
         this->drawState.Mesh[0] = InternalApp::getInternalApp()->meshResource;
         this->drawState.Pipeline = InternalApp::getInternalApp()->pipelineResource;

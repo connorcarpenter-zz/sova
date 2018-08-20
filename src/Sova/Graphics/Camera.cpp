@@ -9,12 +9,13 @@
 
 namespace Sova
 {
-    Sova::Camera::Camera(int x, int y, int width, int height, Ref <Container> target)
+    Sova::Camera::Camera(int x, int y, int width, int height, Ref <Container> target, bool autoDraw)
     {
         this->position = New<Point>(x, y);
         this->width = width;
         this->height = height;
         this->target = target;
+        this->autoDraw = autoDraw;
 
         this->internalCamera = new InternalCamera(this);
     }
@@ -25,6 +26,8 @@ namespace Sova
 
     void Sova::Camera::draw(int xoffset, int yoffset)
     {
+        if (!this->autoDraw) return;
+
         Oryol::Gfx::BeginPass(this->internalCamera->getCanvasPass());
         this->target->Draw(ThisRef<Camera>(), xoffset - this->position->x, yoffset - this->position->y);
         Oryol::Gfx::EndPass();

@@ -16,7 +16,7 @@ namespace Sova
     class Camera : public Refable
     {
     public:
-        Camera(int x, int y, int width, int height, Ref <Container> target);
+        Camera(int x, int y, int width, int height, Ref <Container> target, bool autoDraw = true);
         ~Camera();
         virtual const char* getClassName() { return "Camera"; }
         void draw(int xoffset, int yoffset);
@@ -25,6 +25,7 @@ namespace Sova
         Ref<Point> position = Null<Point>();
         int width;
         int height;
+        bool autoDraw = true;
     private:
 
         Ref<Container> target = Null<Container>();
