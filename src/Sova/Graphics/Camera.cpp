@@ -9,13 +9,15 @@
 
 namespace Sova
 {
-    Sova::Camera::Camera(int x, int y, int width, int height, Ref <Container> target, bool autoDraw)
+    Sova::Camera::Camera(int x, int y, int width, int height, Ref <Container> target, Color bckColor, float bckAlpha, bool autoDraw)
     {
         this->position = New<Point>(x, y);
         this->width = width;
         this->height = height;
         this->target = target;
         this->autoDraw = autoDraw;
+        this->backgroundColor = bckColor;
+        this->backgroundAlpha = bckAlpha;
 
         this->internalCamera = new InternalCamera(this);
     }

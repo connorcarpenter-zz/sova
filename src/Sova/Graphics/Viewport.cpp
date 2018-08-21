@@ -27,10 +27,8 @@ namespace Sova {
 
     void Viewport::drawViewport() {
         // copy offscreen render target into backbuffer
-        Oryol::Gfx::BeginPass();
         Oryol::Gfx::ApplyDrawState(this->internalViewport->getDrawState());
         Oryol::Gfx::Draw();
-        Oryol::Gfx::EndPass();
     }
 
     InternalCamera* Viewport::getInternalCamera() {

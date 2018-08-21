@@ -93,7 +93,9 @@ AppState::Code InternalApp::OnRunning()
 
     //Drawing
     sovapp->drawCameras();
+    Oryol::Gfx::BeginPass();
     sovapp->drawViewports();
+    Oryol::Gfx::EndPass();
     Gfx::CommitFrame();
 
     //Network

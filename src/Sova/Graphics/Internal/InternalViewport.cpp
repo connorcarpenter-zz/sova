@@ -22,6 +22,16 @@ namespace Sova {
 
         Oryol::Id normalShader = InternalApp::getInternalApp()->getSovaApp()->shaderHandler->getNormalShader();
         auto ps = Oryol::PipelineSetup::FromLayoutAndShader(meshSetup.Layout, normalShader);
+
+        if (this->mainViewport->getInternalCamera()->getBackgroundAlpha() != 1.0f) {
+            ps.BlendState.BlendEnabled = true;
+            ps.BlendColor = glm::vec4(1.0f, 1.0f, 0.0f, 1.0f);
+            ps.BlendState.ColorWriteMask = PixelChannel::RGB;
+            ps.BlendState.DepthFormat = PixelFormat::DEPTHSTENCIL;
+            ps.BlendState.SrcFactorRGB = (BlendFactor::Code) 4;
+            ps.BlendState.DstFactorRGB = (BlendFactor::Code) 5;
+        }
+
         this->windowDrawState.Pipeline = Oryol::Gfx::CreateResource(ps);
         this->windowDrawState.FSTexture[0] = this->mainViewport->getInternalCamera()->getCanvasTexture();
     }

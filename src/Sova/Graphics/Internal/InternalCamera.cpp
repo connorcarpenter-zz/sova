@@ -27,6 +27,13 @@ namespace Sova {
         renderTargetSetup.Sampler.MagFilter = Oryol::TextureFilterMode::Nearest;
         this->canvasTexture = Oryol::Gfx::CreateResource(renderTargetSetup);
         auto passSetup = Oryol::PassSetup::From(this->canvasTexture);
+        if (this->mainCamera->backgroundColor != Color::Black || this->mainCamera->backgroundAlpha != 1.0f)
+        {
+            passSetup.DefaultAction = PassAction::Clear(glm::vec4(this->mainCamera->backgroundColor.red,
+                                                                  this->mainCamera->backgroundColor.green,
+                                                                  this->mainCamera->backgroundColor.blue,
+                                                                  this->mainCamera->backgroundAlpha));
+        }
         if (!this->mainCamera->autoDraw)
             passSetup.DefaultAction = PassAction::Load();
         this->canvasPass = Oryol::Gfx::CreateResource(passSetup);
@@ -49,5 +56,9 @@ namespace Sova {
 
     int InternalCamera::getHeight() {
         return this->mainCamera->height;
+    }
+
+    float InternalCamera::getBackgroundAlpha() {
+        return this->mainCamera->backgroundAlpha;
     }
 }

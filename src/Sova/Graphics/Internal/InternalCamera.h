@@ -21,6 +21,8 @@ namespace Sova {
 
         int getHeight();
 
+        float getBackgroundAlpha();
+
     private:
         Camera* mainCamera = nullptr;
         Oryol::Id canvasPass;
