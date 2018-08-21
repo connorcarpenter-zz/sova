@@ -41,19 +41,24 @@ namespace Sova
 
             Id shapeShader = InternalApp::getSovaApp()->shaderHandler->getShapeShader();
             auto ps = PipelineSetup::FromLayoutAndShader(meshSetup.Layout, shapeShader);
-            //ps.PrimType = PrimitiveType::Lines;
             ps.BlendState.BlendEnabled = true;
             ps.BlendColor = glm::vec4(1.0f, 1.0f, 0.0f, 1.0f);
-            ps.BlendState.ColorWriteMask = PixelChannel::RGB;
+            ps.BlendState.ColorWriteMask = PixelChannel::RGBA;
             ps.BlendState.DepthFormat = PixelFormat::None;
             ps.BlendState.SrcFactorRGB = (BlendFactor::Code) 4;
             ps.BlendState.DstFactorRGB = (BlendFactor::Code) 5;
+            ps.BlendState.SrcFactorAlpha = (BlendFactor::Code) 4;
+            ps.BlendState.DstFactorAlpha = (BlendFactor::Code) 4;
+            ps.BlendState.OpAlpha = BlendOperation::Add;
             this->drawState.Pipeline = Gfx::CreateResource(ps);
     }
 
     void
     InternalRectangleDrawer::draw(Sova::Rectangle* mainRectangle, Sova::InternalCamera* internalCamera,
                                   int xoffset, int yoffset) {
+        if (!mainRectangle->filling) return;
+        if (mainRectangle->fillAlpha == 0.0f) return;
+
         float canW = internalCamera->getWidth();
         float canH = internalCamera->getHeight();
 

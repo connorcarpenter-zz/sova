@@ -29,6 +29,15 @@ namespace Sova
     void Sova::Camera::draw(int xoffset, int yoffset)
     {
         if (!this->autoDraw) return;
+        if (skipFrames != 0)
+        {
+            skipFrames -= 1;
+            return;
+        }
+        else
+        {
+            skipFrames = SkipFramesToDrawFramesRatio;
+        }
 
         Oryol::Gfx::BeginPass(this->internalCamera->getCanvasPass());
         this->target->Draw(ThisRef<Camera>(), xoffset - this->position->x, yoffset - this->position->y);

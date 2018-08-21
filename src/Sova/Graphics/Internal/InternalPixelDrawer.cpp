@@ -39,10 +39,13 @@ namespace Sova
         ps.PrimType = PrimitiveType::Points;
         ps.BlendState.BlendEnabled = true;
         ps.BlendColor = glm::vec4(1.0f, 1.0f, 0.0f, 1.0f);
-        ps.BlendState.ColorWriteMask = PixelChannel::RGB;
+        ps.BlendState.ColorWriteMask = PixelChannel::RGBA;
         ps.BlendState.DepthFormat = PixelFormat::None;
         ps.BlendState.SrcFactorRGB = (BlendFactor::Code) 4;
         ps.BlendState.DstFactorRGB = (BlendFactor::Code) 5;
+        ps.BlendState.SrcFactorAlpha = (BlendFactor::Code) 1;
+        ps.BlendState.DstFactorAlpha = (BlendFactor::Code) 1;
+        ps.BlendState.OpAlpha = BlendOperation::Add;
         this->drawState.Pipeline = Gfx::CreateResource(ps);
     }
 

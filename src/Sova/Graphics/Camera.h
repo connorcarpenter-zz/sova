@@ -29,9 +29,12 @@ namespace Sova
         bool autoDraw = true;
         Color backgroundColor = Color::Black;
         float backgroundAlpha;
+        int SkipFramesToDrawFramesRatio = 0;
+
     private:
 
         Ref<Container> target = Null<Container>();
         InternalCamera* internalCamera = nullptr;
+        int skipFrames = 0;
     };
 }

@@ -20,7 +20,6 @@ namespace Sova
         float fillAlpha = 1.0f;
         float lineAlpha = 1.0f;
         Color lineColor = Color::White;
-    private:
         bool filling = true;
     protected:
         int lineWidth = 1;
