@@ -2,6 +2,7 @@
 // Created by connor on 7/8/18.
 //
 
+#include <Sova/Math/Math.h>
 #include "Sprite.h"
 #include "Sova/Graphics/Internal/InternalSprite.h"
 
@@ -32,9 +33,10 @@ namespace Sova
     }
 
     void Sprite::drawSelf(Ref<Camera> camera, int xoffset, int yoffset) {
-        this->internalSprite->draw(camera->getInternalCamera(),
-                                       xoffset + this->position->x - this->anchor->x,
-                                       yoffset + this->position->y - this->anchor->y);
+        int rx = xoffset + this->position->x - this->anchor->x;
+        int ry = yoffset + this->position->y - this->anchor->y;
+        if (!this->spriteInsideCameraBounds(camera, rx, ry)) return;
+        this->internalSprite->draw(camera->getInternalCamera(), rx, ry);
     }
 
     int Sprite::getWidth() {
@@ -51,5 +53,10 @@ namespace Sova
 
     void Sprite::setVisible(bool visible) {
         this->internalSprite->visible = visible;
+    }
+
+    bool Sprite::spriteInsideCameraBounds(Ref<Camera> camera, int xoffset, int yoffset) {
+        return Math::BoxesOverlap(xoffset, yoffset, xoffset + this->getWidth(), yoffset + this->getHeight(),
+                0, 0, camera->width, camera->height);
     }
 }

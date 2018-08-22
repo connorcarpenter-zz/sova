@@ -34,7 +34,7 @@ namespace Sova {
                                                                   this->mainCamera->backgroundColor.blue,
                                                                   this->mainCamera->backgroundAlpha));
         }
-        if (!this->mainCamera->autoDraw)
+        if (!this->mainCamera->autoRedraw)
             passSetup.DefaultAction = PassAction::Load();
         this->canvasPass = Oryol::Gfx::CreateResource(passSetup);
 

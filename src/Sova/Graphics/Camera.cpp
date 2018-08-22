@@ -9,13 +9,15 @@
 
 namespace Sova
 {
-    Sova::Camera::Camera(int x, int y, int width, int height, Ref <Container> target, Color bckColor, float bckAlpha, bool autoDraw)
+    Sova::Camera::Camera(int x, int y, int width, int height, Ref <Container> target, Color bckColor, float bckAlpha, bool drawTarget,
+                             bool autoRedraw)
     {
         this->position = New<Point>(x, y);
         this->width = width;
         this->height = height;
         this->target = target;
-        this->autoDraw = autoDraw;
+        this->drawTarget = drawTarget;
+        this->autoRedraw = autoRedraw;
         this->backgroundColor = bckColor;
         this->backgroundAlpha = bckAlpha;
 
@@ -28,7 +30,7 @@ namespace Sova
 
     void Sova::Camera::draw(int xoffset, int yoffset)
     {
-        if (!this->autoDraw) return;
+        if (!this->drawTarget) return;
         if (skipFrames != 0)
         {
             skipFrames -= 1;

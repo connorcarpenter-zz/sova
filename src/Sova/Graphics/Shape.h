@@ -13,6 +13,7 @@ namespace Sova
     public:
         Shape() {};
         void setLineStyle(int lineWidth, Color lineColor, float lineAlpha = 1.0f);
+        void setLineStyle(bool lines);
         void setFillStyle(Color fillColor, float fillAlpha);
         void setFillStyle(bool filling);
 
@@ -21,7 +22,11 @@ namespace Sova
         float lineAlpha = 1.0f;
         Color lineColor = Color::White;
         bool filling = true;
+
+
+
     protected:
         int lineWidth = 1;
+        bool lines = true;
     };
 }

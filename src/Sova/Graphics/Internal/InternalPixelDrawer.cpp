@@ -44,7 +44,7 @@ namespace Sova
         ps.BlendState.SrcFactorRGB = (BlendFactor::Code) 4;
         ps.BlendState.DstFactorRGB = (BlendFactor::Code) 5;
         ps.BlendState.SrcFactorAlpha = (BlendFactor::Code) 1;
-        ps.BlendState.DstFactorAlpha = (BlendFactor::Code) 1;
+        ps.BlendState.DstFactorAlpha = (BlendFactor::Code) 0;
         ps.BlendState.OpAlpha = BlendOperation::Add;
         this->drawState.Pipeline = Gfx::CreateResource(ps);
     }

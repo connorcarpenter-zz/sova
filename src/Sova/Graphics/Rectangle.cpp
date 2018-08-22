@@ -19,7 +19,7 @@ namespace Sova
     {
         InternalRectangleDrawer::getInstance()->draw(this, camera->getInternalCamera(), xoffset, yoffset);
 
-        if (this->lineWidth > 0)
+        if (this->lines)
         {
             initLines();
 

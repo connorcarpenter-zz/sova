@@ -11,6 +11,19 @@ namespace Sova
         this->lineWidth = lineWidth;
         this->lineColor = lineColor;
         this->lineAlpha = lineAlpha;
+        this->lines = true;
+    }
+
+    void Shape::setLineStyle(bool lines) {
+        if (lines)
+        {
+            this->setLineStyle(1, Color::White, 1);
+            this->lines = true;
+        }
+        else
+        {
+            this->lines = false;
+        }
     }
 
     void Shape::setFillStyle(Color fillColor, float fillAlpha) {

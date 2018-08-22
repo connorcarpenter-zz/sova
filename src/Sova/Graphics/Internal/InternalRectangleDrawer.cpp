@@ -47,8 +47,8 @@ namespace Sova
             ps.BlendState.DepthFormat = PixelFormat::None;
             ps.BlendState.SrcFactorRGB = (BlendFactor::Code) 4;
             ps.BlendState.DstFactorRGB = (BlendFactor::Code) 5;
-            ps.BlendState.SrcFactorAlpha = (BlendFactor::Code) 4;
-            ps.BlendState.DstFactorAlpha = (BlendFactor::Code) 4;
+            ps.BlendState.SrcFactorAlpha = (BlendFactor::Code) 1;
+            ps.BlendState.DstFactorAlpha = (BlendFactor::Code) 0;
             ps.BlendState.OpAlpha = BlendOperation::Add;
             this->drawState.Pipeline = Gfx::CreateResource(ps);
     }
@@ -57,7 +57,7 @@ namespace Sova
     InternalRectangleDrawer::draw(Sova::Rectangle* mainRectangle, Sova::InternalCamera* internalCamera,
                                   int xoffset, int yoffset) {
         if (!mainRectangle->filling) return;
-        if (mainRectangle->fillAlpha == 0.0f) return;
+        if (mainRectangle->fillAlpha == 0.0f && internalCamera->getBackgroundAlpha()!=0.0f) return;
 
         float canW = internalCamera->getWidth();
         float canH = internalCamera->getHeight();

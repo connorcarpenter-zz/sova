@@ -40,5 +40,7 @@ namespace Sova
         bool getVisible();
 
         void setVisible(bool visible);
+
+        bool spriteInsideCameraBounds(Ref<Camera> camera, int xoffset, int yoffset);
     };
 }
