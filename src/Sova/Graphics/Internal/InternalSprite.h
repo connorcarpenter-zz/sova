@@ -8,6 +8,7 @@
 #include "Sova/Internal/InternalApp.h"
 
 #include <Sova/References/Ref.h>
+#include <Sova/Graphics/Sprite.h>
 
 namespace Sova
 {
@@ -17,7 +18,7 @@ namespace Sova
     class InternalSprite
     {
     public:
-        explicit InternalSprite();//DisplayObject* sovaDisplayObject);
+        explicit InternalSprite(Sova::Sprite *mainSprite);
         ~InternalSprite();
         void draw(Sova::InternalCamera* internalCamera, int xoffset, int yoffset);
         void draw(Sova::InternalCamera *internalCamera, int xoffset, int yoffset, int frameWidth,
@@ -26,8 +27,6 @@ namespace Sova
         int getWidth();
         int getHeight();
         bool getTextureLoaded();
-
-        bool visible = false;
     private:
 
         InternalTexture* texture = nullptr;
@@ -38,5 +37,13 @@ namespace Sova
         const void *
         updateVertices(int x, int y, int texWidth, int texHeight, int canWidth, int canHeight, int frameWidth, int frameHeight,
                                int padding, int frameIndex, int xscale, int yscale);
+
+        Sprite *mainSprite = nullptr;
+        float tintR = 1.0f;
+        float tintG = 1.0f;
+        float tintB = 1.0f;
+        Color currentTint = Color::White;
+
+        void setupTint();
     };
 }

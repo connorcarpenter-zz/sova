@@ -56,7 +56,8 @@ AppState::Code InternalApp::OnInit()
     this->meshSetup = MeshSetup::Empty(6, Usage::Stream);
     this->meshSetup.Layout
             .Add(VertexAttr::Position, VertexFormat::Float2)
-            .Add(VertexAttr::TexCoord0, VertexFormat::Float2);
+            .Add(VertexAttr::TexCoord0, VertexFormat::Float2)
+            .Add(VertexAttr::Color0, VertexFormat::Float3);
     this->meshSetup.AddPrimitiveGroup(PrimitiveGroup(0, 6));
     this->meshSetup.Locator = Locator("2d_sprite_mesh");
 

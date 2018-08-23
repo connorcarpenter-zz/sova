@@ -2,17 +2,17 @@
 // Created by connor on 7/11/18.
 //
 
+#include <Sova/Graphics/Sprite.h>
 #include "InternalSprite.h"
-//#include "../DisplayObject.h"
-#include "Sova/Internal/InternalApp.h"
 #include "Sova/Graphics/Internal/InternalCamera.h"
 
 using namespace Oryol;
 
 namespace Sova
 {
-    Sova::InternalSprite::InternalSprite()//DisplayObject* sovaDisplayObject)
+    Sova::InternalSprite::InternalSprite(Sova::Sprite *mainSprite)//DisplayObject* sovaDisplayObject)
     {
+        this->mainSprite = mainSprite;
     }
 
     Sova::InternalSprite::~InternalSprite()
@@ -24,12 +24,12 @@ namespace Sova
         Oryol::String textureString = Oryol::String(textureName->AsCStr());
         this->texture = InternalApp::getInternalApp()->resourceManager.textures[textureString];
 
-        this->visible = true;
+        this->mainSprite->visible = true;
     }
 
     void InternalSprite::draw(Sova::InternalCamera* internalCamera, int xoffset, int yoffset)
     {
-        if (this->visible)
+        if (this->mainSprite->visible)
         {
             const auto resState = Gfx::QueryResourceInfo(this->texture->textureId).State;
             if (resState == ResourceState::Valid)
@@ -37,6 +37,7 @@ namespace Sova
                 auto drawState = internalCamera->getDrawState(); //for some reason, copying the DrawState is necessary before using it... perhaps it's because only one DrawState can be used at a time
 
                 drawState.FSTexture[0] = this->texture->textureId;
+                this->setupTint();
                 const void *data = this->updateVertices(xoffset,
                                                         yoffset,
                                                         this->texture->width,
@@ -54,7 +55,7 @@ namespace Sova
     void InternalSprite::draw(Sova::InternalCamera *internalCamera, int xoffset, int yoffset, int frameWidth,
                                       int frameHeight, int padding, int imageIndex, int xscale, int yscale)
     {
-        if (this->visible)
+        if (this->mainSprite->visible)
         {
             const auto resState = Gfx::QueryResourceInfo(this->texture->textureId).State;
             if (resState == ResourceState::Valid)
@@ -62,8 +63,13 @@ namespace Sova
                 auto drawState = internalCamera->getDrawState(); //for some reason, copying the DrawState is necessary before using it... perhaps it's because only one DrawState can be used at a time
 
                 drawState.FSTexture[0] = this->texture->textureId;
-                const void *data = this->updateVertices(xoffset, yoffset, this->texture->width, this->texture->height,
-                                                        internalCamera->getWidth(), internalCamera->getHeight(),
+                this->setupTint();
+                const void *data = this->updateVertices(xoffset,
+                                                        yoffset,
+                                                        this->texture->width,
+                                                        this->texture->height,
+                                                        internalCamera->getWidth(),
+                                                        internalCamera->getHeight(),
                                                         frameWidth, frameHeight, padding, imageIndex, xscale, yscale);
                 Gfx::UpdateVertices(drawState.Mesh[0], data, InternalApp::numVertexesInQuad);
                 Gfx::ApplyDrawState(drawState);
@@ -136,6 +142,9 @@ namespace Sova
         InternalApp::getInternalApp()->vertexBuffer[index].y = y;
         InternalApp::getInternalApp()->vertexBuffer[index].u = u;
         InternalApp::getInternalApp()->vertexBuffer[index].v = v;
+        InternalApp::getInternalApp()->vertexBuffer[index].r = this->tintR;
+        InternalApp::getInternalApp()->vertexBuffer[index].g = this->tintG;
+        InternalApp::getInternalApp()->vertexBuffer[index].b = this->tintB;
         return index + 1;
     }
 
@@ -153,5 +162,14 @@ namespace Sova
 
     bool InternalSprite::getTextureLoaded() {
         return this->texture->loaded;
+    }
+
+    void InternalSprite::setupTint() {
+        if (this->mainSprite->tint != this->currentTint){
+            this->currentTint = this->mainSprite->tint;
+            this->tintR = (float) this->currentTint.red / 255;
+            this->tintG = (float) this->currentTint.green / 255;
+            this->tintB = (float) this->currentTint.blue / 255;
+        }
     }
 }

@@ -26,6 +26,10 @@ namespace Sova
 
         Ref<Point> anchor = Null<Point>();
 
+        Color tint = Color::White;
+
+        bool visible = false;
+
     protected:
         InternalSprite* internalSprite;
 
@@ -36,10 +40,6 @@ namespace Sova
         int getWidth();
 
         int getHeight();
-
-        bool getVisible();
-
-        void setVisible(bool visible);
 
         bool spriteInsideCameraBounds(Ref<Camera> camera, int xoffset, int yoffset);
     };

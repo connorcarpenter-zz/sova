@@ -10,12 +10,12 @@ using namespace Sova;
 
 namespace Sova
 {
-    Sprite::Sprite(): internalSprite(new InternalSprite())
+    Sprite::Sprite(): internalSprite(new InternalSprite(this))
     {
         this->anchor = New<Point>();
     }
 
-    Sprite::Sprite(Ref<String> textureName): internalSprite(new InternalSprite())
+    Sprite::Sprite(Ref<String> textureName): internalSprite(new InternalSprite(this))
     {
         this->anchor = New<Point>();
         this->setTexture(textureName);
@@ -45,14 +45,6 @@ namespace Sova
 
     int Sprite::getHeight() {
         return this->internalSprite->getHeight();
-    }
-
-    bool Sprite::getVisible() {
-        return this->internalSprite->visible;
-    }
-
-    void Sprite::setVisible(bool visible) {
-        this->internalSprite->visible = visible;
     }
 
     bool Sprite::spriteInsideCameraBounds(Ref<Camera> camera, int xoffset, int yoffset) {

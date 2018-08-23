@@ -37,7 +37,7 @@ public:
     static void* getGlobal();
 
     struct vertex {
-        float x, y, u, v;
+        float x, y, u, v, r, g, b;
     };
     vertex vertexBuffer[6];
     MeshSetup meshSetup;
