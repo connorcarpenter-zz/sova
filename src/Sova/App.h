@@ -29,7 +29,8 @@ namespace Sova {
         Ref<Loader> load(Ref<List<String>> resources);
         void start();
         void onUpdate(std::function<void(float)> updateFunction);
-        void addViewport(Ref<Viewport> viewport);
+        //void addViewport(Ref<Viewport> viewport);
+        Ref<Viewport> createViewport(int x, int y, int width, int height, Ref<Camera> camera);
         void drawCameras();
         void drawViewports();
 

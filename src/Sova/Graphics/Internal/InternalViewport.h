@@ -10,14 +10,14 @@
 namespace Sova {
     class InternalViewport {
     public:
-        InternalViewport(Viewport* mainViewport);
+        InternalViewport(Viewport* mainViewport, bool firstViewport);
 
         Oryol::DrawState getDrawState();
     private:
         Viewport* mainViewport = nullptr;
         Oryol::DrawState windowDrawState;
 
-        void setupWindow();
+        void setupWindow(bool firstViewport);
 
         Oryol::MeshSetup getMeshSetup();
 

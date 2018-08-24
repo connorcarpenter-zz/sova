@@ -33,6 +33,8 @@ namespace Sova
         float backgroundAlpha;
         int SkipFramesToDrawFramesRatio = 0;
 
+        void clearCamera();
+
     private:
 
         Ref<Container> target = Null<Container>();

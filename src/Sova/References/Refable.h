@@ -30,8 +30,15 @@ namespace Sova
 
         template<typename DerivedObj>
         Ref<DerivedObj> ThisRef() {
+
+            if(this->refCounter->count == 0){
+                //if this triggers, it means you used a ThisRef<>() call inside a constructor, for complicated reasons, let's just not do this
+                int i = 1/0;
+            }
+
             Ref<DerivedObj> ref = Ref<DerivedObj>(this);
             ref.thisObj(static_cast<DerivedObj*>(this));
+
             return ref;
         }
 

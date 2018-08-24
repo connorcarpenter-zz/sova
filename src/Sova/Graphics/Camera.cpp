@@ -6,11 +6,12 @@
 #include "Camera.h"
 #include "Container.h"
 #include "Internal/InternalCamera.h"
+#include "Rectangle.h"
 
 namespace Sova
 {
     Sova::Camera::Camera(int x, int y, int width, int height, Ref <Container> target, Color bckColor, float bckAlpha, bool drawTarget,
-                             bool autoRedraw)
+                             bool autoRedraw) : Refable()
     {
         this->position = New<Point>(x, y);
         this->width = width;
@@ -50,4 +51,16 @@ namespace Sova
         return this->internalCamera;
     }
 
+    void Camera::clearCamera() {
+
+        auto clearRect = New<Sova::Rectangle>(0,0);
+        clearRect->size->set(this->width, this->height);
+        clearRect->setFillStyle(this->backgroundColor, this->backgroundAlpha);
+        clearRect->setLineStyle(1, Color::Black, 1);
+
+        Oryol::Gfx::BeginPass(this->internalCamera->getCanvasPass());
+        auto thisCamera = ThisRef<Camera>();
+        clearRect->drawSelf(thisCamera, 0, 0);
+        Oryol::Gfx::EndPass();
+    }
 }

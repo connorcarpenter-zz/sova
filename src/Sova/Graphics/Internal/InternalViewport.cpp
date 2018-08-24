@@ -8,20 +8,22 @@
 #include "InternalCamera.h"
 
 namespace Sova {
-    InternalViewport::InternalViewport(Sova::Viewport *mainViewport)
+    InternalViewport::InternalViewport(Sova::Viewport* mainViewport, bool firstViewport)
     {
         this->mainViewport = mainViewport;
-        setupWindow();
+        setupWindow(firstViewport);
     }
 
-    void InternalViewport::setupWindow()
+    void InternalViewport::setupWindow(bool firstViewport)
     {
         //Setup onscreen render
         auto meshSetup = getMeshSetup();
         this->windowDrawState.Mesh[0] = Oryol::Gfx::CreateResource(meshSetup, &data, sizeof(data));
 
-        Oryol::Id normalShader = InternalApp::getInternalApp()->getSovaApp()->shaderHandler->getNormalShader();
-        auto ps = Oryol::PipelineSetup::FromLayoutAndShader(meshSetup.Layout, normalShader);
+        auto screenShader = firstViewport ?
+                            InternalApp::getInternalApp()->getSovaApp()->shaderHandler->getBackScreenShader() :
+                            InternalApp::getInternalApp()->getSovaApp()->shaderHandler->getScreenShader();
+        auto ps = Oryol::PipelineSetup::FromLayoutAndShader(meshSetup.Layout, screenShader);
 
         if (this->mainViewport->getInternalCamera()->getBackgroundAlpha() != 1.0f) {
             ps.BlendState.BlendEnabled = true;

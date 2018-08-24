@@ -9,7 +9,7 @@ namespace Sova {
     public:
         void Hold();
         int Release();
-    private:
+
         int count = 0;
     };
 }

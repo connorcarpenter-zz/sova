@@ -17,7 +17,8 @@ namespace Sova
     public:
         SovaBaseTypeDecl(ShaderHandler);
         virtual const char* getClassName() { return "ShaderHandler"; }
-        virtual Oryol::Id getNormalShader() = 0;
+        virtual Oryol::Id getScreenShader() = 0;
+        virtual Oryol::Id getBackScreenShader() = 0;
         virtual Oryol::Id getCanvasShader() = 0;
         virtual Oryol::Id getShapeShader() = 0;
     };

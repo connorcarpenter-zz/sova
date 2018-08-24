@@ -39,10 +39,6 @@ namespace Sova {
         this->updateFunction = updateFunction;
     }
 
-    void App::addViewport(Ref<Viewport> viewport) {
-        this->viewports->Add(viewport);
-    }
-
     void App::drawCameras()
     {
         for (Ref<ListIterator<Viewport>> iterator = this->viewports->GetIterator(); iterator->Valid(); iterator->Next())
@@ -146,5 +142,12 @@ namespace Sova {
 
     void *App::getGlobal() {
         return this->globalObj;
+    }
+
+    Ref<Viewport> App::createViewport(int x, int y, int width, int height, Ref<Camera> camera) {
+        bool firstViewport = this->viewports->Size() == 0;
+        auto newViewport = New<Viewport>(x,y,width,height,camera, firstViewport);
+        this->viewports->Add(newViewport);
+        return newViewport;
     }
 }
