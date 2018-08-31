@@ -30,10 +30,10 @@ namespace Sova
 
         bool visible = false;
 
+        virtual void setTexture(Ref <String> textureName);
+
     protected:
         InternalSprite* internalSprite;
-
-        virtual void setTexture(Ref <String> textureName);
 
         Ref<String> textureName = Null<String>();
 

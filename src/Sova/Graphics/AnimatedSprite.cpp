@@ -5,6 +5,7 @@
 #include "AnimatedSprite.h"
 #include "Sova/Graphics/Internal/InternalSprite.h"
 #include "Sova/Graphics/Internal/InternalCamera.h"
+#include "AnimatedSpriteInfo.h"
 
 namespace Sova
 {
@@ -48,5 +49,15 @@ namespace Sova
 
     bool AnimatedSprite::getTextureLoaded() {
         return this->internalSprite->getTextureLoaded();
+    }
+
+    void AnimatedSprite::useAnimatedSpriteInfo(Ref<AnimatedSpriteInfo> animatedSpriteInfo) {
+        this->setTexture(animatedSpriteInfo->filename);
+        this->frameWidth = animatedSpriteInfo->frameWidth;
+        this->frameHeight = animatedSpriteInfo->frameHeight;
+        this->padding = animatedSpriteInfo->padding;
+        this->anchor->x = animatedSpriteInfo->anchorX;
+        this->anchor->y = animatedSpriteInfo->anchorY;
+        this->imageNumber = this->getWidth()/this->frameWidth;
     }
 }

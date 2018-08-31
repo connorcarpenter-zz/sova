@@ -10,6 +10,7 @@ fips_begin_module(Sova)
             Graphics/Container.h Graphics/Container.cpp
             Graphics/Sprite.h Graphics/Sprite.cpp
             Graphics/AnimatedSprite.h Graphics/AnimatedSprite.cpp
+            Graphics/AnimatedSpriteInfo.h Graphics/AnimatedSpriteInfo.cpp
             Graphics/Camera.h Graphics/Camera.cpp
             Graphics/Viewport.h Graphics/Viewport.cpp
             Graphics/DisplayObject.h Graphics/DisplayObject.cpp

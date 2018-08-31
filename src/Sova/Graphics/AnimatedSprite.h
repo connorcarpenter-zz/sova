@@ -6,6 +6,8 @@
 #include "Sprite.h"
 
 namespace Sova {
+    class AnimatedSpriteInfo;
+
     class AnimatedSprite : public Sprite {
     public:
         SovaTypeDecl(AnimatedSprite, Sprite);
@@ -16,16 +18,18 @@ namespace Sova {
 
         void Update(float deltaFrameMs) override;
         void drawSelf(Ref<Camera> camera, int xoffset, int yoffset) override;
+        void useAnimatedSpriteInfo(Ref<AnimatedSpriteInfo> animatedSpriteInfo);
         float imageSpeed = 0;
         float imageIndex = 0;
+        int frameWidth = 0;
+        int frameHeight = 0;
+        int padding = 0;
     private:
         int imageNumber = -1;
 
         bool getTextureLoaded();
 
     protected:
-        int frameWidth = 0;
-        int frameHeight = 0;
-        int padding = 0;
+
     };
 }
