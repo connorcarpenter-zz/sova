@@ -12,6 +12,8 @@
 
 namespace Sova
 {
+    class InternalSound;
+
     class InternalResourceManager
     {
 
@@ -22,6 +24,7 @@ namespace Sova
         void setup();
 
         Oryol::Map<Oryol::String, InternalTexture*> textures;
+        Oryol::Map<Oryol::String, InternalSound*> sounds;
 
         Oryol::Id getMesh();
         void releaseMesh(const Oryol::Id& id);

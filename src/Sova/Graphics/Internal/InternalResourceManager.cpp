@@ -8,6 +8,7 @@
 #include "InternalResourceManager.h"
 #include "PNGLoader.h"
 #include "Sova/Internal/InternalApp.h"
+#include "Sova/Audio/Internal/InternalSound.h"
 
 using namespace Oryol;
 
@@ -26,18 +27,32 @@ void InternalResourceManager::loadResource(Ref<String> resourceString)
     Oryol::StringBuilder sb("content:");
     sb.Append(resourceString->AsCStr());
 
-    std::function<void(TextureSetup&)> loadedFunc = [this, oryolStringId](Oryol::TextureSetup& texSetup) {
-        this->updateResource(oryolStringId, texSetup);
-    };
+    if (resourceString->EndsWith(".png"))
+    {
+        std::function<void(TextureSetup&)> loadedFunc = [this, oryolStringId](Oryol::TextureSetup& texSetup) {
+            this->updateResource(oryolStringId, texSetup);
+        };
 
-    Id internalTextureId = Gfx::LoadResource(
-            PNGLoader::Create(
-                    TextureSetup::FromFile(sb.GetString().AsCStr(), textureSetup),
-                    loadedFunc));
+        Id internalTextureId = Gfx::LoadResource(
+                PNGLoader::Create(
+                        TextureSetup::FromFile(sb.GetString().AsCStr(), textureSetup),
+                        loadedFunc));
 
-    InternalTexture* internalTexture = new InternalTexture(internalTextureId);
+        InternalTexture* internalTexture = new InternalTexture(internalTextureId);
 
-    textures.Add(oryolStringId, internalTexture);
+        textures.Add(oryolStringId, internalTexture);
+    }
+    else if (resourceString->EndsWith(".wav")){
+
+        InternalSound* internalSound = new InternalSound();
+        sounds.Add(oryolStringId, internalSound);
+
+        IO::Load(sb.GetString().AsCStr(), [this, internalSound](IO::LoadResult res) {
+            internalSound->myWavData = std::move(res.Data);
+            internalSound->myWav.loadMem(internalSound->myWavData.Data(), internalSound->myWavData.Size(), false, false);
+            internalSound->updateAfterLoad();
+        });
+    }
 }
 
 void InternalResourceManager::updateResource(Oryol::String resourceString, const Oryol::TextureSetup& texSetup) {
@@ -50,6 +65,10 @@ InternalResourceManager::~InternalResourceManager() {
 
     for (auto textureKV : textures){
         delete textureKV.value;
+    }
+
+    for (auto soundKV : sounds){
+        delete soundKV.value;
     }
 }
 

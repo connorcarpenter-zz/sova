@@ -26,6 +26,9 @@ fips_begin_module(Sova)
             Graphics/Internal/InternalCamera.h Graphics/Internal/InternalCamera.cpp
             Graphics/Internal/InternalViewport.h Graphics/Internal/InternalViewport.cpp
 
+            Audio/Sound.h Audio/Sound.cpp
+            Audio/Internal/InternalSound.h Audio/Internal/InternalSound.cpp
+
             Math/Point.h Math/Point.cpp
             Math/Math.h Math/Math.cpp
 
@@ -62,5 +65,5 @@ fips_begin_module(Sova)
     elseif (FIPS_EMSCRIPTEN)
         fips_files(Network/Impls/HttpRequest/emsc/emscHttpRequest.h Network/Impls/HttpRequest/emsc/emscHttpRequest.cpp)
     endif()
-    fips_deps(Core IO Gfx Input Assets HttpFS LocalFS lodepng WebSocketClient)
+    fips_deps(Core IO Gfx Input Assets HttpFS LocalFS lodepng WebSocketClient soloud)
 fips_end_module()

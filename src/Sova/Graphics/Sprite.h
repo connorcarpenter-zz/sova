@@ -32,14 +32,14 @@ namespace Sova
 
         virtual void setTexture(Ref <String> textureName);
 
+        int getWidth();
+
+        int getHeight();
+
     protected:
         InternalSprite* internalSprite;
 
         Ref<String> textureName = Null<String>();
-
-        int getWidth();
-
-        int getHeight();
 
         bool spriteInsideCameraBounds(Ref<Camera> camera, int xoffset, int yoffset);
     };

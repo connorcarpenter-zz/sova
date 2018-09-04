@@ -5,12 +5,12 @@
 imports:
     oryol:
         git:    https://github.com/floooh/oryol.git
-    oryol-sound:
-        git:    https://github.com/floooh/oryol-sound.git
     oryol-websocket-client:
         git:    https://github.com/connorcarpenter/oryol-websocket-client.git
     fips-lodepng:
         git:    https://github.com/connorcarpenter/fips-lodepng.git
+    fips-soloud:
+        git: https://github.com/floooh/fips-soloud.git
 
 exports:
     header-dirs:

@@ -17,6 +17,7 @@
 #include "glm/gtc/matrix_transform.hpp"
 #include "Sova/Graphics/Internal/InternalResourceManager.h"
 #include "InternalDestructionManager.h"
+#include "soloud.h"
 
 #include <Sova/App.h>
 
@@ -57,6 +58,7 @@ public:
     static int getMouseX();
     static int getMouseY();
 
+    SoLoud::Soloud soloud;
 private:
     static InternalApp* singleton;
     Sova::App* sovapp = nullptr;

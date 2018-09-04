@@ -6,6 +6,7 @@
 #include <Modules/Core/Time/TimePoint.h>
 #include <Modules/Core/Time/Clock.h>
 #include "InternalApp.h"
+#include "soloud.h"
 
 InternalApp::InternalApp(Sova::App* sovaApp) {
     sovapp = sovaApp;
@@ -51,6 +52,9 @@ AppState::Code InternalApp::OnInit()
     IO::Setup(ioSetup);
 
     resourceManager.setup();
+
+    // setup sound
+    this->soloud.init();
 
     // setup draw state with dynamic mesh
     this->meshSetup = MeshSetup::Empty(6, Usage::Stream);

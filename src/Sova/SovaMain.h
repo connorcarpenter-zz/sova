@@ -11,6 +11,7 @@
 #include "Sova/Math/Point.h"
 #include "Sova/Graphics/Viewport.h"
 #include "Sova/Graphics/Camera.h"
+#include "Sova/Audio/Sound.h"
 #include "Loader.h"
 #include "Log.h"
 #include "Input.h"
