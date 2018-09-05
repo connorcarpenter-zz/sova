@@ -17,6 +17,17 @@ namespace Sova {
     }
 
     void Sound::Play(){
+        if (!this->enabled)return;
         this->internalSound->play();
+    }
+
+    void Sound::PlayAndDisable() {
+        if (!this->enabled)return;
+        this->internalSound->play();
+        this->enabled = false;
+    }
+
+    void Sound::Enable() {
+        this->enabled = true;
     }
 }

@@ -92,4 +92,8 @@ namespace Sova
     {
         return Sqrt(Power(x2 - x1, 2) + Power(y2-y1, 2));
     }
+
+    int Math::Floor(float value) {
+        return (int) glm::floor(value);
+    }
 }

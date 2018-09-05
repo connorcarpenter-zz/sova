@@ -14,9 +14,11 @@ namespace Sova {
     public:
         explicit Sound(Ref<Sova::String> soundName);
         void Play();
+        void PlayAndDisable();
+        void Enable();
         Ref<String> soundName = Null<String>();
     private:
         InternalSound* internalSound = nullptr;
-
+        bool enabled = true;
     };
 }
