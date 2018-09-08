@@ -37,8 +37,8 @@ namespace Sova
 
         void SetDepth(int depth);
 
-    private:
         int depth = 0;
+    private:
         Ref<Container> parent = Null<Container>();
         Ref<SortedList<Container>> children = Null<SortedList<Container>>();
     protected:

@@ -83,14 +83,23 @@ namespace Sova
         return (float) glm::sqrt(value);
     }
 
+    float Math::SqrtFloat(float value) {
+        return (float) glm::sqrt(value);
+    }
+
     int Math::Power(int value, int power)
     {
         return (int) glm::pow(value, power);
     }
 
+    float Math::PowerFloat(float value, float power)
+    {
+        return glm::pow(value, power);
+    }
+
     float Math::Distance(float x1, float y1, float x2, float y2)
     {
-        return Sqrt(Power(x2 - x1, 2) + Power(y2-y1, 2));
+        return SqrtFloat(PowerFloat(x2 - x1, 2) + PowerFloat(y2 - y1, 2));
     }
 
     int Math::Floor(float value) {

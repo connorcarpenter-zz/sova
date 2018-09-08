@@ -86,42 +86,42 @@ namespace Sova
 
         void Remove(Ref<T> removeItem)
         {
-            if (head->item == removeItem)
-            {
-                if (head->next == nullptr)
-                {
-                    //there's only 1 node in this list
-                    head = nullptr;
-                    tail = nullptr;
-                    size = 0;
+            if (size <= 0) return;
+            if (head != nullptr) {
+                if (head->item == removeItem) {
+                    if (head->next == nullptr) {
+                        //there's only 1 node in this list
+                        head = nullptr;
+                        tail = nullptr;
+                        size = 0;
+                        return;
+                    }
+
+                    auto headNext = head->next; //important that this is executed before the next line (idk why yet :/)
+                    head = headNext;
+                    size -= 1;
                     return;
                 }
 
-                auto headNext = head->next; //important that this is executed before the next line (idk why yet :/)
-                head = headNext;
+
+                auto previous = head;
+                while (previous->next != nullptr && previous->next->item != removeItem)
+                    previous = previous->next;
+
+                if (previous->next == nullptr) {
+                    // node is not in linked list
+                    return;
+                }
+
+                //cut item out of the linked list
+                auto nextNext = previous->next->next; //important that this is executed before the next line (idk why yet :/)
+                previous->next = nextNext;
+                if (nextNext == nullptr) {
+                    //we just cut out the tail, so reassign it
+                    tail = previous;
+                }
                 size -= 1;
-                return;
             }
-
-            auto previous = head;
-            while (previous->next != nullptr && previous->next->item != removeItem)
-                previous = previous->next;
-
-            if (previous->next == nullptr)
-            {
-                // node is not in linked list
-                return;
-            }
-
-            //cut item out of the linked list
-            auto nextNext = previous->next->next; //important that this is executed before the next line (idk why yet :/)
-            previous->next = nextNext;
-            if (nextNext == nullptr)
-            {
-                //we just cut out the tail, so reassign it
-                tail = previous;
-            }
-            size -= 1;
         }
 
         int Size() const
@@ -144,7 +144,7 @@ namespace Sova
 
         Ref<T> At(int index)
         {
-            o_assert(index < size);
+            if(index >= size)return Null<T>();
             if (index == 0) return head->item;
             if (index == size-1) return tail->item;
 

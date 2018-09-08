@@ -29,6 +29,7 @@ fips_begin_module(Sova)
             Audio/Sound.h Audio/Sound.cpp
             Audio/Internal/InternalSound.h Audio/Internal/InternalSound.cpp
 
+            Math/FloatPoint.h Math/FloatPoint.cpp
             Math/Point.h Math/Point.cpp
             Math/Math.h Math/Math.cpp
 
