@@ -4,7 +4,7 @@
 // Created by connor on 7/9/18.
 //
 #include <Sova/References/Refable.h>
-#include <Modules/Core/Assertion.h>
+//#include <Modules/Core/Assertion.h>
 #include <functional>
 
 namespace Sova
@@ -157,7 +157,7 @@ namespace Sova
             }
 
             //Should never arrive here..
-            o_assert(false);
+            assert(false);
         }
 
         Ref<T> Find(std::function<bool(Sova::Ref<T>)> evalFunc)

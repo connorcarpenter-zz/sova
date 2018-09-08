@@ -8,8 +8,6 @@
 #include <Sova/References/RefTypes.h>
 #include "Resource/Id.h"
 
-using namespace Oryol;
-
 namespace Sova
 {
     class ShaderHandler : public Refable

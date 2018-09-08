@@ -7,6 +7,8 @@
 #include "InternalViewport.h"
 #include "InternalCamera.h"
 
+using namespace Oryol;
+
 namespace Sova {
     InternalViewport::InternalViewport(Sova::Viewport* mainViewport, bool firstViewport)
     {

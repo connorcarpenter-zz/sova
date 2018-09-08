@@ -29,13 +29,13 @@ namespace Sova {
         auto passSetup = Oryol::PassSetup::From(this->canvasTexture);
         if (this->mainCamera->backgroundColor != Color::Black || this->mainCamera->backgroundAlpha != 1.0f)
         {
-            passSetup.DefaultAction = PassAction::Clear(glm::vec4(this->mainCamera->backgroundColor.red,
+            passSetup.DefaultAction = Oryol::PassAction::Clear(glm::vec4(this->mainCamera->backgroundColor.red,
                                                                   this->mainCamera->backgroundColor.green,
                                                                   this->mainCamera->backgroundColor.blue,
                                                                   this->mainCamera->backgroundAlpha));
         }
         if (!this->mainCamera->autoRedraw)
-            passSetup.DefaultAction = PassAction::Load();
+            passSetup.DefaultAction = Oryol::PassAction::Load();
         this->canvasPass = Oryol::Gfx::CreateResource(passSetup);
 
         this->drawState.Mesh[0] = InternalApp::getInternalApp()->meshResource;

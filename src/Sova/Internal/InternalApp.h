@@ -21,45 +21,53 @@
 
 #include <Sova/App.h>
 
-using namespace Oryol;
-using namespace Sova;
+namespace Sova {
+    class InternalApp : public Oryol::App {
 
-class InternalApp : public Oryol::App {
+    public:
+        InternalApp(Sova::App *sovaApp);
 
-public:
-    InternalApp(Sova::App* sovaApp);
-    AppState::Code OnRunning();
-    AppState::Code OnInit();
-    AppState::Code OnCleanup();
+        Oryol::AppState::Code OnRunning();
 
-    static InternalApp* getInternalApp();
-    static Sova::App* getSovaApp();
-    static void initInternalApp(Sova::App *sovaApp);
-    static void* getGlobal();
+        Oryol::AppState::Code OnInit();
 
-    struct vertex {
-        float x, y, u, v, r, g, b;
+        Oryol::AppState::Code OnCleanup();
+
+        static InternalApp *getInternalApp();
+
+        static Sova::App *getSovaApp();
+
+        static void initInternalApp(Sova::App *sovaApp);
+
+        static void *getGlobal();
+
+        struct vertex {
+            float x, y, u, v, r, g, b;
+        };
+        vertex vertexBuffer[6];
+        Oryol::MeshSetup meshSetup;
+        Oryol::Id pipelineResource;
+        Oryol::Id meshResource;
+
+        static const int numVertexesInQuad = 6 * sizeof(vertex);
+
+        int dispWidth = 0;
+        int dispHeight = 0;
+
+        InternalResourceManager resourceManager;
+        InternalDestructionManager destructionManager;
+
+        static bool keyPressed(Sova::Key::Code key);
+
+        static bool mouseButtonPressed(Sova::MouseButton::Code btn);
+
+        static int getMouseX();
+
+        static int getMouseY();
+
+        SoLoud::Soloud soloud;
+    private:
+        static InternalApp *singleton;
+        Sova::App *sovapp = nullptr;
     };
-    vertex vertexBuffer[6];
-    MeshSetup meshSetup;
-    Id pipelineResource;
-    Id meshResource;
-
-    static const int numVertexesInQuad = 6 * sizeof(vertex);
-
-    int dispWidth = 0;
-    int dispHeight = 0;
-
-    InternalResourceManager resourceManager;
-    InternalDestructionManager destructionManager;
-
-    static bool keyPressed(Sova::Key::Code key);
-    static bool mouseButtonPressed(Sova::MouseButton::Code btn);
-    static int getMouseX();
-    static int getMouseY();
-
-    SoLoud::Soloud soloud;
-private:
-    static InternalApp* singleton;
-    Sova::App* sovapp = nullptr;
-};
+}

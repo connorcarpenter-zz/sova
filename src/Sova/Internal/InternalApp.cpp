@@ -8,135 +8,137 @@
 #include "InternalApp.h"
 #include "soloud.h"
 
-InternalApp::InternalApp(Sova::App* sovaApp) {
-    sovapp = sovaApp;
-}
+using namespace Oryol;
 
-InternalApp* InternalApp::singleton = nullptr;
+namespace Sova {
+    InternalApp::InternalApp(Sova::App *sovaApp) {
+        sovapp = sovaApp;
+    }
 
-void InternalApp::initInternalApp(Sova::App *sovaApp) {
-    singleton = new InternalApp(sovaApp);
-}
+    InternalApp *InternalApp::singleton = nullptr;
 
-InternalApp* InternalApp::getInternalApp() {
-    return singleton;
-}
+    void InternalApp::initInternalApp(Sova::App *sovaApp) {
+        singleton = new InternalApp(sovaApp);
+    }
 
-Sova::App* InternalApp::getSovaApp() {
-    return singleton->sovapp;
-}
+    InternalApp *InternalApp::getInternalApp() {
+        return singleton;
+    }
 
-void* InternalApp::getGlobal() {
-    return singleton->sovapp->getGlobal();
-}
+    Sova::App *InternalApp::getSovaApp() {
+        return singleton->sovapp;
+    }
 
-AppState::Code InternalApp::OnInit()
-{
-    dispWidth = sovapp->width;
-    dispHeight = sovapp->height;
+    void *InternalApp::getGlobal() {
+        return singleton->sovapp->getGlobal();
+    }
 
-    //Setup screen
-    Gfx::Setup(GfxSetup::Window(dispWidth, dispHeight, sovapp->windowTitle->AsCStr()));
-    Input::Setup();
+    AppState::Code InternalApp::OnInit() {
+        dispWidth = sovapp->width;
+        dispHeight = sovapp->height;
 
-    // setup IO system
-    IOSetup ioSetup;
+        //Setup screen
+        Gfx::Setup(GfxSetup::Window(dispWidth, dispHeight, sovapp->windowTitle->AsCStr()));
+        Input::Setup();
+
+        // setup IO system
+        IOSetup ioSetup;
 #if ORYOL_EMSCRIPTEN
-    ioSetup.FileSystems.Add("http", HTTPFileSystem::Creator());
-    ioSetup.Assigns.Add("content:", "http://localhost:8000/content/");
+        ioSetup.FileSystems.Add("http", HTTPFileSystem::Creator());
+        ioSetup.Assigns.Add("content:", "http://localhost:8000/content/");
 #else
-    ioSetup.FileSystems.Add("file", LocalFileSystem::Creator());
-    ioSetup.Assigns.Add("content:", "root:content/");
+        ioSetup.FileSystems.Add("file", LocalFileSystem::Creator());
+        ioSetup.Assigns.Add("content:", "root:content/");
 #endif
 
-    IO::Setup(ioSetup);
+        IO::Setup(ioSetup);
 
-    resourceManager.setup();
+        resourceManager.setup();
 
-    // setup sound
-    this->soloud.init();
+        // setup sound
+        this->soloud.init();
 
-    // setup draw state with dynamic mesh
-    this->meshSetup = MeshSetup::Empty(6, Usage::Stream);
-    this->meshSetup.Layout
-            .Add(VertexAttr::Position, VertexFormat::Float2)
-            .Add(VertexAttr::TexCoord0, VertexFormat::Float2)
-            .Add(VertexAttr::Color0, VertexFormat::Float3);
-    this->meshSetup.AddPrimitiveGroup(PrimitiveGroup(0, 6));
-    this->meshSetup.Locator = Locator("2d_sprite_mesh");
+        // setup draw state with dynamic mesh
+        this->meshSetup = MeshSetup::Empty(6, Usage::Stream);
+        this->meshSetup.Layout
+                .Add(VertexAttr::Position, VertexFormat::Float2)
+                .Add(VertexAttr::TexCoord0, VertexFormat::Float2)
+                .Add(VertexAttr::Color0, VertexFormat::Float3);
+        this->meshSetup.AddPrimitiveGroup(PrimitiveGroup(0, 6));
+        this->meshSetup.Locator = Locator("2d_sprite_mesh");
 
-    Id canvasShader = sovapp->shaderHandler->getCanvasShader();
-    auto pipelineSetup = PipelineSetup::FromLayoutAndShader(this->meshSetup.Layout, canvasShader);
-    pipelineSetup.BlendState.BlendEnabled = true;
-    pipelineSetup.BlendState.SrcFactorRGB = BlendFactor::SrcAlpha;
-    pipelineSetup.BlendState.DstFactorRGB = BlendFactor::OneMinusSrcAlpha;
-    pipelineSetup.BlendState.ColorFormat = PixelFormat::RGBA8;
-    pipelineSetup.BlendState.DepthFormat = PixelFormat::None;
-    pipelineSetup.RasterizerState.CullFaceEnabled = false;
+        Id canvasShader = sovapp->shaderHandler->getCanvasShader();
+        auto pipelineSetup = PipelineSetup::FromLayoutAndShader(this->meshSetup.Layout, canvasShader);
+        pipelineSetup.BlendState.BlendEnabled = true;
+        pipelineSetup.BlendState.SrcFactorRGB = BlendFactor::SrcAlpha;
+        pipelineSetup.BlendState.DstFactorRGB = BlendFactor::OneMinusSrcAlpha;
+        pipelineSetup.BlendState.ColorFormat = PixelFormat::RGBA8;
+        pipelineSetup.BlendState.DepthFormat = PixelFormat::None;
+        pipelineSetup.RasterizerState.CullFaceEnabled = false;
 
-    this->meshResource = Gfx::CreateResource(this->meshSetup);
-    this->pipelineResource = Gfx::CreateResource(pipelineSetup);
+        this->meshResource = Gfx::CreateResource(this->meshSetup);
+        this->pipelineResource = Gfx::CreateResource(pipelineSetup);
 
-    // clear the vertex buffer
-    Memory::Clear(this->vertexBuffer, sizeof(this->vertexBuffer));
+        // clear the vertex buffer
+        Memory::Clear(this->vertexBuffer, sizeof(this->vertexBuffer));
 
-    sovapp->loader->setAppLoaded();
+        sovapp->loader->setAppLoaded();
 
-    return App::OnInit();
-}
+        return App::OnInit();
+    }
 
-static TimePoint frameTimePoint;
+    static TimePoint frameTimePoint;
 
-AppState::Code InternalApp::OnRunning()
-{
-    // update the game in the Sova app
-    double frameDelta = Clock::LapTime(frameTimePoint).AsMilliSeconds();
+    AppState::Code InternalApp::OnRunning() {
+        // update the game in the Sova app
+        double frameDelta = Clock::LapTime(frameTimePoint).AsMilliSeconds();
 
-    sovapp->updateTimers(frameDelta);
-    sovapp->updateFunction((float) frameDelta);
-    destructionManager.FinalizeDestruction();
+        sovapp->updateTimers(frameDelta);
+        sovapp->updateFunction((float) frameDelta);
+        destructionManager.FinalizeDestruction();
 
-    //Drawing
-    sovapp->drawCameras();
-    Oryol::Gfx::BeginPass();
-    sovapp->drawViewports();
-    Oryol::Gfx::EndPass();
-    Gfx::CommitFrame();
+        //Drawing
+        sovapp->drawCameras();
+        Oryol::Gfx::BeginPass();
+        sovapp->drawViewports();
+        Oryol::Gfx::EndPass();
+        Gfx::CommitFrame();
 
-    //Network
-    sovapp->updateWebsockets();
-    sovapp->updateHttpRequests();
+        //Network
+        sovapp->updateWebsockets();
+        sovapp->updateHttpRequests();
 
-    // continue running or quit?
-    return Gfx::QuitRequested() ? AppState::Cleanup : AppState::Running;
-}
+        // continue running or quit?
+        return Gfx::QuitRequested() ? AppState::Cleanup : AppState::Running;
+    }
 
-AppState::Code InternalApp::OnCleanup() {
+    AppState::Code InternalApp::OnCleanup() {
 
-    Gfx::Discard();
-    IO::Discard();
-    Input::Discard();
+        Gfx::Discard();
+        IO::Discard();
+        Input::Discard();
 
-    return App::OnCleanup();
-}
+        return App::OnCleanup();
+    }
 
 //--
 
 
-bool InternalApp::keyPressed(Sova::Key::Code key) {
-    Oryol::Key::Code oryolKey = (Oryol::Key::Code) key;
-    return Input::KeyPressed(oryolKey);
-}
+    bool InternalApp::keyPressed(Sova::Key::Code key) {
+        Oryol::Key::Code oryolKey = (Oryol::Key::Code) key;
+        return Input::KeyPressed(oryolKey);
+    }
 
-bool InternalApp::mouseButtonPressed(Sova::MouseButton::Code btn) {
-    Oryol::MouseButton::Code oryolBtn = (Oryol::MouseButton::Code) btn;
-    return Input::MouseButtonPressed(oryolBtn);
-}
+    bool InternalApp::mouseButtonPressed(Sova::MouseButton::Code btn) {
+        Oryol::MouseButton::Code oryolBtn = (Oryol::MouseButton::Code) btn;
+        return Input::MouseButtonPressed(oryolBtn);
+    }
 
-int InternalApp::getMouseX() {
-    return (int) Input::MousePosition().x;
-}
+    int InternalApp::getMouseX() {
+        return (int) Input::MousePosition().x;
+    }
 
-int InternalApp::getMouseY() {
-    return (int) Input::MousePosition().y;
+    int InternalApp::getMouseY() {
+        return (int) Input::MousePosition().y;
+    }
 }
