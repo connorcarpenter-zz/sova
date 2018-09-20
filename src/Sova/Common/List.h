@@ -157,7 +157,8 @@ namespace Sova
             }
 
             //Should never arrive here..
-            assert(false);
+            //assert(false);
+            int i = 1/0;
         }
 
         Ref<T> Find(std::function<bool(Sova::Ref<T>)> evalFunc)

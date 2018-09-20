@@ -18,7 +18,9 @@ namespace Sova
     Color Color::Blue = Color(0, 0, 255);
     Color Color::White = Color(255, 255, 255);
     Color Color::Black = Color(0, 0, 0);
+    Color Color::LightGray = Color(192, 192, 192);
     Color Color::Gray = Color(128, 128, 128);
+    Color Color::DarkGray = Color(64, 64, 64);
     Color Color::Brown = Color(128, 64, 0);
 
     bool Color::operator==(const Color &other) const

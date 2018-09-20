@@ -16,7 +16,9 @@ namespace Sova
         static Color White;
         static Color Black;
         static Color Brown;
+        static Color LightGray;
         static Color Gray;
+        static Color DarkGray;
 
         bool operator!=(const Color& other) const;
         bool operator==(const Color& other) const;
