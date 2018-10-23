@@ -63,8 +63,9 @@ namespace Sova
     {
     public:
 
-        List() = default;
         virtual const char* getClassName() { return "List"; }
+
+        List() = default;
 
         void Add(Ref<T> item)
         {
@@ -178,6 +179,15 @@ namespace Sova
                 return (inspectUnit.obj == item.obj);
             });
             return foundItem != nullptr;
+        }
+
+        List(Ref<List<T>> otherList)
+        {
+            for (Ref<ListIterator<T>> iterator = otherList->GetIterator(); iterator->Valid(); iterator->Next())
+            {
+                auto otherItem = iterator->Get();
+                this->Add(otherItem);
+            }
         }
 
     private:
