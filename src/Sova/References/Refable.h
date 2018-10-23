@@ -29,6 +29,11 @@ namespace Sova
         }
 
         template<typename DerivedObj>
+        Ref<DerivedObj>* NullPtr() {
+            return new Ref<DerivedObj>(this);
+        }
+
+        template<typename DerivedObj>
         Ref<DerivedObj> ThisRef() {
 
             if(this->refCounter->count == 0){
