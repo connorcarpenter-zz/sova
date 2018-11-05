@@ -32,6 +32,9 @@ namespace Sova
         const bool EndsWith(const char* cstr) const;
         Ref<String> TrimEnd(const char* cstr);
         Ref<String> TrimStart(const char* cstr);
+
+        static Ref<String> getStringFromNumber(int number);
+
     private:
         int length;
         const char* strPtr = nullptr;     // direct pointer to string data, necessary to see something in the debugger
@@ -39,6 +42,8 @@ namespace Sova
         bool useCharArray = false;
 
         Ref<String> Substring(int startIndex, int endIndex);
+
+        static int getDigits(int number);
     };
 
 }

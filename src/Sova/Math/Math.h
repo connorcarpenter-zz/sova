@@ -33,6 +33,7 @@ namespace Sova
         static int Power(int value, int power);
 
         static float Distance(float x1, float y1, float x2, float y2);
+        static float Direction(float x1, float y1, float x2, float y2);
 
         static float PowerFloat(float value, float power);
 

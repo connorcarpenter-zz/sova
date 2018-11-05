@@ -26,7 +26,7 @@ namespace Sova
         {
             this->charArray[i] = str[i];
         }
-        this->charArray[this->length] = '\n';
+        this->charArray[this->length] = '\0';
 
         this->useCharArray = true;
     }
@@ -211,5 +211,39 @@ namespace Sova
         return newString;
     }
 
+    int String::getDigits(int number) {
+        int currentMax = 10;
+        int currentDigits = 1;
+        if (number < 0) {number*=-1;currentDigits+=1;}
+        while(number >= currentMax)
+        {
+            currentMax *= 10;
+            currentDigits += 1;
+        }
+        return currentDigits;
+    }
 
+    Ref<String> String::getStringFromNumber(int number) {
+        bool negative = number < 0;
+        int digits = String::getDigits(number);
+        if (negative)number *= -1;
+        int currIndex = digits;
+        char* charArr = new char[digits+1];
+        charArr[currIndex] = '\0'; currIndex-=1;
+        digits = 1;
+        while(currIndex >= 0)
+        {
+            int num = (number/digits) % 10;
+            charArr[currIndex] = (char) (num + 48);
+            currIndex-=1;
+            digits *= 10;
+        }
+
+        if (negative) charArr[0] = '-';
+
+        auto outStr = Ref<String>::New(charArr, true);
+        delete charArr;
+
+        return outStr;
+    }
 }

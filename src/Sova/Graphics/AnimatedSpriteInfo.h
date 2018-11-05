@@ -10,6 +10,7 @@
 namespace Sova {
     class AnimatedSpriteInfo : public Refable {
     public:
+        AnimatedSpriteInfo(Ref<Sova::String> fileName, bool autoSize, int anchorX, int anchorY);
         AnimatedSpriteInfo(Ref<Sova::String> fileName, int frameWidth, int frameHeight, int padding, int anchorX, int anchorY);
 
         Ref<Sova::String> filename = Null<Sova::String>();
@@ -18,5 +19,6 @@ namespace Sova {
         int padding = padding;
         int anchorX = anchorX;
         int anchorY = anchorY;
+        bool autoSize = false;
     };
 }

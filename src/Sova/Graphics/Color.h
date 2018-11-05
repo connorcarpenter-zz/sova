@@ -26,5 +26,7 @@ namespace Sova
         int red;
         int green;
         int blue;
+
+        static Color MixColors(Color color1, Color color2);
     };
 }

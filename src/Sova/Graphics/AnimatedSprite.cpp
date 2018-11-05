@@ -6,6 +6,7 @@
 #include "Sova/Graphics/Internal/InternalSprite.h"
 #include "Sova/Graphics/Internal/InternalCamera.h"
 #include "AnimatedSpriteInfo.h"
+#include "AnimatedSequenceInfo.h"
 
 namespace Sova
 {
@@ -43,7 +44,7 @@ namespace Sova
                                        rx, ry,
                                        frameWidth, frameHeight,
                                        padding,
-                                       (int) imageIndex,
+                                       (int) imageIndex + frameStartIndex,
                                        this->scale->x, this->scale->y);
     }
 
@@ -52,13 +53,26 @@ namespace Sova
     }
 
     void AnimatedSprite::useAnimatedSpriteInfo(Ref<AnimatedSpriteInfo> animatedSpriteInfo) {
-        if (animatedSpriteInfo == nullptr) return;
-        this->setTexture(animatedSpriteInfo->filename);
-        this->frameWidth = animatedSpriteInfo->frameWidth;
-        this->frameHeight = animatedSpriteInfo->frameHeight;
-        this->padding = animatedSpriteInfo->padding;
-        this->anchor->x = animatedSpriteInfo->anchorX;
-        this->anchor->y = animatedSpriteInfo->anchorY;
-        this->imageNumber = this->getWidth()/this->frameWidth;
+
+            if (animatedSpriteInfo == nullptr) return;
+        {
+            this->setTexture(animatedSpriteInfo->filename);
+        }
+            this->frameWidth = animatedSpriteInfo->frameWidth;
+            this->frameHeight = animatedSpriteInfo->frameHeight;
+            this->padding = animatedSpriteInfo->padding;
+            this->anchor->x = animatedSpriteInfo->anchorX;
+            this->anchor->y = animatedSpriteInfo->anchorY;
+            this->imageNumber = this->getWidth() / this->frameWidth;
+
+    }
+
+    void AnimatedSprite::useAnimatedSequenceInfo(Ref<Sova::AnimatedSequenceInfo> animatedSequenceInfo) {
+        if (animatedSequenceInfo == nullptr) return;
+        this->useAnimatedSpriteInfo(animatedSequenceInfo->spriteInfo);
+
+        this->frameStartIndex = animatedSequenceInfo->frameStart;
+        this->frameEndIndex = animatedSequenceInfo->frameEnd;
+        this->imageNumber = (this->frameEndIndex - this->frameStartIndex) + 1;
     }
 }

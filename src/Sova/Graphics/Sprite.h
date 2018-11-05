@@ -6,6 +6,7 @@
 
 #include "Sova/Common/String.h"
 #include "Container.h"
+#include "AnimatedSpriteInfo.h"
 #include <Sova/References/RefTypes.h>
 
 using namespace Sova;
@@ -35,6 +36,8 @@ namespace Sova
         int getWidth();
 
         int getHeight();
+
+        void useSpriteInfo(Ref<AnimatedSpriteInfo> animatedSpriteInfo);
 
     protected:
         InternalSprite* internalSprite;

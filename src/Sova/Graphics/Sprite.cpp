@@ -51,4 +51,11 @@ namespace Sova
         return Math::BoxesOverlap(xoffset, yoffset, xoffset + this->getWidth(), yoffset + this->getHeight(),
                 0, 0, camera->width, camera->height);
     }
+
+    void Sprite::useSpriteInfo(Ref<AnimatedSpriteInfo> animatedSpriteInfo) {
+        if (animatedSpriteInfo == nullptr) return;
+        this->setTexture(animatedSpriteInfo->filename);
+        this->anchor->x = animatedSpriteInfo->anchorX;
+        this->anchor->y = animatedSpriteInfo->anchorY;
+    }
 }

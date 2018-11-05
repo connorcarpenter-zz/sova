@@ -14,4 +14,11 @@ namespace Sova {
         this->anchorX = anchorX;
         this->anchorY = anchorY;
     }
+
+    AnimatedSpriteInfo::AnimatedSpriteInfo(Ref<Sova::String> fileName, bool autoSize, int anchorX, int anchorY) {
+        this->filename = fileName;
+        this->anchorX = anchorX;
+        this->anchorY = anchorY;
+        this->autoSize = true;
+    }
 }

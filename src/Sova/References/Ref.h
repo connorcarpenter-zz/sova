@@ -31,6 +31,9 @@ namespace Sova
             this->parent->addRef(this);
         }
 
+        //Constructor only be called from static context
+        Ref() {}
+
         template<typename... ARGS>
         void initObj(ARGS&&... args){
             assert(obj == nullptr); //We should only call this when the Ptr is being initialized
@@ -181,6 +184,14 @@ namespace Sova
             assert(nullptr != obj);
             return *obj;
         };
+
+        // static new
+        template<typename... ARGS>
+        static Ref<T> New(ARGS &&... args) {
+            Ref<T> ref = Ref<T>();
+            ref.initObj(std::forward<ARGS>(args)...);
+            return ref;
+        }
 
         T* obj = nullptr;
 

@@ -32,4 +32,13 @@ namespace Sova
     {
         return (this->red != other.red || this->blue != other.blue || this->green != other.green);
     }
+
+    Color Color::MixColors(Color color1, Color color2) {
+        int red = (color1.red*color2.red) / 255;
+        int blue = (color1.blue*color2.blue) / 255;
+        int green = (color1.green*color2.green) / 255;
+        return Color(red,
+                     blue,
+                     green);
+    }
 }

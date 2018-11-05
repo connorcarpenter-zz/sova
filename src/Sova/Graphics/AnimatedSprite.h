@@ -7,6 +7,7 @@
 
 namespace Sova {
     class AnimatedSpriteInfo;
+    class AnimatedSequenceInfo;
 
     class AnimatedSprite : public Sprite {
     public:
@@ -19,6 +20,7 @@ namespace Sova {
         void Update(float deltaFrameMs) override;
         void drawSelf(Ref<Camera> camera, int xoffset, int yoffset) override;
         void useAnimatedSpriteInfo(Ref<AnimatedSpriteInfo> animatedSpriteInfo);
+        void useAnimatedSequenceInfo(Ref<Sova::AnimatedSequenceInfo> animatedSequenceInfo);
         float imageSpeed = 0;
         float imageIndex = 0;
         int frameWidth = 0;
@@ -29,7 +31,8 @@ namespace Sova {
 
         bool getTextureLoaded();
 
+        int frameEndIndex = 0;
     protected:
-
+        int frameStartIndex = 0;
     };
 }

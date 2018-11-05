@@ -105,4 +105,8 @@ namespace Sova
     int Math::Floor(float value) {
         return (int) glm::floor(value);
     }
+
+    float Math::Direction(float x1, float y1, float x2, float y2) {
+        return glm::degrees(glm::atan((y2-y1),(x2-x1)));
+    }
 }
