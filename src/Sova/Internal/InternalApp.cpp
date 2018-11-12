@@ -63,7 +63,7 @@ namespace Sova {
         this->meshSetup.Layout
                 .Add(VertexAttr::Position, VertexFormat::Float2)
                 .Add(VertexAttr::TexCoord0, VertexFormat::Float2)
-                .Add(VertexAttr::Color0, VertexFormat::Float3);
+                .Add(VertexAttr::Color0, VertexFormat::Float4);
         this->meshSetup.AddPrimitiveGroup(PrimitiveGroup(0, 6));
         this->meshSetup.Locator = Locator("2d_sprite_mesh");
 

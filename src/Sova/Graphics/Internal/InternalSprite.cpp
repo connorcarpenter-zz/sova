@@ -147,6 +147,7 @@ namespace Sova
         InternalApp::getInternalApp()->vertexBuffer[index].r = this->tintR;
         InternalApp::getInternalApp()->vertexBuffer[index].g = this->tintG;
         InternalApp::getInternalApp()->vertexBuffer[index].b = this->tintB;
+        InternalApp::getInternalApp()->vertexBuffer[index].a = this->mainSprite->alpha;
         return index + 1;
     }
 

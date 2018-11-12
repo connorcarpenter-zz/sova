@@ -28,6 +28,7 @@ namespace Sova
         Ref<Point> anchor = Null<Point>();
 
         Color tint = Color::White;
+        float alpha = 1.0f;
 
         bool visible = false;
 

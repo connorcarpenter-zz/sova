@@ -42,7 +42,7 @@ namespace Sova {
         static void *getGlobal();
 
         struct vertex {
-            float x, y, u, v, r, g, b;
+            float x, y, u, v, r, g, b, a;
         };
         vertex vertexBuffer[6];
         Oryol::MeshSetup meshSetup;
