@@ -7,6 +7,7 @@
 #include <Sova/References/Ref.h>
 #include <Sova/References/Refable.h>
 #include <Sova/References/RefTypes.h>
+#include <Sova/Math/FloatPoint.h>
 
 namespace Sova
 {
@@ -24,7 +25,8 @@ namespace Sova
         virtual void drawSelf(Ref<Camera> camera, int xoffset, int yoffset) {};
 
         Ref<Point> position = Null<Point>();
-        Ref<Point> scale = Null<Point>();
+        Ref<FloatPoint> scale = Null<FloatPoint>();
+        Ref<Point> skew = Null<Point>();
 
     protected:
 

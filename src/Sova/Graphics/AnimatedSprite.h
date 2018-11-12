@@ -26,13 +26,12 @@ namespace Sova {
         int frameWidth = 0;
         int frameHeight = 0;
         int padding = 0;
+        int frameStartIndex = 0;
     private:
         int imageNumber = -1;
 
         bool getTextureLoaded();
 
         int frameEndIndex = 0;
-    protected:
-        int frameStartIndex = 0;
     };
 }

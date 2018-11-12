@@ -37,15 +37,10 @@ namespace Sova
     }
 
     void AnimatedSprite::drawSelf(Ref<Camera> camera, int xoffset, int yoffset) {
-        int rx = xoffset + this->position->x - (this->anchor->x * this->scale->x);
-        int ry = yoffset + this->position->y - (this->anchor->y * this->scale->y);
+        int rx = xoffset + this->position->x - (int) (this->anchor->x * this->scale->x);
+        int ry = yoffset + this->position->y - (int) (this->anchor->y * this->scale->y);
         if (!this->spriteInsideCameraBounds(camera, rx, ry)) return;
-        this->internalSprite->draw(camera->getInternalCamera(),
-                                       rx, ry,
-                                       frameWidth, frameHeight,
-                                       padding,
-                                       (int) imageIndex + frameStartIndex,
-                                       this->scale->x, this->scale->y);
+        this->internalSprite->draw(camera->getInternalCamera(), rx, ry, this);
     }
 
     bool AnimatedSprite::getTextureLoaded() {

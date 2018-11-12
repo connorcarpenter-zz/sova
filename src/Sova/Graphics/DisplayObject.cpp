@@ -10,6 +10,7 @@ namespace Sova
     Sova::DisplayObject::DisplayObject()
     {
         this->position = New<Point>();
-        this->scale = New<Point>(1,1);
+        this->scale = New<FloatPoint>(1,1);
+        this->skew = New<Point>(0,0);
     }
 }

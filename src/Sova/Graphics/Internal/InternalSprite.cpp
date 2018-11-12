@@ -3,6 +3,7 @@
 //
 
 #include <Sova/Graphics/Sprite.h>
+#include <Sova/Graphics/AnimatedSprite.h>
 #include "InternalSprite.h"
 #include "Sova/Graphics/Internal/InternalCamera.h"
 
@@ -52,8 +53,7 @@ namespace Sova
         Gfx::Draw();
     }
 
-    void InternalSprite::draw(Sova::InternalCamera *internalCamera, int xoffset, int yoffset, int frameWidth,
-                                      int frameHeight, int padding, int imageIndex, int xscale, int yscale)
+    void InternalSprite::draw(Sova::InternalCamera *internalCamera, int xoffset, int yoffset, AnimatedSprite *animSprite)
     {
         if (this->mainSprite->visible)
         {
@@ -64,13 +64,12 @@ namespace Sova
 
                 drawState.FSTexture[0] = this->texture->textureId;
                 this->setupTint();
-                const void *data = this->updateVertices(xoffset,
-                                                        yoffset,
-                                                        this->texture->width,
-                                                        this->texture->height,
-                                                        internalCamera->getWidth(),
-                                                        internalCamera->getHeight(),
-                                                        frameWidth, frameHeight, padding, imageIndex, xscale, yscale);
+                const void *data = this->updateVertices(xoffset, yoffset, this->texture->width, this->texture->height,
+                                                        internalCamera->getWidth(), internalCamera->getHeight(),
+                                                        animSprite->frameWidth, animSprite->frameHeight,
+                                                        animSprite->padding,
+                                                        (int) animSprite->imageIndex + animSprite->frameStartIndex,
+                                                        animSprite->scale->x, animSprite->scale->y, animSprite->skew->x, animSprite->skew->y);
                 Gfx::UpdateVertices(drawState.Mesh[0], data, InternalApp::numVertexesInQuad);
                 Gfx::ApplyDrawState(drawState);
             }
@@ -106,18 +105,21 @@ namespace Sova
         return InternalApp::getInternalApp()->vertexBuffer;
     }
 
-    const void * InternalSprite::updateVertices(int x, int y, int texWidth, int texHeight, int canWidth, int canHeight, int frameWidth, int frameHeight,
-                                                        int padding, int frameIndex, int xscale, int yscale)
+    const void * InternalSprite::updateVertices(int x, int y, int texWidth, int texHeight, int canWidth, int canHeight, int frameWidth,
+                                                    int frameHeight, int padding, int frameIndex, float xscale, float yscale, int xskew,
+                                                    int yskew)
     {
         int vIndex = 0;
 
         //0 is 0, 1 is canvasWidth, canvasHeight
-        int tw = (frameWidth - (padding*2)) * xscale;
-        int th = (frameHeight - (padding*2)) * yscale;
-        float x0 = x / (float) canWidth;
-        float y0 = y / (float) canHeight;
+        int tw = (int) ((frameWidth - (padding*2)) * xscale);
+        int th = (int) ((frameHeight - (padding*2)) * yscale);
+        float x0 = (x) / (float) canWidth;
+        float y0 = (y) / (float) canHeight;
         float x1 = (x + tw) / (float) canWidth;
         float y1 = (y + th) / (float) canHeight;
+
+        float rxskew = xskew / (float) canWidth;
 
         //0 is 0, 1 is texWidth/texHeight
         //This is the texture
@@ -126,10 +128,10 @@ namespace Sova
         float u1 = (float) (((frameIndex+1) * frameWidth) - padding) / (float) texWidth;
         float v1 = (float) (frameHeight - padding) / (float) texHeight;
 
-        vIndex = this->writeVertex(vIndex, x0, y0, u0, v0);
-        vIndex = this->writeVertex(vIndex, x1, y0, u1, v0);
+        vIndex = this->writeVertex(vIndex, x0 + rxskew, y0, u0, v0);
+        vIndex = this->writeVertex(vIndex, x1 + rxskew, y0, u1, v0);
         vIndex = this->writeVertex(vIndex, x1, y1, u1, v1);
-        vIndex = this->writeVertex(vIndex, x0, y0, u0, v0);
+        vIndex = this->writeVertex(vIndex, x0 + rxskew, y0, u0, v0);
         vIndex = this->writeVertex(vIndex, x1, y1, u1, v1);
         vIndex = this->writeVertex(vIndex, x0, y1, u0, v1);
 
