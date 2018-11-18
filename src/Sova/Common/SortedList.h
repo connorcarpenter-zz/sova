@@ -31,9 +31,8 @@ namespace Sova
     {
     public:
 
-        explicit SortedListIterator(Ref<SortedListNode<T>> headNode)
+        explicit SortedListIterator()
         {
-            this->currentNode = headNode;
         }
 
         virtual const char* getClassName() { return "SortedListIterator"; }
@@ -53,6 +52,10 @@ namespace Sova
             return (this->currentNode != nullptr);
         }
 
+        void Start(Ref<SortedListNode<T>> startNode){
+            this->currentNode = startNode;
+        }
+
     private:
 
         Ref<SortedListNode<T>> currentNode = Null<SortedListNode<T>>();
@@ -63,7 +66,10 @@ namespace Sova
     {
     public:
 
-        SortedList() = default;
+        SortedList()
+        {
+            this->myIterator = New<SortedListIterator<T>>();
+        }
         virtual const char* getClassName() { return "SortedList"; }
 
         void Add(Ref<T> item, int sortKey)
@@ -174,13 +180,15 @@ namespace Sova
 
         Ref<SortedListIterator<T>> GetIterator()
         {
-            return New<SortedListIterator<T>>(head);
+            this->myIterator->Start(head);
+            return this->myIterator;
         }
 
     private:
 
         Ref<SortedListNode<T>> head = Null<SortedListNode<T>>();
         Ref<SortedListNode<T>> tail = Null<SortedListNode<T>>();
+        Ref<SortedListIterator<T>> myIterator = Null<SortedListIterator<T>>();
         int size = 0;
     };
 }

@@ -31,9 +31,8 @@ namespace Sova
     {
     public:
 
-        explicit ListIterator(Ref<ListNode<T>> headNode)
+        explicit ListIterator()
         {
-            this->currentNode = headNode;
         }
 
         virtual const char* getClassName() { return "ListIterator"; }
@@ -53,6 +52,10 @@ namespace Sova
             return (this->currentNode != nullptr);
         }
 
+        void Start(Ref<ListNode<T>> startNode){
+            this->currentNode = startNode;
+        }
+
     private:
 
         Ref<ListNode<T>> currentNode = Null<ListNode<T>>();
@@ -65,7 +68,21 @@ namespace Sova
 
         virtual const char* getClassName() { return "List"; }
 
-        List() = default;
+        List()
+        {
+            this->myIterator = New<ListIterator<T>>();
+        }
+
+        List(Ref<List<T>> otherList)
+        {
+            for (Ref<ListIterator<T>> iterator = otherList->GetIterator(); iterator->Valid(); iterator->Next())
+            {
+                auto otherItem = iterator->Get();
+                this->Add(otherItem);
+            }
+
+            this->myIterator = New<ListIterator<T>>();
+        }
 
         void Add(Ref<T> item)
         {
@@ -183,7 +200,8 @@ namespace Sova
 
         Ref<ListIterator<T>> GetIterator()
         {
-            return New<ListIterator<T>>(head);
+            this->myIterator->Start(head);
+            return this->myIterator;
         }
 
         Ref<T> At(int index)
@@ -224,19 +242,11 @@ namespace Sova
             return foundItem != nullptr;
         }
 
-        List(Ref<List<T>> otherList)
-        {
-            for (Ref<ListIterator<T>> iterator = otherList->GetIterator(); iterator->Valid(); iterator->Next())
-            {
-                auto otherItem = iterator->Get();
-                this->Add(otherItem);
-            }
-        }
-
     private:
 
         Ref<ListNode<T>> head = Null<ListNode<T>>();
         Ref<ListNode<T>> tail = Null<ListNode<T>>();
+        Ref<ListIterator<T>> myIterator = Null<ListIterator<T>>();
         int size = 0;
     };
 }
