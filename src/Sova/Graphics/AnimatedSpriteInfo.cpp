@@ -2,6 +2,7 @@
 // Created by connor on 8/29/18.
 //
 
+#include <Sova/Internal/InternalApp.h>
 #include "AnimatedSpriteInfo.h"
 
 namespace Sova {
@@ -13,6 +14,8 @@ namespace Sova {
         this->padding = padding;
         this->anchorX = anchorX;
         this->anchorY = anchorY;
+
+        this->internalTexture = InternalApp::getInternalApp()->resourceManager.textures[Oryol::String(filename->AsCStr())];
     }
 
     AnimatedSpriteInfo::AnimatedSpriteInfo(Ref<Sova::String> fileName, bool autoSize, int anchorX, int anchorY) {
@@ -20,5 +23,7 @@ namespace Sova {
         this->anchorX = anchorX;
         this->anchorY = anchorY;
         this->autoSize = true;
+
+        this->internalTexture = InternalApp::getInternalApp()->resourceManager.textures[Oryol::String(filename->AsCStr())];
     }
 }

@@ -125,6 +125,49 @@ namespace Sova
             }
         }
 
+        void Remove(int index)
+        {
+            if (size <= 0) return;
+            int scanIndex = 0;
+            if (head != nullptr) {
+                if (index == 0) {
+                    if (head->next == nullptr) {
+                        //there's only 1 node in this list
+                        head = nullptr;
+                        tail = nullptr;
+                        size = 0;
+                        return;
+                    }
+
+                    auto headNext = head->next; //important that this is executed before the next line (idk why yet :/)
+                    head = headNext;
+                    size -= 1;
+                    return;
+                }
+
+
+                auto previous = head;
+                while (previous->next != nullptr && index != scanIndex+1) {
+                    previous = previous->next;
+                    scanIndex++;
+                }
+
+                if (previous->next == nullptr) {
+                    // node is not in linked list
+                    return;
+                }
+
+                //cut item out of the linked list
+                auto nextNext = previous->next->next; //important that this is executed before the next line (idk why yet :/)
+                previous->next = nextNext;
+                if (nextNext == nullptr) {
+                    //we just cut out the tail, so reassign it
+                    tail = previous;
+                }
+                size -= 1;
+            }
+        }
+
         int Size() const
         {
             return size;

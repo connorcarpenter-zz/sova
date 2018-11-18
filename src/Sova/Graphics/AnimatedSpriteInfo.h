@@ -8,6 +8,8 @@
 #include <Sova/Common/String.h>
 
 namespace Sova {
+    class InternalTexture;
+
     class AnimatedSpriteInfo : public Refable {
     public:
         AnimatedSpriteInfo(Ref<Sova::String> fileName, bool autoSize, int anchorX, int anchorY);
@@ -20,5 +22,6 @@ namespace Sova {
         int anchorX = anchorX;
         int anchorY = anchorY;
         bool autoSize = false;
+        InternalTexture* internalTexture = nullptr;
     };
 }

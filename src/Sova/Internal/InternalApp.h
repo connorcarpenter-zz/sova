@@ -58,6 +58,8 @@ namespace Sova {
         InternalDestructionManager destructionManager;
 
         static bool keyPressed(Sova::Key::Code key);
+        static bool anyKeyPressed();
+        static char getKeyPressed();
 
         static bool mouseButtonPressed(Sova::MouseButton::Code btn);
 

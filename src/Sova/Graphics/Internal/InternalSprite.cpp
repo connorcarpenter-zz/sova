@@ -28,6 +28,12 @@ namespace Sova
         this->mainSprite->visible = true;
     }
 
+    void InternalSprite::setTexture(InternalTexture* internalTexture)
+    {
+        this->texture = internalTexture;
+        this->mainSprite->visible = true;
+    }
+
     void InternalSprite::draw(Sova::InternalCamera* internalCamera, int xoffset, int yoffset)
     {
         if (this->mainSprite->visible)

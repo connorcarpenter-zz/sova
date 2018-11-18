@@ -129,6 +129,16 @@ namespace Sova {
         return Input::KeyPressed(oryolKey);
     }
 
+    bool InternalApp::anyKeyPressed() {
+        return Input::AnyKeyPressed();
+    }
+
+    char InternalApp::getKeyPressed() {
+        auto charPtr = Input::Text();
+        auto charToReturn = (char) charPtr[0];
+        return charToReturn;
+    }
+
     bool InternalApp::mouseButtonPressed(Sova::MouseButton::Code btn) {
         Oryol::MouseButton::Code oryolBtn = (Oryol::MouseButton::Code) btn;
         return Input::MouseButtonPressed(oryolBtn);

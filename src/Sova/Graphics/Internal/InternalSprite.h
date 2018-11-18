@@ -27,6 +27,9 @@ namespace Sova
         int getWidth();
         int getHeight();
         bool getTextureLoaded();
+
+        void setTexture(InternalTexture *internalTexture);
+
     private:
 
         InternalTexture* texture = nullptr;
@@ -46,5 +49,6 @@ namespace Sova
         Color currentTint = Color::White;
 
         void setupTint();
+
     };
 }

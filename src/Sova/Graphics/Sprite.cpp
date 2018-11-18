@@ -32,6 +32,13 @@ namespace Sova
         this->internalSprite->setTexture(textureName);
     }
 
+    void Sprite::setTexture(Ref<AnimatedSpriteInfo> animatedSpriteInfo)
+    {
+        this->textureName = animatedSpriteInfo->filename;
+
+        this->internalSprite->setTexture(animatedSpriteInfo->internalTexture);
+    }
+
     void Sprite::drawSelf(Ref<Camera> camera, int xoffset, int yoffset) {
         int rx = xoffset + this->position->x - this->anchor->x;
         int ry = yoffset + this->position->y - this->anchor->y;
@@ -54,7 +61,7 @@ namespace Sova
 
     void Sprite::useSpriteInfo(Ref<AnimatedSpriteInfo> animatedSpriteInfo) {
         if (animatedSpriteInfo == nullptr) return;
-        this->setTexture(animatedSpriteInfo->filename);
+        this->setTexture(animatedSpriteInfo);
         this->anchor->x = animatedSpriteInfo->anchorX;
         this->anchor->y = animatedSpriteInfo->anchorY;
     }

@@ -51,7 +51,7 @@ namespace Sova
 
             if (animatedSpriteInfo == nullptr) return;
         {
-            this->setTexture(animatedSpriteInfo->filename);
+            this->setTexture(animatedSpriteInfo);
         }
             this->frameWidth = animatedSpriteInfo->frameWidth;
             this->frameHeight = animatedSpriteInfo->frameHeight;

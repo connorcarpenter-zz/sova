@@ -44,6 +44,14 @@ namespace Sova
         this->useCharArray = true;
     }
 
+    String::String(char str) {
+        this->length = 1;
+        this->charArray = new char[2];
+        this->charArray[0] = str;
+        this->charArray[1] = '\0';
+        this->useCharArray = true;
+    }
+
     String::~String()
     {
         if(this->useCharArray)
@@ -200,6 +208,8 @@ namespace Sova
 
     Ref<String> String::Substring(int start, int end)
     {
+        assert(start >= 0);
+        assert(end >= 0);
         int newLength = end - start;
         char* newCharArray = new char[newLength];
         for (int i = 0; i < newLength; i++)

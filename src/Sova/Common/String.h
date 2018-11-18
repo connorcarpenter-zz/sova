@@ -18,6 +18,7 @@ namespace Sova
         explicit String(const char* cstr);
         String(const char *str, int length, bool createNew);
         String(const char *str, bool createNew);
+        String(char str);
         ~String();
 
         const char* AsCStr() const;
@@ -32,6 +33,7 @@ namespace Sova
         const bool EndsWith(const char* cstr) const;
         Ref<String> TrimEnd(const char* cstr);
         Ref<String> TrimStart(const char* cstr);
+        Ref<String> Substring(int startIndex, int endIndex);
 
         static Ref<String> getStringFromNumber(int number);
 
@@ -41,7 +43,7 @@ namespace Sova
         char* charArray = nullptr;
         bool useCharArray = false;
 
-        Ref<String> Substring(int startIndex, int endIndex);
+
 
         static int getDigits(int number);
     };

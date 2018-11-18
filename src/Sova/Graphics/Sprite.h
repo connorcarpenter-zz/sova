@@ -46,5 +46,7 @@ namespace Sova
         Ref<String> textureName = Null<String>();
 
         bool spriteInsideCameraBounds(Ref<Camera> camera, int xoffset, int yoffset);
+
+        void setTexture(Ref<AnimatedSpriteInfo> animatedSpriteInfo);
     };
 }
