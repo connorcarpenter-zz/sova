@@ -30,7 +30,7 @@ namespace Sova
             delete [] vArray;
         }
 
-        virtual const char *getClassName() { return "Vector"; }
+        virtual const char *getClassName() { return "Array"; }
 
         Ref<T> Get(unsigned int index)
         {
