@@ -10,12 +10,12 @@ namespace Sova
 {
     Container::Container()
     {
-        this->children = New<List<Container>>();
+        this->children = New<Sova::SortedVector<Container>>();
     }
 
     void Container::AddChild(Ref<Container> container)
     {
-        this->children->Add(container, container->depth);
+        this->children->Add(container);
 
         container->SetParent(ThisRef<Container>());
     }
@@ -49,6 +49,11 @@ namespace Sova
         }
     }
 
+    bool sortFunction (Ref<Container>* a, Ref<Container>* b)
+    {
+        return (*a)->depth > (*b)->depth;
+    }
+
     void Container::Draw(Ref<Camera> camera, int xoffset, int yoffset)
     {
         if (this->destroyed) return;
@@ -56,6 +61,7 @@ namespace Sova
         this->drawSelf(camera, xoffset, yoffset);
 
         //Draw children
+        this->children->resortIfNeeded(sortFunction);
         for (auto iterator = this->children->GetIterator(); iterator->Valid(); iterator->Next())
         {
             Ref<Container> childContainer = iterator->Get();
@@ -97,7 +103,7 @@ namespace Sova
         {
             this->depth = newDepth;
             if (this->parent != nullptr) {
-                this->parent->children->Resort(ThisRef<Container>(), newDepth);
+                this->parent->children->markForResort();
             }
         }
     }

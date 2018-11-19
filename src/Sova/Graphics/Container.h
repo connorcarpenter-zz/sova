@@ -7,6 +7,7 @@
 #include <functional>
 #include <Sova/References/Ref.h>
 #include <Sova/References/RefTypes.h>
+#include <Sova/Common/SortedVector.h>
 #include "DisplayObject.h"
 #include "Sova/Common/SortedList.h"
 #include "Viewport.h"
@@ -40,7 +41,7 @@ namespace Sova
         int depth = 0;
     private:
         Ref<Container> parent = Null<Container>();
-        Ref<SortedList<Container>> children = Null<SortedList<Container>>();
+        Ref<Sova::SortedVector<Container>> children = Null<SortedVector<Container>>();
     protected:
         bool destroyed = false;
 

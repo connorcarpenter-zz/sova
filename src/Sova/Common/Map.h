@@ -102,6 +102,11 @@ namespace Sova
             return New<MapIterator<T>>(this->vMap);
         }
 
+        int Size()
+        {
+            return this->vMap->size();
+        }
+
 
     private:
 
