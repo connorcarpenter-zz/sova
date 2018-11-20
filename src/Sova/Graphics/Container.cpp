@@ -41,17 +41,17 @@ namespace Sova
     {
         if (this->destroyed) return;
 
-        for (auto iterator = this->children->GetIterator(); iterator->Valid(); iterator->Next())
+        for (int i = 0;i<this->children->Size();i++)
         {
-            Ref<Container> childContainer = iterator->Get();
+            Ref<Container> childContainer = this->children->At(i);
             childContainer->Update(deltaFrameMs);
             childContainer->UpdateChildren(deltaFrameMs);
         }
     }
 
-    bool sortFunction (Ref<Container>* a, Ref<Container>* b)
+    bool sortFunction(Container* a, Container* b)
     {
-        return (*a)->depth > (*b)->depth;
+        return a->depth > b->depth;
     }
 
     void Container::Draw(Ref<Camera> camera, int xoffset, int yoffset)
@@ -62,9 +62,9 @@ namespace Sova
 
         //Draw children
         this->children->resortIfNeeded(sortFunction);
-        for (auto iterator = this->children->GetIterator(); iterator->Valid(); iterator->Next())
+        for (int i = 0;i<this->children->Size();i++)
         {
-            Ref<Container> childContainer = iterator->Get();
+            Ref<Container> childContainer = this->children->At(i);
             childContainer->Draw(camera, xoffset + this->position->x, yoffset + this->position->y);
         }
     }

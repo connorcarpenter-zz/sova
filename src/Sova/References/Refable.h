@@ -67,7 +67,7 @@ namespace Sova
             return (int) refs.size();
         }
 
-        void Mark(); // Mark the object and all its children as live
+        virtual void Mark(); // Mark the object and all its children as live
         void Hold();
         int Release();
         virtual const char* getClassName();

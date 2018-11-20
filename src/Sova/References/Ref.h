@@ -195,6 +195,14 @@ namespace Sova
 
         T* obj = nullptr;
 
+        void set(T* obj){
+            this->obj = obj;
+            if (this->obj != nullptr){
+                Refable* refable = (Refable*) this->obj;
+                refable->Hold();
+            }
+        }
+
     private:
         
         Refable* parent = nullptr;
@@ -214,12 +222,5 @@ namespace Sova
             this->obj = nullptr;
         }
 
-        void set(T* obj){
-            this->obj = obj;
-            if (this->obj != nullptr){
-                Refable* refable = (Refable*) this->obj;
-                refable->Hold();
-            }
-        }
     };
 }
