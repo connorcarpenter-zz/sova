@@ -35,6 +35,8 @@ namespace Sova
         void receiveOpen();
         void receiveClose(const char* message);
 
+        void setEscapeCharacter(char c);
+
         Ref<String> url = Null<String>();
 
 

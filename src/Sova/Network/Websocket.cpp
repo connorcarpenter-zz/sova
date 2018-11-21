@@ -69,4 +69,8 @@ namespace Sova
     ReadyState Websocket::getReadyState() {
         return static_cast<ReadyState>(this->webSocketClient->getReadyState());
     }
+
+    void Websocket::setEscapeCharacter(char c) {
+        this->webSocketClient->setEscapeCharacter(c);
+    }
 }

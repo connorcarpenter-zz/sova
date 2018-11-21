@@ -47,4 +47,8 @@ namespace Sova
     int WebsocketImpl::getReadyState() {
         return this->webSocketClient.getReadyState();
     }
+
+    void WebsocketImpl::setEscapeCharacter(char c) {
+        this->webSocketClient.setEscapeCharacter(c);
+    }
 }

@@ -21,6 +21,8 @@ namespace Sova
         void close();
         int getReadyState();
 
+        void setEscapeCharacter(char c);
+
     private:
         Oryol::WebSocketClient webSocketClient;
         Sova::Websocket* wrapperWebsocket = nullptr;
