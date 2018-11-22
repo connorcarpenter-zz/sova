@@ -55,7 +55,7 @@ namespace Sova
     String::~String()
     {
         if(this->useCharArray)
-            delete this->charArray;
+            delete [] this->charArray;
     }
 
     const char* String::AsCStr() const
@@ -182,11 +182,30 @@ namespace Sova
         return true;
     }
 
+    const bool String::EndsWith(const char c) const
+    {
+        if(CharAt(this->length-1) != c)
+            return false;
+
+        return true;
+    }
+
     Ref<String> String::TrimEnd(const char *cstr)
     {
         if (EndsWith(cstr)){
             int cstrlength = (int) strlen(cstr);
             return Substring(0, this->length - cstrlength);
+        }
+        else
+        {
+            return ThisRef<String>();
+        }
+    }
+
+    Ref<String> String::TrimEnd(char c)
+    {
+        if (EndsWith(c)){
+            return Substring(0, this->length - 1);
         }
         else
         {

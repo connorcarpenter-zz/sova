@@ -37,6 +37,8 @@ namespace Sova
 
         static Ref<String> getStringFromNumber(int number);
 
+        Ref<String> TrimEnd(char c);
+
     private:
         int length;
         const char* strPtr = nullptr;     // direct pointer to string data, necessary to see something in the debugger
@@ -46,6 +48,8 @@ namespace Sova
 
 
         static int getDigits(int number);
+
+        const bool EndsWith(const char c) const;
     };
 
 }
