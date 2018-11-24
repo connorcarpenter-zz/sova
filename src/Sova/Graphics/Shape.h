@@ -24,9 +24,8 @@ namespace Sova
         bool filling = true;
 
 
-
+        bool lines = true;
     protected:
         int lineWidth = 1;
-        bool lines = true;
     };
 }

@@ -46,9 +46,9 @@ namespace Sova
         this->webSocketClient->update();
     }
 
-    void Websocket::receiveMessage(const char* message) {
+    void Websocket::receiveMessage(const char *charPtr, unsigned int length) {
         if (this->messageFunction != nullptr)
-            this->messageFunction(New<String>(message));
+            this->messageFunction(New<String>(charPtr, length, true));
     }
 
     void Websocket::receiveError(const char* message) {

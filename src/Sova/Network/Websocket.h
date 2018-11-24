@@ -30,7 +30,7 @@ namespace Sova
         void update();
         ReadyState getReadyState();
 
-        void receiveMessage(const char* message);
+        void receiveMessage(const char *charPtr, unsigned int length);
         void receiveError(const char* message);
         void receiveOpen();
         void receiveClose(const char* message);

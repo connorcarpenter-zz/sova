@@ -11,7 +11,7 @@ namespace Sova
         this->wrapperWebsocket = wrapperWebsocket;
 
         this->webSocketClient.onMessage([&](Oryol::String msg) {
-            this->wrapperWebsocket->receiveMessage(msg.AsCStr());
+            this->wrapperWebsocket->receiveMessage(msg.AsCStr(), msg.Length());
         });
 
         this->webSocketClient.onError([&](Oryol::String msg) {
