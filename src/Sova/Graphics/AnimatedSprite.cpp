@@ -28,9 +28,23 @@ namespace Sova
         }
         else
         {
-            imageIndex += imageSpeed;
-            if (imageIndex >= imageNumber)
-                imageIndex -= imageNumber;
+            if (imageSpeed != 0)
+            {
+                imageIndex += imageSpeed;
+                if (imageIndex >= imageNumber)
+                {
+                    switch (animationEndBehavior)
+                    {
+                        case Loop:
+                            imageIndex -= imageNumber;
+                            break;
+                        case Stop:
+                            imageIndex = imageNumber;
+                            imageSpeed = 0;
+                            break;
+                    }
+                }
+            }
         }
 
         Container::Update(deltaFrameMs);
@@ -69,5 +83,11 @@ namespace Sova
         this->frameStartIndex = animatedSequenceInfo->frameStart;
         this->frameEndIndex = animatedSequenceInfo->frameEnd;
         this->imageNumber = (this->frameEndIndex - this->frameStartIndex) + 1;
+
+        if (animatedSequenceInfo->newAnchorSet)
+        {
+            this->anchor->x = animatedSequenceInfo->newAnchorX;
+            this->anchor->y = animatedSequenceInfo->newAnchorY;
+        }
     }
 }

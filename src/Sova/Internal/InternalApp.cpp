@@ -38,7 +38,11 @@ namespace Sova {
         dispHeight = sovapp->height;
 
         //Setup screen
-        Gfx::Setup(GfxSetup::Window(dispWidth, dispHeight, sovapp->windowTitle->AsCStr()));
+        auto gfxSetup = GfxSetup::Window(dispWidth, dispHeight, sovapp->windowTitle->AsCStr());
+#if ORYOL_EMSCRIPTEN
+        gfxSetup.HtmlTrackElementSize = true;
+#endif
+        Gfx::Setup(gfxSetup);
         Input::Setup();
 
         // setup IO system
@@ -144,11 +148,11 @@ namespace Sova {
         return Input::MouseButtonPressed(oryolBtn);
     }
 
-    int InternalApp::getMouseX() {
-        return (int) Input::MousePosition().x;
+    double InternalApp::getMouseX() {
+        return (Input::MousePosition().x / ( Gfx::DisplayAttrs().FramebufferWidth));
     }
 
-    int InternalApp::getMouseY() {
-        return (int) Input::MousePosition().y;
+    double InternalApp::getMouseY() {
+        return (Input::MousePosition().y / ( Gfx::DisplayAttrs().FramebufferHeight));
     }
 }

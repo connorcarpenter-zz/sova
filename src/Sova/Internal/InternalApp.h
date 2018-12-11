@@ -63,9 +63,9 @@ namespace Sova {
 
         static bool mouseButtonPressed(Sova::MouseButton::Code btn);
 
-        static int getMouseX();
+        static double getMouseX();
 
-        static int getMouseY();
+        static double getMouseY();
 
         SoLoud::Soloud soloud;
     private:

@@ -12,9 +12,13 @@ namespace Sova {
     class AnimatedSequenceInfo : public Refable {
     public:
         AnimatedSequenceInfo(Ref<Sova::AnimatedSpriteInfo> spriteInfo, int frameStart, int frameEnd);
+        AnimatedSequenceInfo(Ref<Sova::AnimatedSpriteInfo> spriteInfo, int frameStart, int frameEnd, int newAnchorX, int newAnchorY);
 
         Ref<Sova::AnimatedSpriteInfo> spriteInfo = Null<Sova::AnimatedSpriteInfo>();
         int frameStart;
         int frameEnd;
+        int newAnchorX;
+        int newAnchorY;
+        bool newAnchorSet = false;
     };
 }

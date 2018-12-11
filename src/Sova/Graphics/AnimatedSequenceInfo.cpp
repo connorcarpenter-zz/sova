@@ -11,4 +11,14 @@ namespace Sova
         this->frameStart = frameStart;
         this->frameEnd = frameEnd;
     }
+
+    AnimatedSequenceInfo::AnimatedSequenceInfo(Ref<Sova::AnimatedSpriteInfo> spriteInfo, int frameStart, int frameEnd,
+                                               int newAnchorX, int newAnchorY) {
+        this->spriteInfo = spriteInfo;
+        this->frameStart = frameStart;
+        this->frameEnd = frameEnd;
+        this->newAnchorSet = true;
+        this->newAnchorX = newAnchorX;
+        this->newAnchorY = newAnchorY;
+    }
 }

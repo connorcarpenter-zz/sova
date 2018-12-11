@@ -9,6 +9,8 @@ namespace Sova {
     class AnimatedSpriteInfo;
     class AnimatedSequenceInfo;
 
+    enum AnimationEndBehavior { Loop, Stop };
+
     class AnimatedSprite : public Sprite {
     public:
         SovaTypeDecl(AnimatedSprite, Sprite);
@@ -27,8 +29,9 @@ namespace Sova {
         int frameHeight = 0;
         int padding = 0;
         int frameStartIndex = 0;
-    private:
+        AnimationEndBehavior animationEndBehavior = Loop;
         int imageNumber = -1;
+    private:
 
         bool getTextureLoaded();
 
