@@ -68,8 +68,11 @@ namespace Sova {
         static double getMouseY();
 
         SoLoud::Soloud soloud;
+        double currentFps = 60.0f;
     private:
         static InternalApp *singleton;
         Sova::App *sovapp = nullptr;
+        int frameCount = 0;
+        double currentStepTime = 60.0f;
     };
 }

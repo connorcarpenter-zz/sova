@@ -67,6 +67,8 @@ namespace Sova {
 
         void updateTimers(double frameDelta);
 
+        double getFps();
+
     private:
         Ref<List<Viewport>> viewports = Null<List<Viewport>>();
         Ref<List<Websocket>> websockets = Null<List<Websocket>>();

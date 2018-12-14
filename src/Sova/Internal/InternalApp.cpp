@@ -7,6 +7,7 @@
 #include <Modules/Core/Time/Clock.h>
 #include "InternalApp.h"
 #include "soloud.h"
+#include <Sova/Math/Math.h>
 
 using namespace Oryol;
 
@@ -91,18 +92,28 @@ namespace Sova {
         return App::OnInit();
     }
 
+    static TimePoint stepTimePoint;
     static TimePoint frameTimePoint;
 
     AppState::Code InternalApp::OnRunning() {
-        // update the game in the Sova app
-        double frameDelta = Clock::LapTime(frameTimePoint).AsMilliSeconds();
 
-        sovapp->updateTimers(frameDelta);
-        sovapp->updateFunction((float) frameDelta);
+        // update the game in the Sova app
+        double stepDelta = Clock::LapTime(stepTimePoint).AsMilliSeconds();
+
+        sovapp->updateTimers(stepDelta);
+        sovapp->updateFunction((float) stepDelta);
         destructionManager.FinalizeDestruction();
 
+        auto newStepTime = (1000 / stepDelta);
+        this->currentStepTime = ((this->currentStepTime*7) + newStepTime)/8;
+
         //Drawing
-        sovapp->drawCameras();
+        //if (this->currentStepTime > 49) {
+            double frameDelta = Clock::LapTime(frameTimePoint).AsMilliSeconds();
+            auto newFps = (1000 / frameDelta);
+            this->currentFps = ((this->currentFps*29) + newFps)/30;
+            sovapp->drawCameras();
+        //}
         Oryol::Gfx::BeginPass();
         sovapp->drawViewports();
         Oryol::Gfx::EndPass();

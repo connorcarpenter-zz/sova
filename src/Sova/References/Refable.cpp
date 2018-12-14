@@ -5,9 +5,6 @@
 #include "Refable.h"
 #include "IRef.h"
 
-//#include <iostream> //remove this after testing
-//using namespace std;//remove this after testing
-
 namespace Sova
 {
     void Refable::Mark()

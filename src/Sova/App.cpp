@@ -150,4 +150,8 @@ namespace Sova {
         this->viewports->Add(newViewport);
         return newViewport;
     }
+
+    double App::getFps() {
+        return InternalApp::getInternalApp()->currentFps;
+    }
 }
