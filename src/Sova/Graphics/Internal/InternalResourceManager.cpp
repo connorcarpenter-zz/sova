@@ -72,28 +72,4 @@ InternalResourceManager::~InternalResourceManager() {
     }
 }
 
-Id InternalResourceManager::getMesh() {
-    if (freeMeshes.Size() > 0)
-    {
-        Id id = freeMeshes.ValueAtIndex(0);
-        freeMeshes.Erase(id);
-        usedMeshes.Add(id);
-        return id;
-    }
-    else
-    {
-        Id newId = Gfx::CreateResource(InternalApp::getInternalApp()->meshSetup);
-        usedMeshes.Add(newId);
-        return newId;
-    }
-}
-
-void InternalResourceManager::releaseMesh(const Id& id) {
-    if (usedMeshes.Contains(id))
-    {
-        usedMeshes.Erase(id);
-        freeMeshes.Add(id);
-    }
-}
-
 
