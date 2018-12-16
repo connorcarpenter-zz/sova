@@ -5,7 +5,7 @@
 //
 
 #include <Sova/Graphics/Camera.h>
-
+#include <Modules/Gfx/Gfx.h>
 #include <Modules/Resource/Id.h>
 
 namespace Sova {

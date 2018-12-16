@@ -3,6 +3,7 @@
 //
 
 #include <Modules/Gfx/Gfx.h>
+#include <Sova/Internal/InternalApp.h>
 #include "Camera.h"
 #include "Container.h"
 #include "Internal/InternalCamera.h"
@@ -43,7 +44,10 @@ namespace Sova
         }
 
         Oryol::Gfx::BeginPass(this->internalCamera->getCanvasPass());
+        InternalApp::getInternalApp()->drawer->begin();
         this->target->Draw(ThisRef<Camera>(), xoffset - this->position->x, yoffset - this->position->y);
+        InternalApp::getInternalApp()->drawer->end();
+        InternalApp::getInternalApp()->drawer->render(this->internalCamera);
         Oryol::Gfx::EndPass();
     }
 

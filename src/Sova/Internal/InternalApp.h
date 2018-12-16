@@ -20,6 +20,7 @@
 #include "soloud.h"
 
 #include <Sova/App.h>
+#include <Sova/Graphics/Drawer/Internal/InternalDrawer.h>
 
 namespace Sova {
     class InternalApp : public Oryol::App {
@@ -69,6 +70,7 @@ namespace Sova {
 
         SoLoud::Soloud soloud;
         double currentFps = 60.0f;
+        InternalDrawer* drawer = nullptr;
     private:
         static InternalApp *singleton;
         Sova::App *sovapp = nullptr;

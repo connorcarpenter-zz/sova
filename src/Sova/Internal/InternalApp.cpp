@@ -14,6 +14,7 @@ using namespace Oryol;
 namespace Sova {
     InternalApp::InternalApp(Sova::App *sovaApp) {
         sovapp = sovaApp;
+        drawer = new InternalDrawer();
     }
 
     InternalApp *InternalApp::singleton = nullptr;
@@ -64,12 +65,11 @@ namespace Sova {
         this->soloud.init();
 
         // setup draw state with dynamic mesh
-        this->meshSetup = MeshSetup::Empty(6, Usage::Stream);
+        this->meshSetup = MeshSetup::Empty(65536, Usage::Stream);
         this->meshSetup.Layout
                 .Add(VertexAttr::Position, VertexFormat::Float2)
                 .Add(VertexAttr::TexCoord0, VertexFormat::Float2)
                 .Add(VertexAttr::Color0, VertexFormat::Float4);
-        this->meshSetup.AddPrimitiveGroup(PrimitiveGroup(0, 6));
         this->meshSetup.Locator = Locator("2d_sprite_mesh");
 
         Id canvasShader = sovapp->shaderHandler->getCanvasShader();
@@ -128,6 +128,8 @@ namespace Sova {
     }
 
     AppState::Code InternalApp::OnCleanup() {
+
+        delete drawer;
 
         Gfx::Discard();
         IO::Discard();

@@ -27,6 +27,11 @@ fips_begin_module(Sova)
             Graphics/Internal/InternalCamera.h Graphics/Internal/InternalCamera.cpp
             Graphics/Internal/InternalViewport.h Graphics/Internal/InternalViewport.cpp
 
+            Graphics/Drawer/Internal/InternalDrawer.h Graphics/Drawer/Internal/InternalDrawer.cpp
+            Graphics/Drawer/Internal/Vertex.h
+            Graphics/Drawer/Internal/RenderBatch.h
+            Graphics/Drawer/Internal/Glyph.h Graphics/Drawer/Internal/Glyph.cpp
+
             Audio/Sound.h Audio/Sound.cpp
             Audio/Internal/InternalSound.h Audio/Internal/InternalSound.cpp
 

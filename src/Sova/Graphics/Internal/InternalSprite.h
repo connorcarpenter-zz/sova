@@ -27,28 +27,18 @@ namespace Sova
         int getWidth();
         int getHeight();
         bool getTextureLoaded();
-
         void setTexture(InternalTexture *internalTexture);
 
     private:
 
         InternalTexture* texture = nullptr;
 
-        const void* updateVertices(int x, int y, int texWidth, int texHeight, int canvasWidth, int canvasHeight);
-        int writeVertex(int index, float x, float y, float u, float v);
+        void updateVertices(int x, int y, int texWidth, int texHeight, int canvasWidth, int canvasHeight);
 
-        const void *
-        updateVertices(int x, int y, int texWidth, int texHeight, int canWidth, int canHeight, int frameWidth,
-                               int frameHeight, int padding, int frameIndex, float xscale, float yscale, int xskew,
-                               int yskew);
+        void updateVertices(int x, int y, int texWidth, int texHeight, int canWidth, int canHeight, int frameWidth,
+                       int frameHeight, int padding, int frameIndex, float xscale, float yscale, int xskew,
+                       int yskew);
 
         Sprite *mainSprite = nullptr;
-        float tintR = 1.0f;
-        float tintG = 1.0f;
-        float tintB = 1.0f;
-        Color currentTint = Color::White;
-
-        void setupTint();
-
     };
 }

@@ -55,9 +55,7 @@ namespace Sova {
         Ref<Websocket> openWebsocket(Ref<String> address);
         Ref<HttpRequest> makeHttpRequest(Ref<String> method, Ref<String> address);
 
-        //Timers
-        Ref<Timer> makeTimer(std::function<void()> updateFunction, int msStart, int msRepeat);
-
+        //Network
         void updateWebsockets();
         void updateHttpRequests();
 
@@ -65,8 +63,9 @@ namespace Sova {
         void setGlobal(void* globalPtr);
         void* getGlobal();
 
+        //Timing
+        Ref<Timer> makeTimer(std::function<void()> updateFunction, int msStart, int msRepeat);
         void updateTimers(double frameDelta);
-
         double getFps();
 
     private:
