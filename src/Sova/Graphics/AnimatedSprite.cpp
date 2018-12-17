@@ -20,6 +20,14 @@ namespace Sova
         this->padding = padding;
     }
 
+    AnimatedSprite::AnimatedSprite(Ref<SpriteAtlas> spriteAtlas, Ref<String> textureName, int frameWidth, int frameHeight, int padding) {
+        this->spriteAtlas = spriteAtlas;
+        this->textureName = textureName;
+        this->frameWidth = frameWidth;
+        this->frameHeight = frameHeight;
+        this->padding = padding;
+    }
+
     void AnimatedSprite::Update(float deltaFrameMs) {
         if (imageNumber == -1)
         {
@@ -64,9 +72,18 @@ namespace Sova
     void AnimatedSprite::useAnimatedSpriteInfo(Ref<AnimatedSpriteInfo> animatedSpriteInfo) {
 
             if (animatedSpriteInfo == nullptr) return;
+
+        if (animatedSpriteInfo->spriteAtlas == nullptr)
         {
             this->setTexture(animatedSpriteInfo);
+        } else {
+            this->spriteAtlas = animatedSpriteInfo->spriteAtlas;
+            animatedSpriteInfo->updateSpriteAtlasInfo();
+            this->setTexture(animatedSpriteInfo);
+            this->spriteAtlasKey = animatedSpriteInfo->spriteAtlasKey;
+            this->internalSprite->spriteAtlasGlyph = animatedSpriteInfo->spriteAtlasGlyph;
         }
+
             this->frameWidth = animatedSpriteInfo->frameWidth;
             this->frameHeight = animatedSpriteInfo->frameHeight;
             this->padding = animatedSpriteInfo->padding;

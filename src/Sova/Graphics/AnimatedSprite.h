@@ -16,7 +16,7 @@ namespace Sova {
         SovaTypeDecl(AnimatedSprite, Sprite);
         virtual const char* getClassName() { return "AnimatedSprite"; }
         AnimatedSprite(Ref<String> textureName, int frameWidth, int frameHeight, int padding);
-
+        AnimatedSprite(Ref<SpriteAtlas> spriteAtlas, Ref<String> textureName, int frameWidth, int frameHeight, int padding);
         AnimatedSprite();
 
         void Update(float deltaFrameMs) override;

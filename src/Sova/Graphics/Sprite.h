@@ -21,27 +21,27 @@ namespace Sova
         SovaTypeDecl(Sprite, Container);
         Sprite();
         explicit Sprite(Ref<String> textureName);
+        explicit Sprite(Ref<SpriteAtlas> spriteAtlas, Ref<String> textureName);
         ~Sprite();
         virtual const char* getClassName() { return "Sprite"; }
         virtual void drawSelf(Ref<Camera> camera, int xoffset, int yoffset);
-
-        Ref<Point> anchor = Null<Point>();
-
-        Color tint = Color::White;
-        float alpha = 1.0f;
-
-        bool visible = false;
-
         virtual void setTexture(Ref <String> textureName);
-
         int getWidth();
-
         int getHeight();
-
         void useSpriteInfo(Ref<AnimatedSpriteInfo> animatedSpriteInfo);
 
+        Ref<Point> anchor = Null<Point>();
+        Color tint = Color::White;
+        float alpha = 1.0f;
+        bool visible = false;
+
+        Ref<SpriteAtlas> spriteAtlas = Null<SpriteAtlas>();
+        int spriteAtlasKey = -1;
+
+        bool checkSpriteAtlasLoaded();
+
     protected:
-        InternalSprite* internalSprite;
+        InternalSprite* internalSprite = nullptr;
 
         Ref<String> textureName = Null<String>();
 

@@ -20,12 +20,15 @@ fips_begin_module(Sova)
             Graphics/Rectangle.h Graphics/Rectangle.cpp
             Graphics/Line.h Graphics/Line.cpp
             Graphics/Pixel.h Graphics/Pixel.cpp
+            Graphics/SpriteAtlas.h Graphics/SpriteAtlas.cpp
 
             Graphics/Internal/InternalPixelDrawer.h Graphics/Internal/InternalPixelDrawer.cpp
             Graphics/Internal/InternalLineDrawer.h Graphics/Internal/InternalLineDrawer.cpp
             Graphics/Internal/InternalRectangleDrawer.h Graphics/Internal/InternalRectangleDrawer.cpp
             Graphics/Internal/InternalCamera.h Graphics/Internal/InternalCamera.cpp
             Graphics/Internal/InternalViewport.h Graphics/Internal/InternalViewport.cpp
+            Graphics/Internal/InternalSpriteAtlas.h Graphics/Internal/InternalSpriteAtlas.cpp
+            Graphics/Internal/InternalSpriteAtlasGlyph.h Graphics/Internal/InternalSpriteAtlasGlyph.cpp
 
             Graphics/Drawer/Internal/InternalDrawer.h Graphics/Drawer/Internal/InternalDrawer.cpp
             Graphics/Drawer/Internal/Vertex.h
@@ -62,11 +65,13 @@ fips_begin_module(Sova)
             Time/Timer.h Time/Timer.cpp
 
             Graphics/Internal/ShaderHandler.h
-            Internal/InternalApp.h Internal/InternalApp.cpp
             Graphics/Internal/PNGLoader.h Graphics/Internal/PNGLoader.cpp
             Graphics/Internal/InternalSprite.h Graphics/Internal/InternalSprite.cpp
             Graphics/Internal/InternalTexture.h Graphics/Internal/InternalTexture.cpp
             Graphics/Internal/InternalResourceManager.h Graphics/Internal/InternalResourceManager.cpp
+
+            Internal/InternalApp.h Internal/InternalApp.cpp
+            Internal/InternalJson.h Internal/InternalJson.cpp
             Internal/InternalDestructionManager.h Internal/InternalDestructionManager.cpp
     )
     if (ORYOL_USE_LIBCURL)
@@ -74,5 +79,5 @@ fips_begin_module(Sova)
     elseif (FIPS_EMSCRIPTEN)
         fips_files(Network/Impls/HttpRequest/emsc/emscHttpRequest.h Network/Impls/HttpRequest/emsc/emscHttpRequest.cpp)
     endif()
-    fips_deps(Core IO Gfx Input Assets HttpFS LocalFS lodepng WebSocketClient soloud)
+    fips_deps(Core IO Gfx Input Assets HttpFS LocalFS lodepng WebSocketClient soloud cjson)
 fips_end_module()

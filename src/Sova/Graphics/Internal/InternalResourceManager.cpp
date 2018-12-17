@@ -53,6 +53,15 @@ void InternalResourceManager::loadResource(Ref<String> resourceString)
             internalSound->updateAfterLoad();
         });
     }
+    else if (resourceString->EndsWith(".json")){
+
+        InternalJson* internalJson = new InternalJson();
+        data.Add(oryolStringId, internalJson);
+
+        IO::Load(sb.GetString().AsCStr(), [this, internalJson](IO::LoadResult res) {
+            internalJson->loadJson(res.Data);
+        });
+    }
 }
 
 void InternalResourceManager::updateResource(Oryol::String resourceString, const Oryol::TextureSetup& texSetup) {
@@ -69,6 +78,10 @@ InternalResourceManager::~InternalResourceManager() {
 
     for (auto soundKV : sounds){
         delete soundKV.value;
+    }
+
+    for (auto dataKV : data){
+        delete dataKV.value;
     }
 }
 

@@ -21,6 +21,13 @@ namespace Sova
         this->setTexture(textureName);
     }
 
+    Sprite::Sprite(Ref<SpriteAtlas> spriteAtlas, Ref<String> textureName): internalSprite(new InternalSprite(this))
+    {
+        this->anchor = New<Point>();
+        this->spriteAtlas = spriteAtlas;
+        this->textureName = textureName;
+    }
+
     Sprite::~Sprite() {
         delete this->internalSprite;
     }
@@ -34,7 +41,7 @@ namespace Sova
 
     void Sprite::setTexture(Ref<AnimatedSpriteInfo> animatedSpriteInfo)
     {
-        this->textureName = animatedSpriteInfo->filename;
+        this->textureName = animatedSpriteInfo->imageName;
 
         this->internalSprite->setTexture(animatedSpriteInfo->internalTexture);
     }
@@ -43,7 +50,7 @@ namespace Sova
         int rx = xoffset + this->position->x - this->anchor->x;
         int ry = yoffset + this->position->y - this->anchor->y;
         if (!this->spriteInsideCameraBounds(camera, rx, ry)) return;
-        this->internalSprite->draw(camera->getInternalCamera(), rx, ry);
+        this->internalSprite->draw(camera->getInternalCamera(), rx, ry, nullptr);
     }
 
     int Sprite::getWidth() {
@@ -61,8 +68,32 @@ namespace Sova
 
     void Sprite::useSpriteInfo(Ref<AnimatedSpriteInfo> animatedSpriteInfo) {
         if (animatedSpriteInfo == nullptr) return;
-        this->setTexture(animatedSpriteInfo);
+        if (animatedSpriteInfo->spriteAtlas == nullptr) {
+            this->setTexture(animatedSpriteInfo);
+        } else {
+            this->spriteAtlas = animatedSpriteInfo->spriteAtlas;
+            animatedSpriteInfo->updateSpriteAtlasInfo();
+            this->setTexture(animatedSpriteInfo);
+            this->spriteAtlasKey = animatedSpriteInfo->spriteAtlasKey;
+            this->internalSprite->spriteAtlasGlyph = animatedSpriteInfo->spriteAtlasGlyph;
+        }
         this->anchor->x = animatedSpriteInfo->anchorX;
         this->anchor->y = animatedSpriteInfo->anchorY;
+    }
+
+    bool Sprite::checkSpriteAtlasLoaded() {
+        if (this->spriteAtlas == nullptr) return true;
+        if (this->spriteAtlasKey != -1) return true;
+        if (this->spriteAtlasKey == -2) return false;
+
+        this->spriteAtlasKey = spriteAtlas->getKey(textureName);
+        if (this->spriteAtlasKey == -1) return false;
+        if (this->spriteAtlasKey == -2) return false;
+
+        this->internalSprite->setTexture(this->spriteAtlas->internalTexture);
+
+        this->internalSprite->spriteAtlasGlyph = spriteAtlas->getGlyph(this->spriteAtlasKey);
+
+        return true;
     }
 }

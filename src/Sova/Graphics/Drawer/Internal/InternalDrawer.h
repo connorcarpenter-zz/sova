@@ -24,8 +24,6 @@ namespace Sova {
         void end();
 
         // Adds a glyph to the InternalDrawer
-        void draw(float x0, float y0, float x1, float y1, float u0, float v0, float u1, float v1, Oryol::Id textureId,
-                  Sova::Color color, float alpha);
 
         void draw(float x0, float y0, float x1, float y1, float u0, float v0, float u1, float v1, float rxskew,
                           Oryol::Id textureId, Sova::Color color, float alpha);

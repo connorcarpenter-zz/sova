@@ -8,6 +8,7 @@
 #include <Modules/Gfx/GfxTypes.h>
 
 #include <Sova/Common/String.h>
+#include <Sova/Internal/InternalJson.h>
 #include "Sova/Graphics/Internal/InternalTexture.h"
 
 namespace Sova
@@ -25,17 +26,13 @@ namespace Sova
 
         Oryol::Map<Oryol::String, InternalTexture*> textures;
         Oryol::Map<Oryol::String, InternalSound*> sounds;
+        Oryol::Map<Oryol::String, InternalJson*> data;
 
-        Oryol::Id getMesh();
-        void releaseMesh(const Oryol::Id& id);
 
     private:
         Oryol::TextureSetup textureSetup;
 
         void updateResource(Oryol::String resourceString, const Oryol::TextureSetup& texSetup);
-
-        Oryol::Set<Oryol::Id> freeMeshes;
-        Oryol::Set<Oryol::Id> usedMeshes;
     };
 }
 

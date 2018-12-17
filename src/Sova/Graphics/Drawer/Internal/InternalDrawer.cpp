@@ -34,12 +34,6 @@ namespace Sova {
         createRenderBatches();
     }
 
-    void InternalDrawer::draw(float x0, float y0, float x1, float y1, float u0, float v0, float u1, float v1, Oryol::Id textureId,
-                                  Sova::Color color, float alpha) {
-        _glyphs.emplace_back(x0, y0, x1, y1, u0, v0, u1, v1,
-                textureId, color, alpha);
-    }
-
     void InternalDrawer::draw(float x0, float y0, float x1, float y1, float u0, float v0, float u1, float v1, float rxskew,
                                   Oryol::Id textureId, Sova::Color color, float alpha) {
         _glyphs.emplace_back(x0, y0, x1, y1, u0, v0, u1, v1, rxskew,
